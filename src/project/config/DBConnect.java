@@ -17,7 +17,7 @@ public class DBConnect {
         Connection conn = null;
         try {
             Class.forName("oracle.jdbc.OracleDriver");                  //load driver 클래스 이름으로 찾아서 메모리에 얹음
-            conn =  DriverManager.getConnection(url, "hr", "hr");    //login db, return connection object
+            conn =  DriverManager.getConnection(url, "game", "game");    //login db, return connection object
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
