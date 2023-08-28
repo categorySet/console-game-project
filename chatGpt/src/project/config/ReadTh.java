@@ -14,7 +14,6 @@ public class ReadTh extends Thread{
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
         while (true) {
             try {
                 // 소켓에서 한줄 읽음
@@ -24,7 +23,6 @@ public class ReadTh extends Thread{
                 }
                 ui.printUI(readLine);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

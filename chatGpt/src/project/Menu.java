@@ -1,7 +1,8 @@
 package project;
 
+import gameHistory.GameHistoryService;
+import project.admin.AdminService;
 import project.player.PlayerService;
-import project.server.GameCenter;
 import project.shop.ShopService;
 
 import java.util.Scanner;
@@ -9,12 +10,14 @@ import java.util.Scanner;
 public class Menu {
     private PlayerService playerService;
     private ShopService shopService;
-    private GameCenter gameCenter;
+    private GameHistoryService gameHistoryService;
+    private AdminService adminService;
 
     public Menu() {
         playerService = new PlayerService();
         shopService = new ShopService();
-        gameCenter = new GameCenter();
+        gameHistoryService = new GameHistoryService();
+        adminService = new AdminService();
     }
 
     public void run(Scanner sc) {
@@ -24,51 +27,50 @@ public class Menu {
         System.out.println("=========================");
         System.out.println("*************************");
 
+        if(!playerService.isLogin()) {
+            loginRun(sc);
+        }
 
+        if(playerService.isLogin()) {
+            String menu = "1.게임 2.상점 3.내정보 0.종료";
+            boolean flag = true;
+            int m = 0;
 
-        String menu = "1.게임 2.상점 3.내정보 0.종료";
+            while (flag) {
+                System.out.println("-------------------------");
+                System.out.println(menu);
+                System.out.println("-------------------------");
 
-        boolean flag = true;
-        int m = 0;
-
-        while (flag) {
-            System.out.println("-------------------------");
-            System.out.println(menu);
-            System.out.println("-------------------------");
-
-            System.out.print("숫자를 입력하세요 : ");
-            m = sc.nextInt();
-
-            switch (m) {
-                case 0:
-                    System.out.println("종료합니다.");
-                    flag = false;
-                    break;
-                case 1:
-                    //TODO : GameCenter
-                    grun(sc);
-                    break;
-                case 2:
-                    //TODO : Shop
-                    srun(sc);
-                    break;
-                case 3:
-                    //TODO : MyInfo
-                    break;
+                System.out.print("숫자를 입력하세요 : ");
+                m = sc.nextInt();
+                switch (m) {
+                    case 0:
+                        System.out.println("종료합니다.");
+                        flag = false;
+                        break;
+                    case 1:
+                        //TODO : GameCenter
+                        gameRun(sc);
+                        break;
+                    case 2:
+                        //TODO : Shop
+                        srun(sc);
+                        break;
+                    case 3:
+                        //TODO : MyInfo?
+                        break;
+                }
             }
         }
     }
 
-    //TODO : 나중에 사용할 것
-    private void lrun(Scanner sc) {
+    private void loginRun(Scanner sc) {
         String menu = "1.로그인 2.회원가입 0.종료";
         boolean flag = true;
         int m = 0;
 
         while (flag) {
-            System.out.println("------------------------유저-------------------------------");
             System.out.println(menu);
-            System.out.println("----------------------------------------------------------");
 
             System.out.print("숫자를 입력하세요 : ");
             m = sc.nextInt();
@@ -79,12 +81,15 @@ public class Menu {
                     System.out.println("종료합니다");
                     break;
                 case 1:
-//                    playerService.login();
+                    playerService.testLogin();          //실제 로그인 로직으로 교체
+                    if(playerService.isLogin()) {       //query 한번으로 처리하는 방법 찾기
+                        flag = false;
+                    }
                     break;
                 case 2:
-//                    playerService.signup(sc);
+                    playerService.signup(sc);
                     break;
-                case 9999:
+                case 9999:                              //Admin 담당과 생각해보기
 //                    adminService(sc);
                     break;
             }
@@ -93,17 +98,17 @@ public class Menu {
 
 
 
-    private void grun(Scanner sc) {
+    private void gameRun(Scanner sc) {
         String menu = "1.게임에 관련된 항목들을 작성할 것";
         boolean flag = true;
         int m = 0;
 
         while (flag) {
-            System.out.println("------------------------유저-------------------------------");
+            System.out.println("---------------------------------------------------------");
             System.out.println(menu);
             System.out.println("----------------------------------------------------------");
 
-            System.out.print("숫자를 입력하세요 : ");
+            System.out.print("번호를 입력해주세요.");
             m = sc.nextInt();
 
             switch (m) {
@@ -111,17 +116,8 @@ public class Menu {
                     flag = false;
                     break;
                 case 1:
-//                    gameCenter
                     break;
                 case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
                     break;
             }
         }
@@ -133,7 +129,10 @@ public class Menu {
         int m = 0;
 
         while (flag) {
+            System.out.println("---------------------------------------------------------");
             System.out.println(menu);
+            System.out.println("---------------------------------------------------------");
+            System.out.print("번호를 입력해주세요.");
             m = sc.nextInt();
 
             switch (m) {
@@ -147,23 +146,8 @@ public class Menu {
                     break;
                 case 3:
                     break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 8:
-                    break;
             }
         }
     }
-
-
-
-
-
 
 }

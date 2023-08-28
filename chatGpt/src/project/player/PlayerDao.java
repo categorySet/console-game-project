@@ -8,7 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PlayerDao {
-    private static DBConnect dbconn = new DBConnect();
+    private static DBConnect dbconn;
+
+    public PlayerDao() {
+        dbconn = DBConnect.getInstance();
+    }
 
     // 회원 가입 예시 query가 Table과 맞지않으니 참고만 할것
     public void signup(String id, String pwd, String confirmPwd, String name, String email) {
