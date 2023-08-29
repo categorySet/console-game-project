@@ -37,10 +37,10 @@ public class GameHistoryDao {
         return -1;
     }
 
-    public List<GameHistory> findByGameId(int gameId) {
+    public List<GameHistoryQueryVo> findByGameId(int gameId) {
         Connection conn = dbConn.conn();
 
-        List<GameHistory> result = new ArrayList<>();
+        List<GameHistoryQueryVo> result = new ArrayList<>();
 
         String sql =
                 "SELECT h.history_id AS historyId, g.game_name AS gameName, p.nickname AS nickname" +
@@ -57,7 +57,7 @@ public class GameHistoryDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                result.add(new GameHistory(rs.getInt(1), rs.getInt(2), rs.getInt(3)));
+                result.add(new GameHistoryQueryVo(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
 
         } catch (SQLException e) {
