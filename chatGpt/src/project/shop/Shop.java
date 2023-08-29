@@ -7,7 +7,6 @@ public class Shop {
     private int shopId;
     private int itemId;
     private int playerId;
-    private boolean limitedEdition;
     private Date createDate;
     private Date lastModifiedDate;
 
@@ -19,7 +18,6 @@ public class Shop {
         this.shopId = shopId;
         this.itemId = itemId;
         this.playerId = playerId;
-        this.limitedEdition = limitedEdition;
         this.createDate = Date.valueOf(LocalDate.now());
         this.lastModifiedDate = Date.valueOf(LocalDate.now()); // TODO: modifiedDate 수정
     }
@@ -29,7 +27,6 @@ public class Shop {
         this.shopId = shopId;
         this.itemId = itemId;
         this.playerId = playerId;
-        this.limitedEdition = limitedEdition;
         this.createDate = createDate;
         this.lastModifiedDate = lastModifiedDate;
     }
@@ -46,10 +43,6 @@ public class Shop {
         return playerId;
     }
 
-    public boolean isLimitedEdition() {
-        return limitedEdition;
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -64,7 +57,6 @@ public class Shop {
                 "shopId=" + shopId +
                 ", itemId=" + itemId +
                 ", playerId=" + playerId +
-                ", limitedEdition=" + limitedEdition +
                 ", createDate=" + createDate +
                 ", lastModifiedDate=" + lastModifiedDate +
                 '}';

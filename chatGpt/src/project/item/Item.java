@@ -8,15 +8,15 @@ public class Item {
     private String itemName;
     private int gameId;
     private int price;
-    private int amount;
     private boolean limitedEdition;
+    private int amount;
     private Date createDate;
     private Date lastModifiedDate;
 
     public Item() {
     }
 
-    public Item(int itemId, String itemName, int gameId, int price, int amount, boolean limitedEdition) {
+    public Item(int itemId, String itemName, int gameId, int price, boolean limitedEdition, int amount) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.gameId = gameId;
@@ -27,7 +27,7 @@ public class Item {
         this.lastModifiedDate = Date.valueOf(LocalDate.now());
     }
 
-    public Item(int itemId, String itemName, int gameId, int price, int amount, boolean limitedEdition, Date createDate, Date lastModifiedDate) {
+    public Item(int itemId, String itemName, int gameId, int price, boolean limitedEdition, int amount, Date createDate, Date lastModifiedDate) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.gameId = gameId;
@@ -54,12 +54,12 @@ public class Item {
         return price;
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
     public boolean isLimitedEdition() {
         return limitedEdition;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     public Date getCreateDate() {
@@ -76,8 +76,14 @@ public class Item {
                 "itemId=" + itemId +
                 ", itemName='" + itemName + '\'' +
                 ", price=" + price +
-                ", amount=" + amount +
                 ", limitedEdition=" + limitedEdition +
+                ", amount=" + amount +
                 '}';
+    }
+
+    public void updateItem(int newPrice, boolean newLimitedEdition, int newAmount) {
+        this.price = newPrice;
+        this.limitedEdition = newLimitedEdition;
+        this.amount = newAmount;
     }
 }

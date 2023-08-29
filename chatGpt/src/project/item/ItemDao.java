@@ -14,7 +14,6 @@ public class ItemDao {
         dbconn = DBConnect.getInstance();
     }
 
-    // TODO: Admin만 아이템 추가, 수정, 삭제 가능
     // 아이템 등록
     public void insert(Item i) {
         // 1. db연결
@@ -31,8 +30,8 @@ public class ItemDao {
             pstmt.setString(1, i.getItemName());
             pstmt.setInt(2, i.getGameId());
             pstmt.setInt(3, i.getPrice());
-            pstmt.setInt(4, i.getAmount());
-            pstmt.setBoolean(5, i.isLimitedEdition());
+            pstmt.setBoolean(4, i.isLimitedEdition());
+            pstmt.setInt(5, i.getAmount());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();
@@ -64,7 +63,7 @@ public class ItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getBoolean(6));
+                return new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -95,7 +94,7 @@ public class ItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getBoolean(6)));
+                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6)));
             }
 
         } catch (SQLException e) {
@@ -125,7 +124,7 @@ public class ItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getBoolean(6)));
+                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6)));
             }
 
         } catch (SQLException e) {
@@ -142,7 +141,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "update item set price=?, amount=?, limitedEdition=?, lastModifiedDate=sysdate where itemId=?";
+        String sql = "update item set price=?, limited_edition=?, amount=?, last_modified_date=sysdate where item_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -150,8 +149,8 @@ public class ItemDao {
 
             // 4. ? 매칭
             pstmt.setInt(1, i.getPrice());
-            pstmt.setInt(2, i.getAmount());
-            pstmt.setBoolean(3, i.isLimitedEdition());
+            pstmt.setBoolean(2, i.isLimitedEdition());
+            pstmt.setInt(3, i.getAmount());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();

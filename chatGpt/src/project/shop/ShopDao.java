@@ -21,7 +21,7 @@ public class ShopDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "insert into shop values(seq_shop.nextval,?,?,?,sysdate,sysdate)"; // TODO: modifiedDate 수정
+        String sql = "insert into shop values(seq_shop.nextval,?,?,sysdate,sysdate)"; // TODO: modifiedDate 수정
 
         try {
             // 3. preparedstatement 생성
@@ -30,7 +30,6 @@ public class ShopDao {
             // 4. ? 매칭
             pstmt.setInt(1, s.getItemId());
             pstmt.setInt(2, s.getPlayerId());
-            pstmt.setBoolean(3, s.isLimitedEdition());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();

@@ -2,20 +2,24 @@ package project;
 
 import gameHistory.GameHistoryService;
 import project.admin.AdminService;
+import project.item.ItemService;
 import project.player.PlayerService;
 import project.shop.ShopService;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
     private PlayerService playerService;
     private ShopService shopService;
+    private ItemService itemService;
     private GameHistoryService gameHistoryService;
     private AdminService adminService;
 
     public Menu() {
         playerService = new PlayerService();
         shopService = new ShopService();
+        itemService = new ItemService();
         gameHistoryService = new GameHistoryService();
         adminService = new AdminService();
     }
@@ -124,7 +128,7 @@ public class Menu {
     }
 
     private void srun(Scanner sc) {
-        String menu = "Shop에 관련된 항목들을 작성할 것";
+        String menu = "1.아이템구매 2.구매내역 3.아이템등록 4.조회 5.수정 6.삭제 0.종료";
         boolean flag = true;
         int m = 0;
 
@@ -140,11 +144,22 @@ public class Menu {
                     flag= false;
                     break;
                 case 1:
-//                    shopService
+                    shopService.addShop(sc, itemService.getAll());
                     break;
                 case 2:
                     break;
+                // FIXME: item test
                 case 3:
+                    itemService.addItem(sc);
+                    break;
+                case 4:
+                    itemService.printAll();
+                    break;
+                case 5:
+                    itemService.editItem(sc);
+                    break;
+                case 6:
+                    itemService.deleteItem(sc);
                     break;
             }
         }

@@ -40,6 +40,4 @@ public class DBConnect {
             throw new RuntimeException(e);
         }
     }
-
-
 }
