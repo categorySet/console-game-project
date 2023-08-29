@@ -42,7 +42,14 @@ public class GameHistoryDao {
 
         List<GameHistory> result = new ArrayList<>();
 
-        String sql = "SELECT * FROM game_history WHERE game_id = ?";
+        String sql =
+                "SELECT h.history_id AS historyId, g.game_name AS gameName, p.nickname AS nickname" +
+                        " FROM game_history h" +
+                        "    INNER JOIN game g" +
+                        "        ON h.game_id = g.game_id" +
+                        "    INNER JOIN player p" +
+                        "        ON h.winner = p.player_id" +
+                        " WHERE p.game_id = ?";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
