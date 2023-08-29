@@ -37,11 +37,9 @@ public class GameCenter {
         System.out.println("=== 현재 방 목록 === ");
         for (Map.Entry<Integer, Status> m: roomPortMap.entrySet()) {
             if (m.getValue() == Status.Ready) {
-                System.out.print("포트 번호: " + m.getKey() + " ");
-
+                System.out.print(m.getKey() + " ");
             }
         }
-
 
     }
 
