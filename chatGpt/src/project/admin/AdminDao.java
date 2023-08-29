@@ -28,8 +28,7 @@ public class AdminDao {
 
             //FIXME : 저는 Player 코드가 없네요??
             if (rs.next()) {
-//                return new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
-                return new Player();
+                return new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
             }
 
         } catch (SQLException e) {
