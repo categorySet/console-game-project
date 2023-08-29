@@ -7,15 +7,23 @@ import java.util.Scanner;
 
 public class AdminService {
 	private AdminDao adminDao;
-	public static String pwd;
-
-	/**
-	 * TODO : pwd는 강사님이 처리한 loginId와 같이 꼭 서비스에서 처리 안해도 될 수 있습니다. DB에 pwd를 저장하고 콘솔에
-	 * 입력하는 것 만으로도 구현 가능할 듯 합니다.
-	 */
 
 	public AdminService() {
 		adminDao = new AdminDao();
+	}
+	
+	public void loginAdmin(Scanner sc) {
+		System.out.println("===관리자 로그인===");
+		
+		System.out.println("관리자 비밀번호:");
+		String pwd = sc.next();
+		
+				
+		if(pwd.equals.selectPwd()) {//TODO 관리자 비밀번호 비교
+			System.out.println("비밀번호가 일치하지 않습니다.");
+		}else {
+			System.out.println("관리자로 로그인합니다.");
+		}
 	}
 
 	public void addCredit(Scanner sc) {
@@ -47,7 +55,7 @@ public class AdminService {
 	}
 
 	public void printAll(ArrayList<Player> list) {
-		System.out.println("모든 플레이어 조회");
+		System.out.println("===모든 플레이어 조회===");
 
 		for (Player p : list) {
 			System.out.println(p);
@@ -56,30 +64,37 @@ public class AdminService {
 	}
 
 	public void editPlayer(Scanner sc) {
-		System.out.println("플레이어 수정");
+		System.out.println("===플레이어 수정===");
 
-		System.out.print("수정할 플레이어:"); 
-		String nickname = sc.next();
-		Player p = adminDao.select(nickname);
+		System.out.print("수정할 플레이어 ID:");
+		String playerId = sc.next();
+		Player p = adminDao.select(playerId);
 
-		// 수정할 플레이어 내용
-
+		if (p == null) {
+			System.out.println(p + "는 존재하지 않는 플레이어입니다.");
+		} else {
+			System.out.print("변경할 닉네임:");
+			String newNickname = sc.next();
+		
+//			adminDao.update(new Player());
+		}
 	}
 
 	public void addToBlackList(Player player, BanReason reason) {
-
-//		list.add(new Player());
+		adminDao.addBlackList(player.getPlayerId(), reason);
 	}
 
-	public boolean isPlayerBlackListed(Player player) {
-
-		}
+	public boolean isPlayerBlackListed(Scanner sc) {
+		System.out.println("=== 블랙리스트 확인 ===");
+		System.out.println("player id: ");
+		int playerId = sc.nextInt();
+		
+		
 		return false;
 	}
-
-	public BanReason getBanReason() {
-
-		return null;
+	
+	public void banPlayer() {
+		//TODO 블랙리스트에 오른 플레이어 밴하는 방법
 	}
 
 }
