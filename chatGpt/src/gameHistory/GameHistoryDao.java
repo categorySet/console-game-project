@@ -2,10 +2,8 @@ package gameHistory;
 
 import project.config.DBConnect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,20 +17,20 @@ public class GameHistoryDao {
     public int insert(int gameId, int playerId) {
         Connection conn = dbConn.conn();
 
-        //FIXME : seq.~~.nextval 해야할까요?? (오라클 잘 몰라서), c_date m_date 추가 필요할듯 합니다.
-        String sql = "INSERT INTO game_history VALUES (seq_game_history, ?, ?)";
+        String sql = "INSERT INTO game_history VALUES (seq_game_history.NEXTVAL, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, gameId);
             pstmt.setInt(2, playerId);
+            pstmt.setDate(3, Date.valueOf(LocalDate.now()));
+            pstmt.setDate(4, Date.valueOf(LocalDate.now()));
 
             return pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //FIXME : connection close plz
             dbConn.disconnectDB(conn);
         }
 
@@ -57,6 +55,8 @@ public class GameHistoryDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConn.disconnectDB(conn);
         }
         return result;
     }
@@ -86,6 +86,8 @@ public class GameHistoryDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConn.disconnectDB(conn);
         }
 
         return result;
