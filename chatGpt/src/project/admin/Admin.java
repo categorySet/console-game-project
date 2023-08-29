@@ -13,7 +13,6 @@ public class Admin {
     
 
 	public Admin(int adminId, int playerId, ArrayList<BlackList> blackListId) {
-		super();
 		this.adminId = adminId;
 		this.playerId = playerId;
 		this.blackListId = blackListId;
