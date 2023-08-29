@@ -39,15 +39,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //제가 dbconn에 disconnectDB 메서드를 구현해 두었습니다 아래의 방식을 사용하면 Connection을 닫는데 편리합니다.
             dbconn.disconnectDB(conn);
-
-            //주석은 제거해 주세요
-//            try {
-//                conn.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 
