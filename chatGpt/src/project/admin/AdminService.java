@@ -58,7 +58,7 @@ public class AdminService {
 	public void editPlayer(Scanner sc) {
 		System.out.println("플레이어 수정");
 
-		System.out.print("수정할 플레이어:");
+		System.out.print("수정할 플레이어:"); 
 		String nickname = sc.next();
 		Player p = adminDao.select(nickname);
 

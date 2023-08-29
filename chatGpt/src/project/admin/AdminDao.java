@@ -65,7 +65,7 @@ public class AdminDao {
 		return null; 
 	}
 
-	// 수정
+	// 크레딧 수정
 	public void updateCredit(int playerId) {
 		Connection conn = dbconn.conn();
 
@@ -76,7 +76,7 @@ public class AdminDao {
 
 			Player p = new Player();
 
-			pstmt.setInt(1, p.getCredit());
+			pstmt.setInt(1, p.getCredit()); 
 			pstmt.setInt(2, playerId);
 
 			pstmt.executeUpdate();

@@ -8,7 +8,7 @@ public class Admin {
     private ArrayList<BlackList> blackListId;
 
     public Admin() {
-    	ArrayList<BlackList> list = new ArrayList<>();
+    	ArrayList<BlackList> list = new ArrayList<>(); 
     }
     
 
