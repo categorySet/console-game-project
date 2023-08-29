@@ -21,7 +21,7 @@ public class ShopDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "insert into shop values(seq_shop.nextval,?,?,?,sysdate,sysdate)"; // TODO: modifiedDate 수정
+        String sql = "insert into shop values(seq_shop.nextval,?,?,sysdate,sysdate)"; // TODO: modifiedDate 수정
 
         try {
             // 3. preparedstatement 생성
@@ -30,7 +30,6 @@ public class ShopDao {
             // 4. ? 매칭
             pstmt.setInt(1, s.getItemId());
             pstmt.setInt(2, s.getPlayerId());
-            pstmt.setBoolean(3, s.isLimitedEdition());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();
@@ -39,15 +38,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //제가 dbconn에 disconnectDB 메서드를 구현해 두었습니다 아래의 방식을 사용하면 Connection을 닫는데 편리합니다.
             dbconn.disconnectDB(conn);
-
-            //주석은 제거해 주세요
-//            try {
-//                conn.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 
@@ -76,11 +67,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
         return null;
     }
@@ -112,11 +99,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
         return list;
     }
@@ -146,11 +129,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
         return list;
     }
@@ -177,11 +156,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
     }
 }
