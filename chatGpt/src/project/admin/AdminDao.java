@@ -1,68 +1,90 @@
 package project.admin;
 
-import project.config.DBConnect;
-import project.player.Player;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import project.config.DBConnect;
+import project.player.Player;
 
 public class AdminDao {
-    private DBConnect dbconn;
+	private DBConnect dbconn;
 
-    public AdminDao() {
-//        dbconn=DBConnect.getInstance();       //FIXME : 중복된 코드
-        dbconn = DBConnect.getInstance();
-    }
+	public AdminDao() {
+		dbconn = DBConnect.getInstance();
+	}
 
-    public Player select(int playerId) {
-        Connection conn = dbconn.conn();
+	// 플레이어 전체 조회
+	public ArrayList<Player> selectAll() {
+		ArrayList<Player> list = new ArrayList<Player>();
 
-        String sql = "select * from player where player_id = ?";
+		Connection conn = dbconn.conn();
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, playerId);
-            ResultSet rs = pstmt.executeQuery();
+		String sql = "select * from player";
 
-            //FIXME : 저는 Player 코드가 없네요??
-            if (rs.next()) {
-//                return new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
-                return new Player();
-            }
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            dbconn.disconnectDB(conn);
-        }
-        return null;        //return null 추가
-    }
+			ResultSet rs = pstmt.executeQuery();
 
-    //수정
-    public void update(int playerId) {
-        Connection conn = dbconn.conn();
+			while (rs.next()) {
+				list.add(new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5),
+						rs.getDate(6)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			dbconn.disconnectDB(conn);
+		}
+		return list;
+	}
 
+	//플레이어 정보 조회
+	public Player select(String nickname) {
+		Connection conn = dbconn.conn();
 
-        /**FIXME : 쿼리가 잘못 되었습니다.
-         * PlayerId로 크레딧을 수정하고자 한다면
-         * update player set credit = ? where player_id = ? 하면 될거 같은데요?? 체크 부탁 드립니다.
-         * */
-        String sql = "update player set credit=? where player_id = (select credit from player)";
+		String sql = "select * from player where nickname = ?";
 
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, nickname);
+			ResultSet rs = pstmt.executeQuery();
 
-//            pstmt.setInt(1, credit);//player 테이블에서 가져올 크레딧       //FIXME : set -> setInt credit Param이 없어요
-            pstmt.setInt(1, playerId);                    //paramIndex가 2가 되어야 할듯 합니다
+			if (rs.next()) {
+                return new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbconn.disconnectDB(conn);
+		}
+		return null; 
+	}
 
-            pstmt.executeUpdate();
+	// 수정
+	public void updateCredit(int playerId) {
+		Connection conn = dbconn.conn();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            dbconn.disconnectDB(conn);
-        }
-    }
+		String sql = "update player set credit=? where player_id = ?";
+
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			Player p = new Player();
+
+			pstmt.setInt(1, p.getCredit());
+			pstmt.setInt(2, playerId);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbconn.disconnectDB(conn);
+		}
+	}
 }

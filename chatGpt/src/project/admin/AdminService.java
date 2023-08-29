@@ -6,62 +6,80 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminService {
-    private AdminDao adminDao;           //dao 이름은 adminDao로 변경하겠습니다.
-    public static String pwd;           //비밀번호 어떻게 설정할지
-    /** TODO : pwd는 강사님이 처리한 loginId와 같이 꼭 서비스에서 처리 안해도 될 수 있습니다.
-     * DB에 pwd를 저장하고 콘솔에 입력하는 것 만으로도 구현 가능할 듯 합니다.
-     * */
+	private AdminDao adminDao;
+	public static String pwd;
 
-    public AdminService() {
-        adminDao = new AdminDao();
-    }
+	/**
+	 * TODO : pwd는 강사님이 처리한 loginId와 같이 꼭 서비스에서 처리 안해도 될 수 있습니다. DB에 pwd를 저장하고 콘솔에
+	 * 입력하는 것 만으로도 구현 가능할 듯 합니다.
+	 */
 
-    public void addCredit(Scanner sc) {
-        System.out.println("===크레딧 부여===");
+	public AdminService() {
+		adminDao = new AdminDao();
+	}
 
-        System.out.println("크레딧을 부여할 플레이어:");
-        String playerName = sc.next();
+	public void addCredit(Scanner sc) {
+		System.out.println("===크레딧 부여===");
 
-        System.out.println("부여할 크레딧:");
-        int credit = sc.nextInt();
+		System.out.println("크레딧을 부여할 플레이어:");
+		String nickname = sc.next();
+		Player p = adminDao.select(nickname);
 
-//        Player p = adminDao.update(new Player());     //오류 코드로 일단 주석처리 했습니다.
+		System.out.println("부여할 크레딧:");
+		int newCredit = sc.nextInt();
 
-    }
+		adminDao.updateCredit(p.getCredit() + newCredit);
 
-    public void subCredit(Scanner sc) {
-        System.out.println("===크레딧 삭감===");
+	}
 
-        System.out.println("크레딧을 삭감할 플레이어 아이디:");
-        int playerId = sc.nextInt();
+	public void subCredit(Scanner sc) {
+		System.out.println("===크레딧 삭감===");
 
-        System.out.println("삭감할 크레딧:");
-        int credit = sc.nextInt();
-    }
+		System.out.println("크레딧을 삭감할 플레이어:");
+		String nickname = sc.next();
+		Player p = adminDao.select(nickname);
 
-    public void printAll(ArrayList<Player> list) {
-        System.out.println("모든 플레이어 조회");
+		System.out.println("삭감할 크레딧:");
+		int newCredit = sc.nextInt();
 
-        for (Player p : list) {
-            System.out.println(p);//toString으로 변환 필요
-        }
+		adminDao.updateCredit(p.getCredit() - newCredit);
 
-    }
+	}
 
-    public void editPlayer(Scanner sc) {
-        System.out.println("플레이어 수정");
+	public void printAll(ArrayList<Player> list) {
+		System.out.println("모든 플레이어 조회");
 
-        System.out.print("수정할 플레이어:");
-        int playerId = sc.nextInt();
-        Player p = adminDao.select(playerId);
+		for (Player p : list) {
+			System.out.println(p);
+		}
 
-        //수정할 플레이어 내용
+	}
 
-    }
+	public void editPlayer(Scanner sc) {
+		System.out.println("플레이어 수정");
 
+		System.out.print("수정할 플레이어:");
+		String nickname = sc.next();
+		Player p = adminDao.select(nickname);
 
+		// 수정할 플레이어 내용
 
+	}
 
+	public void addToBlackList(Player player, BanReason reason) {
 
+//		list.add(new Player());
+	}
+
+	public boolean isPlayerBlackListed(Player player) {
+
+		}
+		return false;
+	}
+
+	public BanReason getBanReason() {
+
+		return null;
+	}
 
 }
