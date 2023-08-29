@@ -5,7 +5,7 @@ public class Admin {
     private int playerId;
     private int blackListId;
 
-    public Admin() {
+    public Admin() {//
     }
 
     public Admin(int adminId, int playerId, int blackListId) {
