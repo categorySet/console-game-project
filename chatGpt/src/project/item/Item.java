@@ -16,6 +16,17 @@ public class Item {
     public Item() {
     }
 
+    public Item(int itemId, String itemName, int gameId, int price, int amount, boolean limitedEdition) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.gameId = gameId;
+        this.price = price;
+        this.amount = amount;
+        this.limitedEdition = limitedEdition;
+        this.createDate = Date.valueOf(LocalDate.now());
+        this.lastModifiedDate = Date.valueOf(LocalDate.now());
+    }
+
     public Item(int itemId, String itemName, int gameId, int price, int amount, boolean limitedEdition, Date createDate, Date lastModifiedDate) {
         this.itemId = itemId;
         this.itemName = itemName;

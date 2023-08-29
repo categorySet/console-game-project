@@ -68,11 +68,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
         return null;
     }
@@ -104,11 +100,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
         return list;
     }
@@ -138,11 +130,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
         return list;
     }
@@ -169,11 +157,7 @@ public class ShopDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            dbconn.disconnectDB(conn);
         }
     }
 }
