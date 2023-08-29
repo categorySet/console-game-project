@@ -10,6 +10,10 @@ public class ServerStarter extends Thread {
         this.port = port;
     }
 
+    public Gamable getGamable() {
+        return gamable;
+    }
+
     @Override
     public void run() {
         gamable.run(port);

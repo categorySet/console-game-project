@@ -3,6 +3,7 @@ package project;
 import gameHistory.GameHistoryService;
 import project.admin.AdminService;
 import project.player.PlayerService;
+import project.server.GameCenter;
 import project.shop.ShopService;
 
 import java.util.Scanner;
@@ -99,7 +100,8 @@ public class Menu {
 
 
     private void gameRun(Scanner sc) {
-        String menu = "1.게임에 관련된 항목들을 작성할 것";
+        GameCenter gameCenter = new GameCenter();
+        String menu = "1. 채팅 게임 2. 전적 확인";
         boolean flag = true;
         int m = 0;
 
@@ -116,6 +118,7 @@ public class Menu {
                     flag = false;
                     break;
                 case 1:
+                    gameCenter.run(sc);
                     break;
                 case 2:
                     break;

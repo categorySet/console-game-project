@@ -69,10 +69,18 @@ class ReadTh extends Thread {
 
 public class ChatClientMain {
 
-	public static void main(String[] args) {
+	private String host;
+	private int port;
+
+	public ChatClientMain(final String host, final int port) {
+		this.host = host;
+		this.port = port;
+	}
+
+	public void executeChatClient() {
 		try {
 			// 서버연결
-			Socket socket = new Socket("localhost", 50001);
+			Socket socket = new Socket(host, port);
 
 			// 소켓 입출력 스트림 생성
 			BufferedReader in = 

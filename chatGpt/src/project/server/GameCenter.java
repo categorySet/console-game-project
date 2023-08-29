@@ -1,7 +1,14 @@
 package project.server;
 
+import project.server.mafia.ChatClientMain;
 import project.server.mafia.server.MafiaServer;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -15,22 +22,10 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class GameCenter {
 
-    public static HashMap<Integer, ServerStarter> roomMap;
-    public static HashMap<Integer, Status> roomPortMap;
-    public static ExecutorService executorService;
-
-    private static final int NUM_OF_ROOM = 5;
-
+    private HashMap<Integer, Status> roomPortMap;
 
     public GameCenter() {
-        roomMap = new HashMap<>();
         roomPortMap = new HashMap<>();
-
-        executorService = Executors.newFixedThreadPool(NUM_OF_ROOM);
-
-        for (int i = 0; i < NUM_OF_ROOM; i++) {
-            executorService.execute(new ServerStarter(new MafiaServer(), 10000 + i));
-        }
     }
 
     public synchronized void run(Scanner scanner) {
@@ -51,14 +46,21 @@ public class GameCenter {
         }
     }
 
-    public void mafiaRun(Scanner scanner) {
-        System.out.println("=== 현재 방 목록 === ");
-        for (Map.Entry<Integer, Status> m: roomPortMap.entrySet()) {
-            if (m.getValue() == Status.Ready) {
-                System.out.print(m.getKey() + " ");
+    private void mafiaRun(Scanner scanner) {
+        System.out.println("포트는 10000번부터 10004번까지 있습니다.");
+        System.out.print("포트 입력");
+        int port = scanner.nextInt();
+
+        ChatClientMain chatClientMain = new ChatClientMain("localhost", port);
+        chatClientMain.executeChatClient();
+
+        synchronized (Thread.currentThread()) {
+            try {
+                Thread.currentThread().wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
-
     }
 
 }

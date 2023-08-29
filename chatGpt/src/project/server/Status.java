@@ -2,9 +2,9 @@ package project.server;
 
 public enum Status {
 
-    Ready(1, "Ready")
-    , Gaming(2, "Gaming")
-    , Finished(3, "Finished");
+    READY(1, "Ready")
+    , GAMING(2, "Gaming")
+    , FINISHED(3, "Finished");
 
     private int statusCode;
     private String statusName;
