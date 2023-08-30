@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public abstract class ChatRoom extends Thread {
 
-    protected static ArrayList<ChatServerTh> list;
+    protected ArrayList<ChatServerTh> list;
 
     public void addClient(ChatServerTh chatServerTh) {
         list.add(chatServerTh);

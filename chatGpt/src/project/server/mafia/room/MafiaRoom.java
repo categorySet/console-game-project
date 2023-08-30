@@ -6,6 +6,7 @@ import project.server.mafia.Roles.Roles;
 import project.server.mafia.Roles.RolesAdapter;
 import project.server.mafia.server.ChatServerTh;
 import project.server.mafia.server.DayTimer;
+import project.server.mafia.server.MafiaServer;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -20,6 +21,7 @@ public class MafiaRoom extends ChatRoom {
     public static final int MIN_PERSON = 5;
     private static DayTimer dayTimer = null;
 
+    private MafiaServer currentServer;
 
     private ArrayList<ChatServerTh> deadList;
 
@@ -30,9 +32,11 @@ public class MafiaRoom extends ChatRoom {
 
     private static List<String> winners;
 
-    public MafiaRoom() {
+    public MafiaRoom(MafiaServer mafiaServer) {
         super.list = new ArrayList<ChatServerTh>();
         this.deadList = new ArrayList<>();
+
+        this.currentServer = mafiaServer;
     }
 
 
@@ -199,7 +203,16 @@ public class MafiaRoom extends ChatRoom {
         dayTimer.dayTimerflag = false;
         dayTimer.interrupt();
 
-        System.out.println("승리: " + winners);
+        int time = 10;
+        while (time > 0) {
+            time--;
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
 
+        currentServer.setMafiaRoom(new MafiaRoom(currentServer));
     }
 }

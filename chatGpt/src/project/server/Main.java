@@ -21,6 +21,7 @@ public class Main {
 
         for (int i = 0; i < NUM_OF_ROOM; i++) {
             ServerStarter serverStarter = new ServerStarter(new MafiaServer(), 10000 + i);
+
             executorService.execute(serverStarter);
             roomMap.put(10000 + i, serverStarter);
             roomStatusMap.put(10000 + i, ((MafiaServer) serverStarter.getGamable()).getStatus());

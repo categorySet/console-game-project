@@ -18,8 +18,8 @@ public class DBConnect {
         Connection conn = null;
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-            conn =  DriverManager.getConnection(url, "hr", "hr");
-//            conn =  DriverManager.getConnection(url, "game", "game");             //TODO : 준회 씨 전용 DB 아이디, 비번 Clone하면
+//            conn =  DriverManager.getConnection(url, "hr", "hr");
+            conn =  DriverManager.getConnection(url, "game", "game");
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

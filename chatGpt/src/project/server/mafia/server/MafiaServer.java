@@ -17,6 +17,7 @@ public class MafiaServer implements Gamable {
 
     private Status status;
     private int connectCounter;
+    private MafiaRoom mafiaRoom;
 
     public MafiaServer() {
         this.status = Status.READY;
@@ -26,9 +27,13 @@ public class MafiaServer implements Gamable {
         return status;
     }
 
+    public void setMafiaRoom(MafiaRoom mafiaRoom) {
+        this.mafiaRoom = mafiaRoom;
+    }
+
     @Override
     public void run(int port) {
-        MafiaRoom mafiaRoom = new MafiaRoom();
+        mafiaRoom = new MafiaRoom(this);
 
         mafiaRoom.start();
 
