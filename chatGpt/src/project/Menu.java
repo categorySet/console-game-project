@@ -31,6 +31,7 @@ public class Menu {
         System.out.println("=========================");
         System.out.println("*************************");
 
+
         if(!playerService.isLogin()) {
             loginRun(sc);
         }
@@ -85,10 +86,16 @@ public class Menu {
                     System.out.println("종료합니다");
                     break;
                 case 1:
-                    playerService.testLogin();          //실제 로그인 로직으로 교체
-                    if(playerService.isLogin()) {       //query 한번으로 처리하는 방법 찾기
+//                    playerService.testLogin();          //실제 로그인 로직으로 교체
+//                    if(playerService.isLogin()) {       //query 한번으로 처리하는 방법 찾기
+//                        flag = false;
+//                    }
+
+                    playerService.login(sc);
+                    if(playerService.isLogin()) {
                         flag = false;
                     }
+
                     break;
                 case 2:
                     playerService.signup(sc);

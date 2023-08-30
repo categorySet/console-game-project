@@ -28,7 +28,17 @@ public class Player {
 		return playerId;
 	}
 
-    public Player(String loginId, String password, String nickname, int credit, Date createDate, Date lastModifiedDate) {
+	public Player(int playerId, String loginId, String password, String nickname, int credit, Date createDate, Date lastModifiedDate) {
+		this.playerId = playerId;
+		this.loginId = loginId;
+		this.password = password;
+		this.nickname = nickname;
+		this.credit = credit;
+		this.createDate = createDate;
+		this.lastModifiedDate = lastModifiedDate;
+	}
+
+	public Player(String loginId, String password, String nickname, int credit, Date createDate, Date lastModifiedDate) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
@@ -47,6 +57,9 @@ public class Player {
 		return loginId;
 	}
 
+	public String getPassword() {
+		return password;
+	}
 
 	public String getNickname() {
 		return nickname;

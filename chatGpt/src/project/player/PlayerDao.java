@@ -12,8 +12,7 @@ public class PlayerDao {
         dbconn = DBConnect.getInstance();
     }
 
-    // 회원 가입 예시 query가 Table과 맞지않으니 참고만 할것
-    public void signup(String loginId, String pwd, String confirmPwd, String nickname, int credit) {
+    public void signup(String loginId, String pwd, String confirmPwd, String nickname) {
         System.out.println("===== 회원 가입 ======");
         if (isDuplicatedLoginId(loginId)) {
             System.out.println("중복된 아이디 입니다.");
@@ -22,13 +21,13 @@ public class PlayerDao {
                 System.out.println("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
             } else {
                 Connection conn = dbconn.conn();
-                String query = "insert into member values(seq_player.nextval, ?, ?, ?, ?, ?, ?)";     //player_id, login_id, password, nickname, credit, c_date, m_date
+                String query = "insert into player values(seq_player.nextval, ?, ?, ?, ?, ?, ?)";     //player_id, login_id, password, nickname, credit, c_date, m_date
                 try {
                     PreparedStatement prepared = conn.prepareStatement(query);
                     prepared.setString(1, loginId);
                     prepared.setString(2, pwd);
                     prepared.setString(3, nickname);
-                    prepared.setInt(4, credit);
+                    prepared.setInt(4, 10000);
                     prepared.setDate(5, Date.valueOf(LocalDate.now()));
                     prepared.setDate(6, Date.valueOf(LocalDate.now()));
                     prepared.executeUpdate();
@@ -92,13 +91,27 @@ public class PlayerDao {
         return false;
     }
 
+    public Player findByLoginId(String loginId) {
+        Connection conn = dbconn.conn();
+        String query = "select player_id, login_id, password, nickname, credit, create_date, last_modified_date" +
+                " from player where login_id = ?";
+
+        try {
+            PreparedStatement prepared = conn.prepareStatement(query);
+            prepared.setString(1, loginId);
+            ResultSet rs = prepared.executeQuery();
+
+            if(rs.next()) {
+                return new Player(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7));
+            }
 
 
-
-
-
-
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }
