@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public abstract class ChatRoom extends Thread {
 
-    protected ArrayList<ChatServerTh> list;
+    public ArrayList<ChatServerTh> list;
 
     public void addClient(ChatServerTh chatServerTh) {
         list.add(chatServerTh);
@@ -28,7 +28,7 @@ public abstract class ChatRoom extends Thread {
     public void sendMessage(String message, String name) {
         for (ChatServerTh th : list) {
             if (th.getUserName().equals(name)) {
-                th.writeln(th.getUserName() + ": " + message);
+                th.writeln(th.getUserName() + "로부터: " + message);
             }
         }
     }
