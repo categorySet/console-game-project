@@ -109,7 +109,7 @@ public class AdminDao {
 	public void addBlackList(int playerId, BanReason reason) {
 		Connection conn = dbconn.conn();
 
-		String sql = "INSERT INTO blacklist VALUES(?,?,?,?)";
+		String sql = "INSERT INTO blacklist VALUES(?,?,?,?)";	//player_id, reason, c_date, m_date
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -133,7 +133,7 @@ public class AdminDao {
 	public void insertPwd(String pwd) {
 		Connection conn = dbconn.conn();
 
-		String sql = "INSERT INTO admin(pwd) VALUES (?)";
+		String sql = "INSERT INTO admin(pwd) VALUES (?)";	//TODO : 설명 듣기
 
 		try {
 
@@ -152,7 +152,7 @@ public class AdminDao {
 	public void selectPwd(String pwd) {
 		Connection conn = dbconn.conn();
 
-		String sql = "SELECT FROM admin WHERE pwd=?";
+		String sql = "SELECT FROM admin WHERE pwd=?";		//TODO : 설명 듣기
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);

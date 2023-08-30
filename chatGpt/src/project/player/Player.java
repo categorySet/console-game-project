@@ -1,12 +1,14 @@
 package project.player;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Player {
 
     private int playerId;
     private String loginId;
     private String password;
+	private String confirmPassword;
 
     private String nickname;
     private int credit;
@@ -14,6 +16,29 @@ public class Player {
     private Date lastModifiedDate;
     
     public Player() {}
+
+	//Sign up
+	public Player(String loginId, String password, String confirmPassword, String nickname) {
+		this.loginId = loginId;
+		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.nickname = nickname;
+	}
+
+	//Change Nickname
+	public Player(int playerId, String nickname) {
+		this.playerId = playerId;
+		this.nickname = nickname;
+		this.lastModifiedDate = Date.valueOf(LocalDate.now());
+	}
+
+	//Change Password
+	public Player(int playerId, String password, String confirmPassword) {
+		this.playerId = playerId;
+		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.lastModifiedDate = Date.valueOf(LocalDate.now());
+	}
 
 	public Player(int playerId, String loginId, String nickname, int credit, Date createDate, Date lastModifiedDate) {
 		this.playerId = playerId;
@@ -59,6 +84,10 @@ public class Player {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
 	}
 
 	public String getNickname() {

@@ -31,17 +31,56 @@ public class Menu {
         System.out.println("=========================");
         System.out.println("*************************");
 
+        boolean flag = true;
+        int m = 0;
+        while (flag) {
+            String menu = "1.로그인 2.회원가입 3.회원탈퇴 0.종료";
+            if (!playerService.isLogin()) {
+                System.out.println(menu);
+                System.out.print("숫자를 입력하세요 : ");
+                m = sc.nextInt();
 
-        if(!playerService.isLogin()) {
-            loginRun(sc);
+                switch (m) {
+                    case 0:
+                        flag = false;
+                        System.out.println("종료합니다");
+                        break;
+                    case 1:
+                        playerService.login(sc);
+                        if (playerService.isLogin()) {
+                            flag = false;
+                        }
+                        break;
+                    case 2:
+                        playerService.signup(sc);
+                        break;
+                    case 3:
+                        playerService.deletePlayer(sc);
+                        break;
+                    case 9999:                              //Admin 담당과 생각해보기
+//                    adminService(sc);
+                        break;
+                }
+            }
+
+            if (playerService.isLogin()) {
+                mainRun(sc);
+            }
+            if (m == 0 && !playerService.isLogin()) {
+                flag = false;
+            } else if (!playerService.isLogin()) {
+                flag = true;
+            }
         }
 
-        if(playerService.isLogin()) {
-            String menu = "1.게임 2.상점 3.내정보 0.종료";
-            boolean flag = true;
+    }
+
+    private void mainRun(Scanner sc) {
+        if (playerService.isLogin()) {
+            String menu = "1.게임 2.상점 3.내 정보 4.내 정보 수정 0.로그아웃";
             int m = 0;
 
-            while (flag) {
+            while (playerService.isLogin()) {
                 System.out.println("-------------------------");
                 System.out.println(menu);
                 System.out.println("-------------------------");
@@ -50,64 +89,54 @@ public class Menu {
                 m = sc.nextInt();
                 switch (m) {
                     case 0:
-                        System.out.println("종료합니다.");
-                        flag = false;
+                        System.out.println("로그아웃.");
+                        playerService.logout();
                         break;
                     case 1:
-                        //TODO : GameCenter
                         gameRun(sc);
                         break;
                     case 2:
-                        //TODO : Shop
-                        srun(sc);
+                        shopRun(sc);
                         break;
                     case 3:
-                        //TODO : MyInfo?
+                        playerService.printMyInfo();
+                        break;
+                    case 4:
+                        myInfoRun(sc);
                         break;
                 }
             }
         }
     }
 
-    private void loginRun(Scanner sc) {
-        String menu = "1.로그인 2.회원가입 0.종료";
+    private void myInfoRun(Scanner sc) {
+        System.out.println("정보 수정");
+        String menu = "1. 닉네임 변경 2. 비밀번호 변경 0.뒤로 가기";
+
         boolean flag = true;
         int m = 0;
 
         while (flag) {
+            System.out.println("---------------------------------------------------------");
             System.out.println(menu);
+            System.out.println("----------------------------------------------------------");
 
-            System.out.print("숫자를 입력하세요 : ");
+            System.out.print("번호를 입력해주세요.");
             m = sc.nextInt();
 
             switch (m) {
                 case 0:
                     flag = false;
-                    System.out.println("종료합니다");
                     break;
                 case 1:
-//                    playerService.testLogin();          //실제 로그인 로직으로 교체
-//                    if(playerService.isLogin()) {       //query 한번으로 처리하는 방법 찾기
-//                        flag = false;
-//                    }
-
-                    playerService.login(sc);
-                    if(playerService.isLogin()) {
-                        flag = false;
-                    }
-
+                    playerService.updateNickname(sc);
                     break;
                 case 2:
-                    playerService.signup(sc);
-                    break;
-                case 9999:                              //Admin 담당과 생각해보기
-//                    adminService(sc);
+                    playerService.updatePassword(sc);
                     break;
             }
         }
     }
-
-
 
     private void gameRun(Scanner sc) {
         GameCenter gameCenter = new GameCenter();
@@ -136,7 +165,7 @@ public class Menu {
         }
     }
 
-    private void srun(Scanner sc) {
+    private void shopRun(Scanner sc) {
         String menu = "1.아이템구매 2.구매내역 3.아이템등록 4.조회 5.수정 6.삭제 0.종료";
         boolean flag = true;
         int m = 0;
@@ -150,7 +179,7 @@ public class Menu {
 
             switch (m) {
                 case 0:
-                    flag= false;
+                    flag = false;
                     break;
                 case 1:
                     shopService.addShop(sc, itemService.getAll());

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Admin {
     private int adminId;
     private int playerId;
-    private ArrayList<BlackList> blackListId; //TODO 테이블에 어떤 방식으로 넣어야 할까요?
+    private ArrayList<BlackList> blackListId; //TODO 테이블에 어떤 방식으로 넣어야 할까요? -> 설명 듣기
     private Date createDate;
     private Date lastModifiedDate;
 

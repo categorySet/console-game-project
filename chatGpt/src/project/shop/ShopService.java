@@ -34,6 +34,7 @@ public class ShopService {
             System.out.println("해당하는 아이템이 없습니다.");
         } else {
             int price = items.get(itemId).getPrice(); // 선택한 아이템의 가격
+            //TODO : 여기 shopId가 0이면 문제될 것 같은데요? 체크해 보셨나요??
             shopDao.insert(new Shop(0, itemId, 0, false, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now())));
             // TODO: player의 credit으로 아이템 구매
         }

@@ -95,7 +95,8 @@ public class AdminService {
 	}
 	
 	public void banPlayer() {
-		//TODO 블랙리스트에 오른 플레이어 밴하는 방법
+		//TODO 블랙리스트에 오른 플레이어 밴하는 방법 -> ban_list table에 insert into 하면 될 것 같습니다
+		//TODO : 그리고 로그인 시 ban_list Table의 player_id를 조회하여 밴 유저를 차단하면 됩니다.
 	}
 
 }

@@ -19,7 +19,7 @@ public class GameHistoryService {
         int count = 0;
 
         for (Player p : players) {
-            // TODO player 클래스 구현 후 추가 예정
+            // TODO player 클래스 구현 후 추가 예정 -> 어떠한 방식으로 진행하실껀지 설명 부탁드립니다. 추가로 필요한 필드나 메서드가 있을까요?
 //            count += setWinner(gameId, p.getPlayerId());
         }
 
