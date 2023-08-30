@@ -12,7 +12,11 @@ class WriteTh extends Thread {
 	private PrintWriter out;// 소켓에 출력 스트림
 	private Scanner sc; // 키보드 입력
 
-	public boolean flag;
+	private boolean flag;
+
+	public void setFlag(final boolean flag) {
+		this.flag = flag;
+	}
 
 	public WriteTh(PrintWriter out, Scanner sc) {
 		this.out = out;
@@ -35,10 +39,6 @@ class WriteTh extends Thread {
 			// 소켓에 출력 => 상대방에게 전송
 			out.println(str);
 			out.flush();// 버퍼 강제 출력
-			if (str.startsWith("/stop")) {// 종료 메시지
-				flag = false;
-				break;// 쓰레드 종료
-			}
 		}
 	}
 
@@ -50,43 +50,50 @@ class ReadTh extends Thread {
 
 	private boolean flag;
 
-	public ReadTh(BufferedReader in) {
+	private WriteTh writeTh;
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(final boolean flag) {
+		this.flag = flag;
+	}
+
+	public ReadTh(BufferedReader in, WriteTh writeTh) {
 		this.in = in;
+
+		this.writeTh = writeTh;
 
 		flag = true;
 	}
 
 	@Override
 	public void run() {
-		while (flag && !Thread.currentThread().isInterrupted()) {
+		while (flag) {
 			try {
 				// 소켓에서 한줄 읽음
 				String str = in.readLine();
 				if (str.startsWith("/stop")) {// 메시지 내용이 /stop이면
 					System.out.println("채팅을 종료합니다");
 					flag = false;
-					synchronized (Thread.currentThread()) {
-						Thread.currentThread().interrupt();
-						notifyAll();
-					}
+					writeTh.setFlag(false);
 					break;// 쓰레드 종료
 				}
 				System.out.println(str);
 			} catch (IOException e) {
 				System.out.println("채팅을 종료합니다.");
 				flag = false;
-				synchronized (Thread.currentThread()) {
-					Thread.currentThread().interrupt();
-					notifyAll();
-				}
+				writeTh.setFlag(false);
 				break;
 			}
 		}
+		System.out.println("종료하려면 엔터키를 누르세요.");
 	}
 
 }
 
-public class ChatClientMain {
+public class ChatClientMain extends Thread {
 
 	private String host;
 	private int port;
@@ -96,7 +103,8 @@ public class ChatClientMain {
 		this.port = port;
 	}
 
-	public void executeChatClient() {
+	@Override
+	public void run() {
 		try {
 			// 서버연결
 			Socket socket = new Socket(host, port);
@@ -106,15 +114,28 @@ public class ChatClientMain {
 					new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintWriter out = new PrintWriter(socket.getOutputStream());
 
-			// 상대방 메시지 읽는 쓰레드 생성
-			ReadTh th1 = new ReadTh(in);
-
 			// 키보드 입력받아서 소켓에 출력하는 쓰레드 생성
 			WriteTh th2 = new WriteTh(out, new Scanner(System.in));
+
+			// 상대방 메시지 읽는 쓰레드 생성
+			ReadTh th1 = new ReadTh(in, th2);
 
 			// 쓰레드 실행
 			th1.start();
 			th2.start();
+
+			try {
+				th2.join();
+				th1.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				th2.setFlag(false);
+			} finally {
+				in.close();
+				out.close();
+				socket.close();
+			}
+
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

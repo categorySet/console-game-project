@@ -1,20 +1,9 @@
 package project.server;
 
 import project.server.mafia.ChatClientMain;
-import project.server.mafia.server.MafiaServer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.DatagramPacket;
-import java.net.Socket;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 게임을 선택할 수 있는 클래스
@@ -52,14 +41,12 @@ public class GameCenter {
         int port = scanner.nextInt();
 
         ChatClientMain chatClientMain = new ChatClientMain("localhost", port);
-        chatClientMain.executeChatClient();
+        chatClientMain.start();
 
-        synchronized (Thread.currentThread()) {
-            try {
-                Thread.currentThread().wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            chatClientMain.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
