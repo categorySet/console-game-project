@@ -12,9 +12,13 @@ class WriteTh extends Thread {
 	private PrintWriter out;// 소켓에 출력 스트림
 	private Scanner sc; // 키보드 입력
 
+	public boolean flag;
+
 	public WriteTh(PrintWriter out, Scanner sc) {
 		this.out = out;
 		this.sc = sc;
+
+		flag = true;
 	}
 
 	@Override
@@ -25,13 +29,14 @@ class WriteTh extends Thread {
 		out.println(name);
 		out.flush();
 
-		while (true) {
+		while (flag) {
 			// 키보드 입력
 			String str = sc.nextLine();
 			// 소켓에 출력 => 상대방에게 전송
 			out.println(str);
 			out.flush();// 버퍼 강제 출력
 			if (str.startsWith("/stop")) {// 종료 메시지
+				flag = false;
 				break;// 쓰레드 종료
 			}
 		}
@@ -43,23 +48,37 @@ class WriteTh extends Thread {
 class ReadTh extends Thread {
 	private BufferedReader in;// 소켓 읽기 스트림
 
+	private boolean flag;
+
 	public ReadTh(BufferedReader in) {
 		this.in = in;
+
+		flag = true;
 	}
 
 	@Override
 	public void run() {
-		while (true) {
+		while (flag && !Thread.currentThread().isInterrupted()) {
 			try {
 				// 소켓에서 한줄 읽음
 				String str = in.readLine();
 				if (str.startsWith("/stop")) {// 메시지 내용이 /stop이면
 					System.out.println("채팅을 종료합니다");
+					flag = false;
+					synchronized (Thread.currentThread()) {
+						Thread.currentThread().interrupt();
+						notifyAll();
+					}
 					break;// 쓰레드 종료
 				}
 				System.out.println(str);
 			} catch (IOException e) {
 				System.out.println("채팅을 종료합니다.");
+				flag = false;
+				synchronized (Thread.currentThread()) {
+					Thread.currentThread().interrupt();
+					notifyAll();
+				}
 				break;
 			}
 		}

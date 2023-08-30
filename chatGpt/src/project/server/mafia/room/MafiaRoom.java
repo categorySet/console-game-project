@@ -78,9 +78,11 @@ public class MafiaRoom extends ChatRoom {
     }
 
     public void sendMessageAll(String message) {
-        for (ChatServerTh th : list) {
-            if (th.isAlivePerson()) {
-                th.writeln(message);
+        synchronized (list) {
+            for (ChatServerTh th : list) {
+                if (th.isAlivePerson()) {
+                    th.writeln(message);
+                }
             }
         }
     }
