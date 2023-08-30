@@ -16,7 +16,7 @@ public class ItemService {
         System.out.println("=== 아이템 등록 ===");
         System.out.print("item name: ");
         String itemName = sc.next();
-        System.out.print("game id (0.기본 1.마피아 2.퀴즈): ");
+        System.out.print("game id (0.기본 1.마피아 2.퀴즈): ");        //game_id와 game_name을 조회하여 자동으로 작성해야할듯함 (우선순위 낮음 시간이 된다면 진행)
         int gameId = sc.nextInt();
         System.out.print("price: ");
         int price = sc.nextInt();

@@ -17,13 +17,14 @@ public class AdminService {
 		
 		System.out.println("관리자 비밀번호:");
 		String pwd = sc.next();
-		
+
 				
-		if(pwd.equals.selectPwd()) {//TODO 관리자 비밀번호 비교
-			System.out.println("비밀번호가 일치하지 않습니다.");
-		}else {
-			System.out.println("관리자로 로그인합니다.");
-		}
+//		if(pwd.equals.selectPwd()) {
+//		if(pwd.equals(selectPwd())) {//TODO 관리자 비밀번호 비교
+//			System.out.println("비밀번호가 일치하지 않습니다.");
+//		}else {
+//			System.out.println("관리자로 로그인합니다.");
+//		}
 	}
 
 	public void addCredit(Scanner sc) {

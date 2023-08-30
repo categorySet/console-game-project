@@ -37,14 +37,12 @@ public class Player {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-<<<<<<< HEAD
     public Player(String loginId, String password, String nickname, int credit) {
         this.loginId = loginId;
         this.password = password;
         this.nickname = nickname;
         this.credit = credit;
     }
-=======
 	public String getLoginId() {
 		return loginId;
 	}
@@ -76,5 +74,4 @@ public class Player {
 	}
     
     
->>>>>>> rgh/dev
 }

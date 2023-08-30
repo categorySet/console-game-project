@@ -24,15 +24,8 @@ public class AdminDao {
 
 		String sql = "SELECT * FROM player";
 
-<<<<<<< HEAD
-            //FIXME : 저는 Player 코드가 없네요??
-            if (rs.next()) {
-                return new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
-            }
-=======
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
->>>>>>> rgh/dev
 
 			ResultSet rs = pstmt.executeQuery();
 
@@ -41,7 +34,6 @@ public class AdminDao {
 						rs.getDate(6)));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			dbconn.disconnectDB(conn);
@@ -94,22 +86,21 @@ public class AdminDao {
 			dbconn.disconnectDB(conn);
 		}
 	}
-	
+
 	public void update(Player p) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "UPDATE player SET playerId = ?, loginId = ?,nickname = ?, credit = ? WHERE player_id = ?";
-		
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, p.getPlayerId());
 			pstmt.setString(2, p.getLoginId());
 			pstmt.setString(3, p.getNickname());
 			pstmt.setInt(4, p.getCredit());
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}dbconn.disconnectDB(conn);
 	}
@@ -117,66 +108,63 @@ public class AdminDao {
 	//블랙리스트에 추가
 	public void addBlackList(int playerId, BanReason reason) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "INSERT INTO blacklist VALUES(?,?,?,?)";
-		
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			BlackList b = new BlackList();
-			
+
 			pstmt.setInt(1, playerId);
-			pstmt.setInt(2, reason.Ban); 
-			pstmt.setDate(3, b.getCreateDate()); 
-			pstmt.setDate(4, b.getLastModifiedDate()); 
+			pstmt.setInt(2, reason.Ban);
+			pstmt.setDate(3, b.getCreateDate());
+			pstmt.setDate(4, b.getLastModifiedDate());
 			pstmt.executeUpdate();
-				
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			dbconn.disconnectDB(conn);
 		}
 	}
-	
+
 	//비밀번호
 	public void insertPwd(String pwd) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "INSERT INTO admin(pwd) VALUES (?)";
-		
+
 		try {
-			
+
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, pwd);
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			dbconn.disconnectDB(conn);
 		}
 	}
-	
+
 	public void selectPwd(String pwd) {
 		Connection conn = dbconn.conn();
-		
+
 		String sql = "SELECT FROM admin WHERE pwd=?";
-		
+
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, pwd);
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			dbconn.disconnectDB(conn);
 		}
-		
+
 	}
 }

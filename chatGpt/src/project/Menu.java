@@ -7,7 +7,6 @@ import project.player.PlayerService;
 import project.server.GameCenter;
 import project.shop.ShopService;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {

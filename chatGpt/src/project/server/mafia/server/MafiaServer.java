@@ -1,13 +1,20 @@
-package project.server;
+package project.server.mafia.server;
 
+import project.server.Gamable;
+import project.server.Status;
 import project.server.mafia.room.MafiaRoom;
-import project.server.mafia.server.ChatServerTh;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class MafiaServer implements Gamable{
+/**
+ * 마피아 게임이 실제로 실행되는 클래스
+ * @see Gamable
+ * @author categorySet
+ */
+public class MafiaServer implements Gamable {
+
     private Status status;
     private int connectCounter;
 

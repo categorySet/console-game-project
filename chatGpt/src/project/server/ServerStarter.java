@@ -1,6 +1,6 @@
 package project.server;
 
-public class ServerStarter {
+public class ServerStarter extends Thread{
     private Gamable gamable;
     private int port;
 

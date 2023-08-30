@@ -12,10 +12,12 @@ public class GameHistory {
     public GameHistory() {
     }
 
-    public GameHistory(int historyId, int gameId, int winner) {
+    public GameHistory(int historyId, int gameId, int winner, Date createDate, Date lastModifiedDate) {
         this.historyId = historyId;
         this.gameId = gameId;
         this.winner = winner;
+        this.createDate = createDate;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override

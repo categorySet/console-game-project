@@ -1,5 +1,7 @@
 package project.server;
 
+import project.server.mafia.ChatClientMain;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
