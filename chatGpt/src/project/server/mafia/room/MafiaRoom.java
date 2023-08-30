@@ -153,11 +153,13 @@ public class MafiaRoom extends ChatRoom {
         sendMessageAll("밤이 찾아옵니다.");
 
         if (dayTimer == null) {
-            dayTimer = new DayTimer(this);
+            synchronized (dayTimer) {
+                dayTimer = new DayTimer(this);
 
-            dayTimer.setDaemon(true);
+                dayTimer.setDaemon(true);
 
-            dayTimer.start();
+                dayTimer.start();
+            }
         }
 
         boolean flag = true;
@@ -165,15 +167,13 @@ public class MafiaRoom extends ChatRoom {
             countMafia = 0;
             countCitizen = 0;
 
-            synchronized (list) {
-                for (int i = list.size() - 1; i >= 0; i--) {
-                    ChatServerTh c = list.get(i);
+            for (int i = list.size() - 1; i >= 0; i--) {
+                ChatServerTh c = list.get(i);
 
-                    if (c.getRoles() instanceof Mafia && c.isAlivePerson()) {
-                        countMafia++;
-                    } else if (c.getRoles() instanceof Citizen && c.isAlivePerson()) {
-                        countCitizen++;
-                    }
+                if (c.getRoles() instanceof Mafia && c.isAlivePerson()) {
+                    countMafia++;
+                } else if (c.getRoles() instanceof Citizen && c.isAlivePerson()) {
+                    countCitizen++;
                 }
             }
 
@@ -214,5 +214,10 @@ public class MafiaRoom extends ChatRoom {
         }
 
         currentServer.setMafiaRoom(new MafiaRoom(currentServer));
+
+        synchronized (this) {
+            notify();
+            interrupt();
+        }
     }
 }
