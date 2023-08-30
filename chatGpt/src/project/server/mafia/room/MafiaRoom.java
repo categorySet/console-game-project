@@ -171,6 +171,7 @@ public class MafiaRoom extends ChatRoom {
 
             if (countMafia >= countCitizen || countMafia == 0) {
                 flag = false;
+                dayTimer.dayTimerflag = false;
                 System.out.println(countMafia + " " + countCitizen);
             }
         }
@@ -186,7 +187,7 @@ public class MafiaRoom extends ChatRoom {
         } else if (countMafia >= countCitizen) {
             sendMessageAll("마피아가 승리했습니다.");
             for (ChatServerTh c : list) {
-                if (c.getRoles() instanceof  Mafia) {
+                if (c.getRoles() instanceof Mafia) {
                     winners.add(c.getUserName());
                 }
             }
@@ -195,22 +196,11 @@ public class MafiaRoom extends ChatRoom {
         dayTimer.dayTimerflag = false;
         dayTimer.interrupt();
 
-        int time = 10;
-        while (time > 0) {
-            time--;
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                break;
-            }
-        }
+        sendMessageAll("/stop");
 
+        list.clear();
         currentServer.setMafiaRoom(new MafiaRoom(currentServer));
 
-        synchronized (this) {
-            notify();
-            interrupt();
-        }
     }
 
     private void startDayTimer() {
