@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class MafiaRoom extends ChatRoom {
 
     public static final int MIN_PERSON = 5;
-    private static DayTimer dayTimer = null;
+    private DayTimer dayTimer = null;
 
     private MafiaServer currentServer;
 
@@ -152,15 +152,7 @@ public class MafiaRoom extends ChatRoom {
         sendMessageAll("=== 게임 시작 ===");
         sendMessageAll("밤이 찾아옵니다.");
 
-        if (dayTimer == null) {
-            synchronized (dayTimer) {
-                dayTimer = new DayTimer(this);
-
-                dayTimer.setDaemon(true);
-
-                dayTimer.start();
-            }
-        }
+        startDayTimer();
 
         boolean flag = true;
         while (flag) {
@@ -218,6 +210,15 @@ public class MafiaRoom extends ChatRoom {
         synchronized (this) {
             notify();
             interrupt();
+        }
+    }
+
+    private void startDayTimer() {
+        if (dayTimer == null) {
+
+            dayTimer = new DayTimer(this);
+
+            dayTimer.start();
         }
     }
 }
