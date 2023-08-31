@@ -115,6 +115,8 @@ public class AdminDao {
 	// 블랙리스트 전체 출력
 	public ArrayList<BlackList> selectAllBlackList() {
 		Connection conn = dbconn.conn();
+		
+		ArrayList<BlackList> list = new ArrayList<>();
 
 		String sql = "SELECT * FROM blacklist";// blackListId, playerId, reason, createDate, lastModifiedDate
 
@@ -123,7 +125,9 @@ public class AdminDao {
 
 			ResultSet rs = pstmt.executeQuery();
 			
-//			while(rs.next())
+			while(rs.next()) {
+				list.add(new BlackList(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4), rs.getDate(5)));
+			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -131,11 +135,11 @@ public class AdminDao {
 		} finally {
 			dbconn.disconnectDB(conn);
 		}
-		return null;
+		return list;
 	}
 
 	// 블랙리스트에 추가
-	public void addBlackList(int playerId, BanReason reason) {
+	public void addBlackList(int playerId, int index) {
 		Connection conn = dbconn.conn();
 
 		String sql = "INSERT INTO blacklist VALUES(?,?,?,?)"; // player_id, reason, c_date, m_date
@@ -146,12 +150,12 @@ public class AdminDao {
 			BlackList b = new BlackList();
 
 			pstmt.setInt(1, playerId);
-			pstmt.setInt(2, reason.Ban);
+			pstmt.setInt(2, index);
 			pstmt.setDate(3, b.getCreateDate());
 			pstmt.setDate(4, b.getLastModifiedDate());
 			pstmt.executeUpdate();
 
-			System.out.println("블랙리스트에 추가되었습니다.");
+			System.out.println("해당 플레이어가 블랙리스트에 추가되었습니다.");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -172,7 +176,7 @@ public class AdminDao {
 			pstmt.setInt(1, playerId);
 			pstmt.executeUpdate();
 
-			System.out.println("블랙리스트에서 삭제되었습니다.");
+			System.out.println("해당 플레이어가 블랙리스트에서 해제되었습니다.");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -181,6 +185,7 @@ public class AdminDao {
 			dbconn.disconnectDB(conn);
 		}
 	}
+<<<<<<< HEAD
 	
     // 아이템 등록
     public void insert(Item i) {
@@ -357,5 +362,7 @@ public class AdminDao {
             dbconn.disconnectDB(conn);
         }
     }
+=======
+>>>>>>> rgh/dev
 
 }

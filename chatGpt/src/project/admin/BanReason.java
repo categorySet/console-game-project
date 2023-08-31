@@ -1,16 +1,16 @@
 package project.admin;
 
 public enum BanReason {
-    욕설(1), 게임방해(2), 버그악용(3);
+	욕설(1), 게임방해(2), 버그악용(3);
 
-    int Ban;
+	int index;
 
-    private BanReason(int ban) {
-        Ban = ban;
+    private BanReason(int index) {
+        this.index = index;
     }
 
-    public int getBan() {
-        return Ban;
+    public int getIndex() {
+    	return index;
     }
 
 }
