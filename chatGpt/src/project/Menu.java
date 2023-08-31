@@ -137,7 +137,7 @@ public class Menu {
 
     private void gameRun(Scanner sc) {
         GameCenter gameCenter = new GameCenter();
-        String menu = "1. 채팅 게임 2. 전적 확인";
+        String menu = "1. 채팅 게임 | 2. 전적 확인 | 0. 종료";
         boolean flag = true;
         int m = 0;
 
@@ -157,6 +157,7 @@ public class Menu {
                     gameCenter.run(sc);
                     break;
                 case 2:
+                    gameHistoryService.getMyHistory(PlayerService.getLoginId());
                     break;
             }
         }

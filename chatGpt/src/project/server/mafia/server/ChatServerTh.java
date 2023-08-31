@@ -27,6 +27,8 @@ public class ChatServerTh extends Thread {
 
     private RolesAdapter rolesAdapter;
 
+    private boolean flag = true;
+
 
     public ChatServerTh(Socket socket, MafiaRoom mafiaRoom) {
         this.socket = socket;
@@ -124,10 +126,12 @@ public class ChatServerTh extends Thread {
                 Thread.sleep(1000);
             }
 
-            while (true) {
+            while (flag) {
                 String read = reader.readLine();
 
                 mafiaRoom.sendMessageAll(read, rolesAdapter, this);
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();

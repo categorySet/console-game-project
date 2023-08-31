@@ -1,11 +1,16 @@
 package gameHistory;
 
 import project.player.Player;
+import project.player.PlayerDao;
 
 import java.util.List;
 
 public class GameHistoryService {
+
+    private static final int winnerPoint = 50;
+
     private GameHistoryDao dao;
+    private PlayerDao playerDao;
 
     public GameHistoryService() {
         this.dao = new GameHistoryDao();
@@ -15,19 +20,20 @@ public class GameHistoryService {
         return dao.insert(gameId, playerId);
     }
 
-    public int setWinner(int gameId, List<Player> players) {
-        int count = 0;
+    public int setWinner(int gameId, String nickname) {
+        Player player = playerDao.findByNickname(nickname);
 
-        for (Player p : players) {
-            // TODO player 클래스 구현 후 추가 예정 -> 어떠한 방식으로 진행하실껀지 설명 부탁드립니다. 추가로 필요한 필드나 메서드가 있을까요?
-//            count += setWinner(gameId, p.getPlayerId());
-        }
+        System.out.println("GameHistoryService.setWinner " + player.getPlayerId() + " " + player.getCredit());
 
-        return count;
+        playerDao.updateCredit(player, 50);
+
+        System.out.println("GameHistoryService.setWinner " + player.getPlayerId() + " " + player.getCredit());
+
+        return dao.insert(gameId, player.getPlayerId());
     }
 
-    public List<GameHistoryQueryVo> getMyHistory(int playerId) {
-        return dao.findByPlayerId(playerId);
+    public List<GameHistoryQueryVo> getMyHistory(String nickname) {
+        return dao.findByPlayerId(nickname);
     }
 
 
