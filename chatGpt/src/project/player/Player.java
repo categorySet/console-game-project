@@ -25,6 +25,13 @@ public class Player {
 		this.nickname = nickname;
 	}
 
+	public Player(int playerId, int credit) {
+		this.playerId = playerId;
+		this.credit = credit;
+		this.lastModifiedDate = Date.valueOf(LocalDate.now());
+
+	}
+
 	//Change Nickname
 	public Player(int playerId, String nickname) {
 		this.playerId = playerId;

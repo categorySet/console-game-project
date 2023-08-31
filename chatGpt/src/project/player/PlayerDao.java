@@ -71,8 +71,8 @@ public class PlayerDao {
             prepared.setString(1, loginId);
             ResultSet rs = prepared.executeQuery();
 
-            if(rs.next()) {
-                if(pwd.equals(rs.getString(2))) {
+            if (rs.next()) {
+                if (pwd.equals(rs.getString(2))) {
                     return true;
                 }
             }
@@ -94,7 +94,7 @@ public class PlayerDao {
             prepared.setString(1, loginId);
             ResultSet rs = prepared.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 return new Player(rs.getInt(1), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7));
             }
@@ -145,6 +145,24 @@ public class PlayerDao {
         }
     }
 
+    public void updateCredit(Player player) {
+        Connection conn = dbconn.conn();
+        String query = "update player set credit = ?, last_modified_date = ? where player_id = ?";
+        try {
+            PreparedStatement prepared = conn.prepareStatement(query);
+            prepared.setInt(1, player.getCredit());         //계산이 완료된 크레딧임
+            prepared.setDate(2, player.getLastModifiedDate());
+            prepared.setInt(3, player.getPlayerId());
+            prepared.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbconn.disconnectDB(conn);
+        }
+    }
+
+
     public void delete(Player player) {
         Connection conn = dbconn.conn();
         String query = "delete player where player_id=?";
@@ -162,4 +180,25 @@ public class PlayerDao {
     }
 
 
+    public Player findByNickname(String nickname) {
+
+        Connection conn = dbconn.conn();
+        String query = "select player_id, login_id, nickname, credit, create_date, last_modified_date from player where nickname = ?";
+        try {
+            PreparedStatement prepared = conn.prepareStatement(query);
+            prepared.setString(1, nickname);
+            ResultSet rs = prepared.executeQuery();
+
+            if(rs.next()) {
+                return new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbconn.disconnectDB(conn);
+        }
+
+        return null;
+
+    }
 }

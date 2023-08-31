@@ -57,9 +57,6 @@ public class Menu {
                     case 3:
                         playerService.deletePlayer(sc);
                         break;
-                    case 9999:                              //Admin 담당과 생각해보기
-//                    adminService(sc);
-                        break;
                 }
             }
 
