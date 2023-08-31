@@ -68,7 +68,7 @@ public class GameHistoryDao {
         return result;
     }
 
-    public List<GameHistoryQueryVo> findByPlayerId(int playerId) {
+    public List<GameHistoryQueryVo> findByPlayerId(String nickname) {
         Connection conn = dbConn.conn();
         List<GameHistoryQueryVo> result = new ArrayList<>();
 
@@ -79,12 +79,12 @@ public class GameHistoryDao {
                         "        ON h.game_id = g.game_id" +
                         "    INNER JOIN player p" +
                         "        ON h.winner = p.player_id" +
-                        " WHERE p.player_id = ?";
+                        " WHERE p.player_nickname = ?";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
-            pstmt.setInt(1, playerId);
+            pstmt.setString(1, nickname);
 
             ResultSet rs = pstmt.executeQuery();
 
