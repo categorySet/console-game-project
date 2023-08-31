@@ -3,7 +3,7 @@ package project.player;
 import java.util.Scanner;
 
 public class PlayerService {
-    private static String loginId = null;
+    public static String loginId = null;
     private PlayerDao playerDao;
 
     public PlayerService() {

@@ -5,20 +5,20 @@ import project.admin.AdminService;
 import project.item.ItemService;
 import project.player.PlayerService;
 import project.server.GameCenter;
-import project.shop.ShopService;
+import project.shop.OrderService;
 
 import java.util.Scanner;
 
 public class Menu {
     private PlayerService playerService;
-    private ShopService shopService;
+    private OrderService orderService;
     private ItemService itemService;
     private GameHistoryService gameHistoryService;
     private AdminService adminService;
 
     public Menu() {
         playerService = new PlayerService();
-        shopService = new ShopService();
+        orderService = new OrderService();
         itemService = new ItemService();
         gameHistoryService = new GameHistoryService();
         adminService = new AdminService();
@@ -180,7 +180,7 @@ public class Menu {
                     flag = false;
                     break;
                 case 1:
-                    shopService.addShop(sc, itemService.getAll());
+                    orderService.addOrder(sc, itemService.getAll());
                     break;
                 case 2:
                     break;
