@@ -10,7 +10,6 @@ public class ItemService {
         itemDao = new ItemDao();
     }
 
-    // TODO: Admin만 아이템 추가, 수정, 삭제 가능
     public void addItem(Scanner sc) {
         // Admin 권한 확인
         System.out.println("=== 아이템 등록 ===");

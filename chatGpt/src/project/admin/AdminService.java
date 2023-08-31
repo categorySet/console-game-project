@@ -60,21 +60,11 @@ public class AdminService {
 		for (Player p : list) {
 			System.out.println(p);
 		}
-
 	}
 
-
-	public void addToBlackList(Scanner sc) {//TODO 해당 메서드는 메뉴로 이동하거나 playerService에서 구동.
+	public void addToBlackList(Scanner sc) {	//TODO 해당 메서드는 메뉴로 이동하거나 playerService에서 구동.
 		System.out.println("===플레이어 블랙리스트에 추가===");
 
-<<<<<<< HEAD
-//		System.out.println("입장 금지할 플레이어:");
-//		adminDao.addBlackList(player.getPlayerId(), reason);
-//		
-//		int playerId = player.getPlayerId();
-//		boolean flag = adminDao.checkBlackList(playerId);
-		boolean flag = false;
-=======
 		System.out.println("블랙리스트에 추가될 플레이어:");
 		int playerId = sc.nextInt();
 		
@@ -84,7 +74,6 @@ public class AdminService {
 		
 		boolean flag = adminDao.checkBlackList(playerId);
 		
->>>>>>> rgh/dev
 		while(flag) {
 				System.out.println("플레이어가 블랙리스트에 추가 되었습니다. 활동이 금지됩니다."); 
 				}
@@ -129,13 +118,7 @@ public class AdminService {
 		} else if (s.equals("F")) {
 			amount = 999999999;
 		}
-<<<<<<< HEAD
-		System.out.print("item info: ");
-		String itemInfo = sc.next();
-		adminDao.insert(new Item(itemName, gameId, price, limitedEdition, amount, itemInfo));
-=======
 		itemDao.insert(new Item(0, itemName, gameId, price, limitedEdition, amount));
->>>>>>> rgh/dev
 	}
 
 	// 번호로 검색
@@ -201,7 +184,6 @@ public class AdminService {
 			}
 			i.updateItem(price, limitedEdition, amount);
 			itemDao.update(i);
-		} // TODO: 바인딩 되지 않음. setter 없이 수정하려면? -> 설명 부탁드립니다.
 	}
 
 	// 아이템 삭제

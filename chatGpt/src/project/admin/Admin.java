@@ -15,8 +15,7 @@ public class Admin {
     	ArrayList<BlackList> list = new ArrayList<>(); 
     }
 
-	public Admin(int adminId, int playerId, int pwd, ArrayList<BlackList> blackListId, Date createDate,
-			Date lastModifiedDate) {
+	public Admin(int adminId, int playerId, int pwd, ArrayList<BlackList> blackListId, Date createDate, Date lastModifiedDate) {
 		this.adminId = adminId;
 		this.playerId = playerId;
 		this.pwd = pwd;

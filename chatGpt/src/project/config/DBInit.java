@@ -1,8 +1,5 @@
 package project.config;
 
-
-
-
 public class DBInit {
 
     private static DBConnect dbconn;
@@ -13,12 +10,5 @@ public class DBInit {
 
     public void createTable() {
     }
-
-
-
-
-
-
-
 
 }

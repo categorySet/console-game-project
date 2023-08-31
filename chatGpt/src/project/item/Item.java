@@ -17,6 +17,15 @@ public class Item {
     public Item() {
     }
 
+    public Item(int itemId, String itemName, int gameId, int price, boolean limitedEdition, int amount) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.gameId = gameId;
+        this.price = price;
+        this.limitedEdition = limitedEdition;
+        this.amount = amount;
+    }
+
     public Item(String itemName, int gameId, int price, boolean limitedEdition, int amount, String itemInfo) {
         this.itemName = itemName;
         this.gameId = gameId;
