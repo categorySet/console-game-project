@@ -1,6 +1,7 @@
 package project.server;
 
 public enum Status {
+
     READY(1, "Ready")
     , GAMING(2, "Gaming")
     , FINISHED(3, "Finished");

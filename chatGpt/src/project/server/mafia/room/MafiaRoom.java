@@ -6,9 +6,9 @@ import project.server.mafia.Roles.Roles;
 import project.server.mafia.Roles.RolesAdapter;
 import project.server.mafia.server.ChatServerTh;
 import project.server.mafia.server.DayTimer;
+import project.server.mafia.server.MafiaServer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,8 +19,9 @@ import java.util.regex.Pattern;
 public class MafiaRoom extends ChatRoom {
 
     public static final int MIN_PERSON = 5;
-    private static DayTimer dayTimer = null;
+    private DayTimer dayTimer = null;
 
+    private MafiaServer currentServer;
 
     private ArrayList<ChatServerTh> deadList;
 
@@ -31,9 +32,11 @@ public class MafiaRoom extends ChatRoom {
 
     private static List<String> winners;
 
-    public MafiaRoom() {
+    public MafiaRoom(MafiaServer mafiaServer) {
         super.list = new ArrayList<ChatServerTh>();
         this.deadList = new ArrayList<>();
+
+        this.currentServer = mafiaServer;
     }
 
 
@@ -75,9 +78,11 @@ public class MafiaRoom extends ChatRoom {
     }
 
     public void sendMessageAll(String message) {
-        for (ChatServerTh th : list) {
-            if (th.isAlivePerson()) {
-                th.writeln(message);
+        synchronized (list) {
+            for (ChatServerTh th : list) {
+                if (th.isAlivePerson()) {
+                    th.writeln(message);
+                }
             }
         }
     }
@@ -149,33 +154,26 @@ public class MafiaRoom extends ChatRoom {
         sendMessageAll("=== 게임 시작 ===");
         sendMessageAll("밤이 찾아옵니다.");
 
-        if (dayTimer == null) {
-            dayTimer = new DayTimer(this);
-
-            dayTimer.setDaemon(true);
-
-            dayTimer.start();
-        }
+        startDayTimer();
 
         boolean flag = true;
         while (flag) {
             countMafia = 0;
             countCitizen = 0;
 
-            synchronized (list) {
-                for (int i = list.size() - 1; i >= 0; i--) {
-                    ChatServerTh c = list.get(i);
+            for (int i = list.size() - 1; i >= 0; i--) {
+                ChatServerTh c = list.get(i);
 
-                    if (c.getRoles() instanceof Mafia && c.isAlivePerson()) {
-                        countMafia++;
-                    } else if (c.getRoles() instanceof Citizen && c.isAlivePerson()) {
-                        countCitizen++;
-                    }
+                if (c.getRoles() instanceof Mafia && c.isAlivePerson()) {
+                    countMafia++;
+                } else if (c.getRoles() instanceof Citizen && c.isAlivePerson()) {
+                    countCitizen++;
                 }
             }
 
             if (countMafia >= countCitizen || countMafia == 0) {
                 flag = false;
+                dayTimer.dayTimerflag = false;
                 System.out.println(countMafia + " " + countCitizen);
             }
         }
@@ -191,7 +189,7 @@ public class MafiaRoom extends ChatRoom {
         } else if (countMafia >= countCitizen) {
             sendMessageAll("마피아가 승리했습니다.");
             for (ChatServerTh c : list) {
-                if (c.getRoles() instanceof  Mafia) {
+                if (c.getRoles() instanceof Mafia) {
                     winners.add(c.getUserName());
                 }
             }
@@ -200,7 +198,19 @@ public class MafiaRoom extends ChatRoom {
         dayTimer.dayTimerflag = false;
         dayTimer.interrupt();
 
-        System.out.println("승리: " + winners);
+        sendMessageAll("/stop");
 
+        list.clear();
+        currentServer.setMafiaRoom(new MafiaRoom(currentServer));
+
+    }
+
+    private void startDayTimer() {
+        if (dayTimer == null) {
+
+            dayTimer = new DayTimer(this);
+
+            dayTimer.start();
+        }
     }
 }

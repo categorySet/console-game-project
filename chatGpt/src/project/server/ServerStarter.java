@@ -1,6 +1,7 @@
 package project.server;
 
-public class ServerStarter extends Thread{
+public class ServerStarter extends Thread {
+
     private Gamable gamable;
     private int port;
 
@@ -17,4 +18,5 @@ public class ServerStarter extends Thread{
     public void run() {
         gamable.run(port);
     }
+
 }

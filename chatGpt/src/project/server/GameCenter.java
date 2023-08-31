@@ -5,7 +5,12 @@ import project.server.mafia.ChatClientMain;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * 게임을 선택할 수 있는 클래스
+ * @author categorySet
+ */
 public class GameCenter {
+
     private HashMap<Integer, Status> roomPortMap;
 
     public GameCenter() {
@@ -36,16 +41,13 @@ public class GameCenter {
         int port = scanner.nextInt();
 
         ChatClientMain chatClientMain = new ChatClientMain("localhost", port);
-        chatClientMain.executeChatClient();
+        chatClientMain.start();
 
-        synchronized (Thread.currentThread()) {
-            try {
-                Thread.currentThread().wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            chatClientMain.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
-
 
 }
