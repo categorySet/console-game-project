@@ -147,7 +147,7 @@ public class PlayerDao {
 
     public void updateCredit(Player player, int newCredit) {
         Connection conn = dbconn.conn();
-        String query = "update player set credit (select credit + ? from player where player_id = ?) " +
+        String query = "update player set credit = (select credit + ? from player where player_id = ?) " +
                 "where player_id = ?";          //추가할 credit, player_id, player_id
         try {
             PreparedStatement prepared = conn.prepareStatement(query);
