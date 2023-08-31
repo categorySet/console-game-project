@@ -1,5 +1,7 @@
 package project.server.mafia.room;
 
+import project.server.ServerStarter;
+import project.server.Status;
 import project.server.mafia.Roles.Citizen;
 import project.server.mafia.Roles.Mafia;
 import project.server.mafia.Roles.Roles;
@@ -45,6 +47,7 @@ public class MafiaRoom extends ChatRoom {
         for (ChatServerTh c : list) {
             if (c.equals(chatServerTh)) {
                 c.setAlivePerson(false);
+                c.writeln("/stop");
             }
 
             deadList.add(c);
@@ -184,6 +187,7 @@ public class MafiaRoom extends ChatRoom {
             for (ChatServerTh c : list) {
                 if (c.getRoles() instanceof Citizen) {
                     winners.add(c.getUserName());
+                    currentServer.setStatus(Status.FINISHED);
                 }
             }
         } else if (countMafia >= countCitizen) {
@@ -191,18 +195,18 @@ public class MafiaRoom extends ChatRoom {
             for (ChatServerTh c : list) {
                 if (c.getRoles() instanceof Mafia) {
                     winners.add(c.getUserName());
+                    currentServer.setStatus(Status.FINISHED);
                 }
             }
         }
 
+        ServerStarter.winners = winners;
         dayTimer.dayTimerflag = false;
         dayTimer.interrupt();
 
         sendMessageAll("/stop");
 
         list.clear();
-        currentServer.setMafiaRoom(new MafiaRoom(currentServer));
-
     }
 
     private void startDayTimer() {

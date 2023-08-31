@@ -1,5 +1,7 @@
 package project.server.mafia;
 
+import project.player.PlayerService;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,8 +29,8 @@ class WriteTh extends Thread {
 
 	@Override
 	public void run() {
-		System.out.print("사용할 닉네임 입력");
-		String name = sc.nextLine();
+		String name = PlayerService.getLoginId();
+		System.out.println("마피아 게임에 오신 걸 환영합니다 " + name + "님");
 		// 닉네임 서버 전송
 		out.println(name);
 		out.flush();

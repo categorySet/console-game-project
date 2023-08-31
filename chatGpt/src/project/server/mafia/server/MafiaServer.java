@@ -27,6 +27,10 @@ public class MafiaServer implements Gamable {
         return status;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public void setMafiaRoom(MafiaRoom mafiaRoom) {
         this.mafiaRoom = mafiaRoom;
     }
