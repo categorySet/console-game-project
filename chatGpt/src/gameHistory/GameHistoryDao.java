@@ -79,7 +79,7 @@ public class GameHistoryDao {
                         "        ON h.game_id = g.game_id" +
                         "    INNER JOIN player p" +
                         "        ON h.winner = p.player_id" +
-                        " WHERE p.player_nickname = ?";
+                        " WHERE nickname = ?";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
