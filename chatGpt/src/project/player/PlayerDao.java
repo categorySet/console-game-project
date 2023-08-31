@@ -145,13 +145,14 @@ public class PlayerDao {
         }
     }
 
-    public void updateCredit(Player player) {
+    public void updateCredit(Player player, int newCredit) {
         Connection conn = dbconn.conn();
-        String query = "update player set credit = ?, last_modified_date = ? where player_id = ?";
+        String query = "update player set credit (select credit + ? from player where player_id = ?) " +
+                "where player_id = ?";          //추가할 credit, player_id, player_id
         try {
             PreparedStatement prepared = conn.prepareStatement(query);
-            prepared.setInt(1, player.getCredit());         //계산이 완료된 크레딧임
-            prepared.setDate(2, player.getLastModifiedDate());
+            prepared.setInt(1, newCredit);
+            prepared.setInt(2, player.getPlayerId());
             prepared.setInt(3, player.getPlayerId());
             prepared.executeUpdate();
 

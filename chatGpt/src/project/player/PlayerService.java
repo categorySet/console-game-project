@@ -104,20 +104,12 @@ public class PlayerService {
 
     public void updateCreditByNickname(String nickname, int newCredit) {
         Player findPlayer = playerDao.findByNickname(nickname);
-        if(findPlayer != null) {
-            if(newCredit < 0 ) {
-                newCredit = findPlayer.getCredit() - newCredit;
-            }
-            if(newCredit >= 0) {
-                newCredit = findPlayer.getCredit() + newCredit;
-            }
 
-            playerDao.updateCredit(new Player(findPlayer.getPlayerId(), newCredit));
-
+        if (findPlayer != null) {
+            playerDao.updateCredit(findPlayer, newCredit);
         } else {
             System.out.println("존재하지 않는 회원입니다.");
         }
-
     }
 
     public void deletePlayer(Scanner sc) {
