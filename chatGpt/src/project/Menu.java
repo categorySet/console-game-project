@@ -201,4 +201,49 @@ public class Menu {
         }
     }
 
+    public void adminRun(Scanner sc) {
+		boolean flag = true;
+		int menu;
+
+		while (flag) {
+			System.out.println("1. 크레딧 부여 2. 크레딧 삭감 3. 모든 플레이어 조회 "
+					+ "4. 블랙리스트 추가 5. 블랙리스트 조회 6. 블랙리스트에서 회원 삭제 "
+					+ "7. 아이템 등록 8. 아이템 조회 9. 아이템 삭제 0. 뒤로 가기");
+
+			menu = sc.nextInt();
+
+			switch (menu) {
+			case 1:
+				adminService.addCredit(sc);
+				break;
+			case 2:
+				adminService.subCredit(sc);
+				break;
+			case 3:
+				adminService.printAll();
+				break;
+			case 4:
+				adminService.addToBlackList(sc);
+				break;
+			case 5:
+				adminService.printAllBlackList();
+				break;
+			case 6:
+				adminService.delFromBlackList(sc);
+				break;
+			case 7:
+				adminService.addItem(sc);
+				break;
+			case 8:
+				adminService.printAllItem();
+				break;
+			case 9:
+				adminService.deleteItem(sc);
+				break;
+			case 0:
+				flag = false;
+				break;
+			}
+		}
+	}
 }

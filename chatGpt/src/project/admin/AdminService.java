@@ -1,8 +1,10 @@
 package project.admin;
 
 import project.item.Item;
+import project.item.ItemDao;
 import project.player.Player;
 
+import java.awt.desktop.UserSessionEvent.Reason;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,15 +14,17 @@ import java.util.Scanner;
 
 public class AdminService {
 	private AdminDao adminDao;
+	private ItemDao itemDao;
 
 	public AdminService() {
 		adminDao = new AdminDao();
+		itemDao = new ItemDao();
 	}
 
 	public void addCredit(Scanner sc) {
 		System.out.println("===크레딧 부여===");
 
-		System.out.println("크레딧을 부여할 플레이어:");
+		System.out.println("크레딧을 부여할 플레이어 닉네임:");
 		String nickname = sc.next();
 		Player p = adminDao.select(nickname);
 
@@ -36,7 +40,7 @@ public class AdminService {
 	public void subCredit(Scanner sc) {
 		System.out.println("===크레딧 삭감===");
 
-		System.out.println("크레딧을 삭감할 플레이어:");
+		System.out.println("크레딧을 삭감할 플레이어 닉네임:");
 		String nickname = sc.next();
 		Player p = adminDao.select(nickname);
 
@@ -59,33 +63,42 @@ public class AdminService {
 
 	}
 
-	// TODO : 로그인 시 ban_list Table의 player_id를 조회하여 밴 유저를 차단하면 됩니다.
-	public void addToBlackList(Scanner sc) {// 해당 메서드에 플레이어 밴 추가
+
+	public void addToBlackList(Scanner sc) {//TODO 해당 메서드는 메뉴로 이동하거나 playerService에서 구동.
 		System.out.println("===플레이어 블랙리스트에 추가===");
 
-//		System.out.println("입장 금지할 플레이어:");
-//		adminDao.addBlackList(player.getPlayerId(), reason);
-//		
-//		int playerId = player.getPlayerId();
-//		boolean flag = adminDao.checkBlackList(playerId);
+		System.out.println("블랙리스트에 추가될 플레이어:");
+		int playerId = sc.nextInt();
+		
+		System.out.println("밴 사유:");
+		int index = sc.nextInt();
+		adminDao.addBlackList(playerId, index);
+		
+		boolean flag = adminDao.checkBlackList(playerId);
 		
 		while(flag) {
-				System.out.println("플레이어가 블랙리스트에 추가 되었습니다. 활동이 금지됩니다.");
-				//유저 차단 ////
+				System.out.println("플레이어가 블랙리스트에 추가 되었습니다. 활동이 금지됩니다."); 
 				}
 		}
 
-
-	public void printBlackList(ArrayList<BlackList> list) {
+	public void printAllBlackList() {
 		System.out.println("=== 블랙리스트 전체 출력===");
+		ArrayList<BlackList> list = new ArrayList<>();
 
 		for (BlackList b : list) {
 			System.out.println(b);
 		}
 	}
 
-	public void delFromBlackList(Player player) {
-		adminDao.delBlackList(player.getPlayerId());
+	public void delFromBlackList(Scanner sc) {
+		System.out.println("===블랙리스트에서 플레이어 삭제===");
+		
+		System.out.println("밴 해제할 플레이어:");
+		int playerId = sc.nextInt();
+
+		adminDao.delBlackList(playerId);
+		
+		System.out.println("블랙리스트에서 삭제되었습니다.");
 	}
 
 	public void addItem(Scanner sc) {
@@ -107,7 +120,7 @@ public class AdminService {
 		} else if (s.equals("F")) {
 			amount = 999999999;
 		}
-		adminDao.insert(new Item(0, itemName, gameId, price, limitedEdition, amount));
+		itemDao.insert(new Item(0, itemName, gameId, price, limitedEdition, amount));
 	}
 
 	// 번호로 검색
@@ -115,7 +128,7 @@ public class AdminService {
 		System.out.println("=== 아이템 검색 ===");
 		System.out.print("item id:");
 		int itemId = sc.nextInt();
-		Item i = adminDao.select(itemId);
+		Item i = itemDao.select(itemId);
 		if (i == null) {
 			System.out.println("해당 아이템 번호가 존재하지 않습니다.");
 		} else {
@@ -128,7 +141,7 @@ public class AdminService {
 		System.out.println("=== 상점별 검색 ===");
 		System.out.print("game id (0.기본 1.마피아 2.퀴즈): ");
 		int gameId = sc.nextInt();
-		ArrayList<Item> list = adminDao.selectByGameId(gameId);
+		ArrayList<Item> list = itemDao.selectByGameId(gameId);
 		for (Item i : list) {
 			System.out.println(i);
 		}
@@ -144,7 +157,7 @@ public class AdminService {
 	}
 
 	public ArrayList<Item> getAll() {
-		return adminDao.selectAllItem();
+		return itemDao.selectAll();
 	}
 
 	// 아이템 수정
@@ -152,7 +165,7 @@ public class AdminService {
 		System.out.println("=== 아이템 수정 ===");
 		System.out.print("item id:");
 		int itemId = sc.nextInt();
-		Item i = adminDao.select(itemId);
+		Item i = itemDao.select(itemId);
 		if (i == null) {
 			System.out.println("해당 아이템 번호가 존재하지 않습니다.");
 		} else {
@@ -172,7 +185,7 @@ public class AdminService {
 				amount = 999999999;
 			}
 			i.updateItem(price, limitedEdition, amount);
-			adminDao.update(i);
+			itemDao.update(i);
 		} // TODO: 바인딩 되지 않음. setter 없이 수정하려면? -> 설명 부탁드립니다.
 	}
 
@@ -182,12 +195,12 @@ public class AdminService {
 		System.out.print("item id: ");
 		int itemId = sc.nextInt();
 		sc.nextLine();
-		Item i = adminDao.select(itemId);
+		Item i = itemDao.select(itemId);
 		if (i == null) {
 			System.out.println("해당 아이템 번호가 존재하지 않습니다.");
 		} else {
 			try {
-				adminDao.delete(itemId);
+				itemDao.delete(itemId);
 				System.out.println("아이템이 삭제되었습니다.");
 			} catch (Exception e) {
 				System.out.println("아이템 삭제 중 오류가 발생했습니다: " + e.getMessage());

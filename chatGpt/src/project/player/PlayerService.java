@@ -2,6 +2,8 @@ package project.player;
 
 import java.util.Scanner;
 
+import project.admin.AdminDao;
+
 public class PlayerService {
     public static String loginId = null;
     private PlayerDao playerDao;

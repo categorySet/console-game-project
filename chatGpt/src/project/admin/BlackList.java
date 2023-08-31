@@ -18,6 +18,14 @@ public class BlackList {
 		this.createDate = createDate;
 		this.lastModifiedDate = lastModifiedDate;
 	}
+	
+	public BlackList(int blackListId, int playerId, String reason, Date createDate, Date lastModifiedDate) {
+		this.blackListId = blackListId;
+		this.playerId = playerId;
+		this.reason = BanReason.valueOf(reason);
+		this.createDate = createDate;
+		this.lastModifiedDate = lastModifiedDate;
+	}//AdminDao에서 selectAllBlackList()에서 사용
 
 	public int getBlackListId() {
 		return blackListId;
