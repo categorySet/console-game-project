@@ -14,8 +14,7 @@ public class Order {
     }
 
     // order 객체 생성할 때
-    public Order(int orderId, int itemId, int playerId, boolean limitedEdition) {
-        this.orderId = orderId;
+    public Order(int itemId, int playerId, boolean limitedEdition) {
         this.itemId = itemId;
         this.playerId = playerId;
         this.createDate = Date.valueOf(LocalDate.now());

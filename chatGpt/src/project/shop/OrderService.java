@@ -1,17 +1,21 @@
 package project.shop;
 
 import project.item.Item;
+import project.player.Player;
+import project.player.PlayerDao;
+import project.player.PlayerService;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class OrderService {
     private OrderDao orderDao;
+    private PlayerDao playerDao;
 
     public OrderService() {
         orderDao = new OrderDao();
+        playerDao = new PlayerDao();
     }
 
     // 주문
@@ -34,9 +38,9 @@ public class OrderService {
             System.out.println("해당하는 아이템이 없습니다.");
         } else {
             int price = items.get(itemId).getPrice(); // 선택한 아이템의 가격
-            //TODO : 여기 shopId가 0이면 문제될 것 같은데요? 체크해 보셨나요??
-            orderDao.insert(new Order(0, itemId, 0, false, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now())));
-            // TODO: player의 credit으로 아이템 구매
+            Player player = playerDao.findByLoginId(PlayerService.loginId); // 현재 플레이어
+            orderDao.insert(new Order(itemId, player.getPlayerId(), false));
+            playerDao.updateCredit(player, player.getCredit() - price); // player의 credit으로 아이템 구매
         }
     }
 }
