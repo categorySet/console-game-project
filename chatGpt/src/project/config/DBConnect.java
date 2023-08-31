@@ -7,9 +7,8 @@ import java.sql.SQLException;
 public class DBConnect {
 
     private static DBConnect dbconn = new DBConnect();
-    private String url = "jdbc:oracle:thin:@localhost:49161/xe";
-//    private String url = "jdbc:oracle:thin:@localhost:1521/xe";
-
+//    private String url = "jdbc:oracle:thin:@localhost:49161/xe";
+    private String url = "jdbc:oracle:thin:@localhost:1521/xe";
 
     public DBConnect() {
     }

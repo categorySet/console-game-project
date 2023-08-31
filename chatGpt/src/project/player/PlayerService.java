@@ -14,6 +14,10 @@ public class PlayerService {
         return (this.loginId != null) ? true : false;
     }
 
+    public static String getLoginId() {
+        return loginId;
+    }
+
     public void signup(Scanner sc) {
         System.out.println("회원가입");
         System.out.print("아이디를 입력해주세요 : ");
