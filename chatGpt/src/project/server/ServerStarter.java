@@ -1,7 +1,6 @@
 package project.server;
 
-import gameHistory.GameHistoryService;
-import project.player.PlayerService;
+import project.gameHistory.GameHistoryService;
 
 import java.util.List;
 

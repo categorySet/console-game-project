@@ -184,6 +184,7 @@ public class AdminService {
 			}
 			i.updateItem(price, limitedEdition, amount);
 			itemDao.update(i);
+		}
 	}
 
 	// 아이템 삭제

@@ -1,6 +1,6 @@
 package project;
 
-import gameHistory.GameHistoryService;
+import project.gameHistory.GameHistoryService;
 import project.admin.AdminService;
 import project.item.ItemService;
 import project.player.PlayerService;

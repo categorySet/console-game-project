@@ -1,4 +1,4 @@
-package gameHistory;
+package project.gameHistory;
 
 import project.config.db.DBConnect;
 

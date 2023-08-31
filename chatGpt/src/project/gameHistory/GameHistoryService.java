@@ -1,4 +1,4 @@
-package gameHistory;
+package project.gameHistory;
 
 import project.player.Player;
 import project.player.PlayerDao;
