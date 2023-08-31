@@ -25,7 +25,7 @@ public class Main {
 
             executorService.execute(serverStarter);
             roomMap.put(port + i, serverStarter);
-            roomStatusMap.put(port + i, ((MafiaServer) serverStarter.getGamable()).getStatus());
+            roomStatusMap.put(port + i, (serverStarter.status));
         }
 
     }

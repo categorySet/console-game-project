@@ -12,6 +12,8 @@ public class ServerStarter extends Thread {
     private Gamable gamable;
     private int port;
 
+    public Status status;
+
     public static List<String> winners;
 
     public ServerStarter(Gamable gamable, int port) {
@@ -27,7 +29,7 @@ public class ServerStarter extends Thread {
 
     @Override
     public void run() {
-        gamable.run(port);
+        gamable.run(port, this);
 
         while (winners == null) {
 

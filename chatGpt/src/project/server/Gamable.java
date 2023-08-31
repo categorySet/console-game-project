@@ -2,6 +2,6 @@ package project.server;
 
 public interface Gamable {
 
-    void run(int port);
+    void run(int port, ServerStarter serverStarter);
 
 }

@@ -24,6 +24,7 @@ public class MafiaRoom extends ChatRoom {
     private DayTimer dayTimer = null;
 
     private MafiaServer currentServer;
+    private ServerStarter serverStarter;
 
     private ArrayList<ChatServerTh> deadList;
 
@@ -34,9 +35,11 @@ public class MafiaRoom extends ChatRoom {
 
     private static List<String> winners;
 
-    public MafiaRoom(MafiaServer mafiaServer) {
+    public MafiaRoom(MafiaServer mafiaServer, ServerStarter serverStarter) {
         super.list = new ArrayList<ChatServerTh>();
         this.deadList = new ArrayList<>();
+
+        this.serverStarter = serverStarter;
 
         this.currentServer = mafiaServer;
     }
@@ -187,7 +190,7 @@ public class MafiaRoom extends ChatRoom {
             for (ChatServerTh c : list) {
                 if (c.getRoles() instanceof Citizen) {
                     winners.add(c.getUserName());
-                    currentServer.setStatus(Status.FINISHED);
+                    serverStarter.status = Status.FINISHED;
                 }
             }
         } else if (countMafia >= countCitizen) {
@@ -195,7 +198,7 @@ public class MafiaRoom extends ChatRoom {
             for (ChatServerTh c : list) {
                 if (c.getRoles() instanceof Mafia) {
                     winners.add(c.getUserName());
-                    currentServer.setStatus(Status.FINISHED);
+                    serverStarter.status = Status.FINISHED;
                 }
             }
         }
