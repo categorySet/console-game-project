@@ -3,36 +3,36 @@ package project.shop;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class Shop {
-    private int shopId;
+public class Order {
+    private int orderId;
     private int itemId;
     private int playerId;
     private Date createDate;
     private Date lastModifiedDate;
 
-    public Shop() {
+    public Order() {
     }
 
-    // shop 객체 생성할 때
-    public Shop(int shopId, int itemId, int playerId, boolean limitedEdition) {
-        this.shopId = shopId;
+    // order 객체 생성할 때
+    public Order(int orderId, int itemId, int playerId, boolean limitedEdition) {
+        this.orderId = orderId;
         this.itemId = itemId;
         this.playerId = playerId;
         this.createDate = Date.valueOf(LocalDate.now());
-        this.lastModifiedDate = Date.valueOf(LocalDate.now()); // TODO: modifiedDate 수정
+        this.lastModifiedDate = Date.valueOf(LocalDate.now());
     }
 
     // 전체 값 조회
-    public Shop(int shopId, int itemId, int playerId, boolean limitedEdition, Date createDate, Date lastModifiedDate) {
-        this.shopId = shopId;
+    public Order(int orderId, int itemId, int playerId, boolean limitedEdition, Date createDate, Date lastModifiedDate) {
+        this.orderId = orderId;
         this.itemId = itemId;
         this.playerId = playerId;
         this.createDate = createDate;
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getShopId() {
-        return shopId;
+    public int getOrderId() {
+        return orderId;
     }
 
     public int getItemId() {
@@ -53,8 +53,8 @@ public class Shop {
 
     @Override
     public String toString() {
-        return "Shop{" +
-                "shopId=" + shopId +
+        return "Order{" +
+                "orderId=" + orderId +
                 ", itemId=" + itemId +
                 ", playerId=" + playerId +
                 ", createDate=" + createDate +

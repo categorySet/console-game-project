@@ -7,15 +7,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ShopService {
-    private ShopDao shopDao;
+public class OrderService {
+    private OrderDao orderDao;
 
-    public ShopService() {
-        shopDao = new ShopDao();
+    public OrderService() {
+        orderDao = new OrderDao();
     }
 
     // 주문
-    public void addShop(Scanner sc, ArrayList<Item> items) {
+    public void addOrder(Scanner sc, ArrayList<Item> items) {
         System.out.println("======= 아이템 구매 =======");
         System.out.println("0.기본 상점 1.마피아 상점 2.퀴즈 상점");
         System.out.print("입력: ");
@@ -35,7 +35,7 @@ public class ShopService {
         } else {
             int price = items.get(itemId).getPrice(); // 선택한 아이템의 가격
             //TODO : 여기 shopId가 0이면 문제될 것 같은데요? 체크해 보셨나요??
-            shopDao.insert(new Shop(0, itemId, 0, false, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now())));
+            orderDao.insert(new Order(0, itemId, 0, false, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now())));
             // TODO: player의 credit으로 아이템 구매
         }
     }

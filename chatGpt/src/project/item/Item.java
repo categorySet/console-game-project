@@ -21,8 +21,8 @@ public class Item {
         this.itemName = itemName;
         this.gameId = gameId;
         this.price = price;
-        this.amount = amount;
         this.limitedEdition = limitedEdition;
+        this.amount = amount;
         this.createDate = Date.valueOf(LocalDate.now());
         this.lastModifiedDate = Date.valueOf(LocalDate.now());
     }
@@ -32,8 +32,8 @@ public class Item {
         this.itemName = itemName;
         this.gameId = gameId;
         this.price = price;
-        this.amount = amount;
         this.limitedEdition = limitedEdition;
+        this.amount = amount;
         this.createDate = Date.valueOf(LocalDate.now());
         this.lastModifiedDate = Date.valueOf(LocalDate.now());
     }

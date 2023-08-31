@@ -8,20 +8,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ShopDao {
+public class OrderDao {
     private DBConnect dbconn;
 
-    public ShopDao() {
+    public OrderDao() {
         dbconn = DBConnect.getInstance();
     }
 
     // 구매
-    public void insert(Shop s) {
+    public void insert(Order s) {
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "insert into shop values(seq_shop.nextval,?,?,sysdate,sysdate)"; // TODO: modifiedDate 수정
+        String sql = "insert into order values(seq_order.nextval,?,?,sysdate,sysdate)";
 
         try {
             // 3. preparedstatement 생성
@@ -43,25 +43,25 @@ public class ShopDao {
     }
 
     // 번호로 검색
-    public Shop select(int shopId) {
+    public Order select(int orderId) {
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from shop where shop_id=?";
+        String sql = "select * from order where order_id=?";
 
         try {
             // 3. preparedstatement 생성
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             // 4. ? 매칭
-            pstmt.setInt(1, shopId);
+            pstmt.setInt(1, orderId);
 
             // 5. 실행
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new Shop(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(5));
+                return new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(5));
             }
 
         } catch (SQLException e) {
@@ -73,14 +73,14 @@ public class ShopDao {
     }
 
     // player로 검색
-    public ArrayList<Shop> selectByPlayerId(int playerId) {
-        ArrayList<Shop> list = new ArrayList<Shop>();
+    public ArrayList<Order> selectByPlayerId(int playerId) {
+        ArrayList<Order> list = new ArrayList<Order>();
 
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from shop where player_id=?";
+        String sql = "select * from order where player_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -93,7 +93,7 @@ public class ShopDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Shop(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
+                list.add(new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
             }
 
         } catch (SQLException e) {
@@ -105,15 +105,15 @@ public class ShopDao {
     }
 
     // 전체 검색
-    public ArrayList<Shop> selectAll() {
+    public ArrayList<Order> selectAll() {
 
-        ArrayList<Shop> list = new ArrayList<Shop>();
+        ArrayList<Order> list = new ArrayList<Order>();
 
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from shop";
+        String sql = "select * from order";
 
         try {
             // 3. preparedstatement 생성
@@ -123,7 +123,7 @@ public class ShopDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Shop(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
+                list.add(new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
             }
 
         } catch (SQLException e) {
@@ -135,19 +135,19 @@ public class ShopDao {
     }
 
     // 구매 취소
-    public void delete(int shopId) {
+    public void delete(int orderId) {
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "delete shop where shop_id=?";
+        String sql = "delete order where order_id=?";
 
         try {
             // 3. preparedstatement 생성
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             // 4. ? 매칭
-            pstmt.setInt(1, shopId);
+            pstmt.setInt(1, orderId);
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();

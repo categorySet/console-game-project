@@ -20,7 +20,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "insert into item values(seq_item.nextval,?,?,?,?,?,sysdate,sysdate)";
+        String sql = "insert into item values(seq_item.nextval,?,?,?,?,?,sysdate,sysdate)"; // item_name, game_id, price, limited_edition, amount
 
         try {
             // 3. preparedstatement 생성
@@ -50,7 +50,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from Item where item_id=?";
+        String sql = "select item_id, item_name, game_id, price, limited_edtion, amount, create_date from Item where item_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -81,7 +81,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from item where game_id=?";
+        String sql = "select item_id, item_name, game_id, price, limited_edtion, amount, create_date from item where game_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -114,7 +114,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from item";
+        String sql = "select item_id, item_name, game_id, price, limited_edtion, amount, create_date from item";
 
         try {
             // 3. preparedstatement 생성
@@ -151,6 +151,7 @@ public class ItemDao {
             pstmt.setInt(1, i.getPrice());
             pstmt.setBoolean(2, i.isLimitedEdition());
             pstmt.setInt(3, i.getAmount());
+            pstmt.setInt(3, i.getItemId());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();
