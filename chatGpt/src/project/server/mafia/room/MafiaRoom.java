@@ -203,7 +203,7 @@ public class MafiaRoom extends ChatRoom {
             }
         }
 
-        ServerStarter.winners = winners;
+        serverStarter.winners = winners;
         dayTimer.dayTimerflag = false;
         dayTimer.interrupt();
 
