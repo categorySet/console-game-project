@@ -8,20 +8,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrderDao {
+public class PurchaseDao {
     private DBConnect dbconn;
 
-    public OrderDao() {
+    public PurchaseDao() {
         dbconn = DBConnect.getInstance();
     }
 
     // 구매
-    public void insert(Order s) {
+    public void insert(Purchase s) {
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "insert into order values(seq_order.nextval,?,?,sysdate,sysdate)";
+        String sql = "insert into purchase values(seq_purchase.nextval,?,?,sysdate,sysdate)"; // item_id, player_id
 
         try {
             // 3. preparedstatement 생성
@@ -43,25 +43,25 @@ public class OrderDao {
     }
 
     // 번호로 검색
-    public Order select(int orderId) {
+    public Purchase select(int purchaseId) {
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from order where order_id=?";
+        String sql = "select purchase_id, item_id, player_id, create_date, last_modified_date from purchase where purchase_id=?";
 
         try {
             // 3. preparedstatement 생성
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             // 4. ? 매칭
-            pstmt.setInt(1, orderId);
+            pstmt.setInt(1, purchaseId);
 
             // 5. 실행
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(5));
+                return new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(5));
             }
 
         } catch (SQLException e) {
@@ -73,14 +73,14 @@ public class OrderDao {
     }
 
     // player로 검색
-    public ArrayList<Order> selectByPlayerId(int playerId) {
-        ArrayList<Order> list = new ArrayList<Order>();
+    public ArrayList<Purchase> selectByPlayerId(int playerId) {
+        ArrayList<Purchase> list = new ArrayList<Purchase>();
 
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from order where player_id=?";
+        String sql = "select purchase_id, item_id, player_id, create_date, last_modified_date from purchase where player_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -93,7 +93,7 @@ public class OrderDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
+                list.add(new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
             }
 
         } catch (SQLException e) {
@@ -105,15 +105,15 @@ public class OrderDao {
     }
 
     // 전체 검색
-    public ArrayList<Order> selectAll() {
+    public ArrayList<Purchase> selectAll() {
 
-        ArrayList<Order> list = new ArrayList<Order>();
+        ArrayList<Purchase> list = new ArrayList<Purchase>();
 
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select * from order";
+        String sql = "select purchase_id, item_id, player_id, create_date, last_modified_date from purchase";
 
         try {
             // 3. preparedstatement 생성
@@ -123,7 +123,7 @@ public class OrderDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Order(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
+                list.add(new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
             }
 
         } catch (SQLException e) {
@@ -135,19 +135,19 @@ public class OrderDao {
     }
 
     // 구매 취소
-    public void delete(int orderId) {
+    public void delete(int purchaseId) {
         // 1. db연결
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "delete order where order_id=?";
+        String sql = "delete purchase where purchase_id=?"; // purchase_id
 
         try {
             // 3. preparedstatement 생성
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             // 4. ? 매칭
-            pstmt.setInt(1, orderId);
+            pstmt.setInt(1, purchaseId);
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();

@@ -31,7 +31,9 @@ public class ItemService {
         } else if (s.equals("F")) {
             amount = 999999999;
         }
-        itemDao.insert(new Item(0, itemName, gameId, price, limitedEdition, amount));
+        System.out.print("item info: ");
+        String itemInfo = sc.next();
+        itemDao.insert(new Item(itemName, gameId, price, limitedEdition, amount, itemInfo));
     }
 
     // 번호로 검색
@@ -97,7 +99,7 @@ public class ItemService {
             }
             i.updateItem(price, limitedEdition, amount);
             itemDao.update(i);
-        } // TODO: 바인딩 되지 않음. setter 없이 수정하려면?  -> 설명 부탁드립니다.
+        }
     }
 
     // 아이템 삭제
@@ -117,6 +119,6 @@ public class ItemService {
                 System.out.println("아이템 삭제 중 오류가 발생했습니다: " + e.getMessage());
             }
         }
-    } // TODO: 삭제되지 않고 멈춰버림 -> 설명 부탁 드립니다.
+    }
 }
 

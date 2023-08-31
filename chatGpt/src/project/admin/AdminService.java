@@ -68,7 +68,7 @@ public class AdminService {
 //		
 //		int playerId = player.getPlayerId();
 //		boolean flag = adminDao.checkBlackList(playerId);
-		
+		boolean flag = false;
 		while(flag) {
 				System.out.println("플레이어가 블랙리스트에 추가 되었습니다. 활동이 금지됩니다.");
 				//유저 차단 ////
@@ -107,7 +107,9 @@ public class AdminService {
 		} else if (s.equals("F")) {
 			amount = 999999999;
 		}
-		adminDao.insert(new Item(0, itemName, gameId, price, limitedEdition, amount));
+		System.out.print("item info: ");
+		String itemInfo = sc.next();
+		adminDao.insert(new Item(itemName, gameId, price, limitedEdition, amount, itemInfo));
 	}
 
 	// 번호로 검색

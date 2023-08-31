@@ -20,7 +20,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "insert into item values(seq_item.nextval,?,?,?,?,?,sysdate,sysdate)"; // item_name, game_id, price, limited_edition, amount
+        String sql = "insert into item values(seq_item.nextval,?,?,?,?,?,?,sysdate,sysdate)"; // item_name, game_id, price, limited_edition, amount, item_info
 
         try {
             // 3. preparedstatement 생성
@@ -32,6 +32,7 @@ public class ItemDao {
             pstmt.setInt(3, i.getPrice());
             pstmt.setBoolean(4, i.isLimitedEdition());
             pstmt.setInt(5, i.getAmount());
+            pstmt.setString(6, i.getItemInfo());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();
@@ -50,7 +51,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select item_id, item_name, game_id, price, limited_edtion, amount, create_date from Item where item_id=?";
+        String sql = "select item_id, item_name, game_id, price, limited_edition, amount, item_info, create_date, last_modified_date from Item where item_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -63,7 +64,7 @@ public class ItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6));
+                return new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getDate(9));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,7 +82,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select item_id, item_name, game_id, price, limited_edtion, amount, create_date from item where game_id=?";
+        String sql = "select item_id, item_name, game_id, price, limited_edition, amount, item_info, create_date, last_modified_date from item where game_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -94,7 +95,7 @@ public class ItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6)));
+                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getDate(9)));
             }
 
         } catch (SQLException e) {
@@ -114,7 +115,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "select item_id, item_name, game_id, price, limited_edtion, amount, create_date from item";
+        String sql = "select item_id, item_name, game_id, price, limited_edition, amount, item_info, create_date, last_modified_date from item";
 
         try {
             // 3. preparedstatement 생성
@@ -124,7 +125,7 @@ public class ItemDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6)));
+                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getDate(9)));
             }
 
         } catch (SQLException e) {
@@ -141,7 +142,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "update item set price=?, limited_edition=?, amount=?, last_modified_date=sysdate where item_id=?";
+        String sql = "update item set price=?, limited_edition=?, amount=? where item_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -151,7 +152,7 @@ public class ItemDao {
             pstmt.setInt(1, i.getPrice());
             pstmt.setBoolean(2, i.isLimitedEdition());
             pstmt.setInt(3, i.getAmount());
-            pstmt.setInt(3, i.getItemId());
+            pstmt.setInt(4, i.getItemId());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();

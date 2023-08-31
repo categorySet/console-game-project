@@ -5,20 +5,20 @@ import project.admin.AdminService;
 import project.item.ItemService;
 import project.player.PlayerService;
 import project.server.GameCenter;
-import project.shop.OrderService;
+import project.shop.PerchaseService;
 
 import java.util.Scanner;
 
 public class Menu {
     private PlayerService playerService;
-    private OrderService orderService;
+    private PerchaseService perchaseService;
     private ItemService itemService;
     private GameHistoryService gameHistoryService;
     private AdminService adminService;
 
     public Menu() {
         playerService = new PlayerService();
-        orderService = new OrderService();
+        perchaseService = new PerchaseService();
         itemService = new ItemService();
         gameHistoryService = new GameHistoryService();
         adminService = new AdminService();
@@ -180,7 +180,7 @@ public class Menu {
                     flag = false;
                     break;
                 case 1:
-                    orderService.addOrder(sc, itemService.getAll());
+                    perchaseService.addPurchase(sc, itemService.getAll());
                     break;
                 case 2:
                     break;

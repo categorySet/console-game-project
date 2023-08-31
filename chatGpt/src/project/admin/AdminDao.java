@@ -232,7 +232,7 @@ public class AdminDao {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6));
+                return new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getDate(9));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -263,7 +263,7 @@ public class AdminDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6)));
+                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getDate(9)));
             }
 
         } catch (SQLException e) {
@@ -293,7 +293,7 @@ public class AdminDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6)));
+                list.add(new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getDate(9)));
             }
 
         } catch (SQLException e) {

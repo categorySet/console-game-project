@@ -3,18 +3,18 @@ package project.shop;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class Order {
-    private int orderId;
+public class Purchase {
+    private int purchaseId;
     private int itemId;
     private int playerId;
     private Date createDate;
     private Date lastModifiedDate;
 
-    public Order() {
+    public Purchase() {
     }
 
     // order 객체 생성할 때
-    public Order(int itemId, int playerId, boolean limitedEdition) {
+    public Purchase(int itemId, int playerId, boolean limitedEdition) {
         this.itemId = itemId;
         this.playerId = playerId;
         this.createDate = Date.valueOf(LocalDate.now());
@@ -22,16 +22,16 @@ public class Order {
     }
 
     // 전체 값 조회
-    public Order(int orderId, int itemId, int playerId, boolean limitedEdition, Date createDate, Date lastModifiedDate) {
-        this.orderId = orderId;
+    public Purchase(int purchaseId, int itemId, int playerId, boolean limitedEdition, Date createDate, Date lastModifiedDate) {
+        this.purchaseId = purchaseId;
         this.itemId = itemId;
         this.playerId = playerId;
         this.createDate = createDate;
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getPurchaseId() {
+        return purchaseId;
     }
 
     public int getItemId() {
@@ -53,7 +53,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
+                "orderId=" + purchaseId +
                 ", itemId=" + itemId +
                 ", playerId=" + playerId +
                 ", createDate=" + createDate +
