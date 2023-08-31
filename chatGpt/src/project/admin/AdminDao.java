@@ -122,6 +122,8 @@ public class AdminDao {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			ResultSet rs = pstmt.executeQuery();
+			
+//			while(rs.next())
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
