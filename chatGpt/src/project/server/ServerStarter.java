@@ -14,7 +14,7 @@ public class ServerStarter extends Thread {
 
     public Status status;
 
-    public static List<String> winners;
+    public List<String> winners;
 
     public ServerStarter(Gamable gamable, int port) {
         this.gamable = gamable;
@@ -30,11 +30,6 @@ public class ServerStarter extends Thread {
     @Override
     public void run() {
         gamable.run(port, this);
-
-        while (winners == null) {
-
-        }
-        winners.forEach(w -> gameHistoryService.setWinner(1, w));
     }
 
 }

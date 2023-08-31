@@ -1,8 +1,12 @@
 package project.server;
 
+import gameHistory.GameHistoryService;
+import project.player.PlayerDao;
+import project.player.PlayerService;
 import project.server.mafia.server.MafiaServer;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -14,7 +18,10 @@ public class Main {
     public static HashMap<Integer, Status> roomStatusMap;
     public static ExecutorService executorService;
 
+
     public static void main(String[] args) {
+        GameHistoryService gameHistoryService = new GameHistoryService();
+
         roomMap = new HashMap<>();
         roomStatusMap = new HashMap<>();
 
@@ -26,6 +33,15 @@ public class Main {
             executorService.execute(serverStarter);
             roomMap.put(port + i, serverStarter);
             roomStatusMap.put(port + i, (serverStarter.status));
+        }
+
+        while (true) {
+            for (Map.Entry<Integer, ServerStarter> entry : roomMap.entrySet()) {
+                if (entry.getValue().winners != null) {
+                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w));
+                    entry.getValue().winners = null;
+                }
+            }
         }
 
     }
