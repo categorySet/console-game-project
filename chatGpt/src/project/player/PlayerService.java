@@ -1,15 +1,23 @@
 package project.player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import project.admin.AdminDao;
+import project.item.Item;
+import project.item.ItemDao;
 
 public class PlayerService {
     public static String loginId = null;
+    public static String nickname;
+
     private PlayerDao playerDao;
+    private ItemDao itemDao;
 
     public PlayerService() {
         this.playerDao = new PlayerDao();
+        this.itemDao = new ItemDao();
     }
 
     public boolean isLogin() {
@@ -18,6 +26,10 @@ public class PlayerService {
 
     public static String getLoginId() {
         return loginId;
+    }
+
+    public static String getNickname () {
+        return nickname;
     }
 
     public void signup(Scanner sc) {
@@ -140,11 +152,25 @@ public class PlayerService {
         } else {
             System.out.println("존재하지 않는 회원입니다.");
         }
+    }
+
+    public Item useItem(List<Integer> itemIdList, Scanner sc) {
+        List<Item> result = new ArrayList<>();
 
 
+        for (Integer itemId : itemIdList) {
+            Item findItem = itemDao.select(itemId);
+            result.add(findItem);
+            System.out.println(findItem.getItemId() + " | " +findItem.getItemName() + " | " + findItem.getCategory() + " | " + findItem.getItemInfo());
+        }
 
+        System.out.println("번호 입력 : ");
+        int m = sc.nextInt();
 
+        if(m == 0) {
 
-
+        } else {
+        }
+        return result.get(m -1);
     }
 }

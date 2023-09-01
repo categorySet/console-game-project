@@ -2,11 +2,13 @@ package project;
 
 import project.gameHistory.GameHistoryService;
 import project.admin.AdminService;
+import project.item.Item;
 import project.item.ItemService;
 import project.player.PlayerService;
 import project.server.GameCenter;
 import project.shop.PerchaseService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -130,6 +132,11 @@ public class Menu {
                     break;
                 case 2:
                     playerService.updatePassword(sc);
+                    break;
+                case 3:
+                    List<Integer> itemIdList = perchaseService.printPurchaseById();
+                    Item item = playerService.useItem(itemIdList, sc);
+                    perchaseService.applyItemToLoginId(item);
                     break;
             }
         }
