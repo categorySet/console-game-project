@@ -81,7 +81,7 @@ public class ChatServerTh extends Thread {
         try {
             userName = reader.readLine();
 
-            String[] names = userName.split(" ");
+            String[] names = userName.split(",");
 
             // key: 게임 nickname value: login_id
             serverStarter.hashtable.put(names[0], names[1]);
