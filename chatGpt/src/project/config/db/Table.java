@@ -52,7 +52,7 @@ public class Table {
 
     public void manager() {
         Connection conn = dbConnect.conn();
-        String query =  "CREATE TABLE admin(" +
+        String query =  "CREATE TABLE manager(" +
                 "manager_id NUMBER PRIMARY KEY," +
                 "player_id NUMBER," +
                 "pin NUMBER NOT NULL," +
@@ -63,7 +63,7 @@ public class Table {
         try {
             Statement statement = conn.createStatement();
             statement.execute(query);
-            System.out.println("Create Table Admin");
+            System.out.println("Create Table manger");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,6 +84,7 @@ public class Table {
             Statement statement = conn.createStatement();
             statement.execute(query);
             System.out.println("Create Table Blacklist");
+
 
         } catch (SQLException e) {
             e.printStackTrace();
