@@ -12,11 +12,11 @@ public class Main {
         Table table = new Table();
         Sequence sequence = new Sequence();
 
-        table.dropAll();
-        table.createAll();
-
-        sequence.dropAll();
-        sequence.createAll();
+//        table.dropAll();
+//        table.createAll();
+//
+//        sequence.dropAll();
+//        sequence.createAll();
 
         menu.run(sc);
 

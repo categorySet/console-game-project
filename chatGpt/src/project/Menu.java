@@ -164,6 +164,7 @@ public class Menu {
     }
 
     private void shopRun(Scanner sc) {
+        sc.nextLine();
         String menu = "1.아이템구매 2.구매내역 3.아이템등록 4.조회 5.수정 6.삭제 0.종료";
         boolean flag = true;
         int m = 0;

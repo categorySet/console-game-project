@@ -31,7 +31,8 @@ public class ItemService {
             amount = 999999999;
         }
         System.out.print("item info: ");
-        String itemInfo = sc.next();
+        String itemInfo = sc.nextLine();
+        sc.nextLine();
         itemDao.insert(new Item(itemName, gameId, price, limitedEdition, amount, itemInfo));
     }
 
@@ -89,11 +90,11 @@ public class ItemService {
             String s = sc.next();
             boolean limitedEdition = false;
             int amount = 0;
-            if (s.equals("T")) {
+            if (s.equalsIgnoreCase("T")) {
                 limitedEdition = true;
                 System.out.print("limited amount: ");
                 amount = sc.nextInt();
-            } else if (s.equals("F")) {
+            } else if (s.equalsIgnoreCase("F")) {
                 amount = 999999999;
             }
             i.updateItem(price, limitedEdition, amount);

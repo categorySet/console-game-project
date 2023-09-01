@@ -14,7 +14,7 @@ public class Purchase {
     }
 
     // order 객체 생성할 때
-    public Purchase(int itemId, int playerId, boolean limitedEdition) {
+    public Purchase(int itemId, int playerId) {
         this.itemId = itemId;
         this.playerId = playerId;
         this.createDate = Date.valueOf(LocalDate.now());
@@ -22,7 +22,7 @@ public class Purchase {
     }
 
     // 전체 값 조회
-    public Purchase(int purchaseId, int itemId, int playerId, boolean limitedEdition, Date createDate, Date lastModifiedDate) {
+    public Purchase(int purchaseId, int itemId, int playerId, Date createDate, Date lastModifiedDate) {
         this.purchaseId = purchaseId;
         this.itemId = itemId;
         this.playerId = playerId;
@@ -52,8 +52,8 @@ public class Purchase {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "orderId=" + purchaseId +
+        return "purchase{" +
+                "purchaseId=" + purchaseId +
                 ", itemId=" + itemId +
                 ", playerId=" + playerId +
                 ", createDate=" + createDate +

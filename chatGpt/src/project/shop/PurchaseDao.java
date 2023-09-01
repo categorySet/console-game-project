@@ -61,7 +61,7 @@ public class PurchaseDao {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(5));
+                return new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getDate(5));
             }
 
         } catch (SQLException e) {
@@ -93,7 +93,7 @@ public class PurchaseDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
+                list.add(new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getDate(5)));
             }
 
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class PurchaseDao {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getBoolean(4), rs.getDate(5), rs.getDate(6)));
+                list.add(new Purchase(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDate(4), rs.getDate(5)));
             }
 
         } catch (SQLException e) {

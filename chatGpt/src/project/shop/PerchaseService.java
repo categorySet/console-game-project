@@ -43,7 +43,7 @@ public class PerchaseService {
             Item selectedItem = itemDao.select(itemId);
             int price = selectedItem.getPrice(); // 선택한 아이템의 가격
             Player player = playerDao.findByLoginId(PlayerService.loginId); // 현재 플레이어
-            purchaseDao.insert(new Purchase(itemId, player.getPlayerId(), false));
+            purchaseDao.insert(new Purchase(itemId, player.getPlayerId()));
             playerDao.updateCredit(player, player.getCredit() - price); // player의 credit으로 아이템 구매
             System.out.printf("%s이(가) 구매되었습니다. 잔액: %n", selectedItem.getItemName(), player.getCredit());
         }
