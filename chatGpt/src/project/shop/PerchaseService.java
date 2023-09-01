@@ -82,6 +82,10 @@ public class PerchaseService {
 
     public void applyItemToNickname(Item item) {
         if (item.getCategory().equals(BasicItem.title.getContents())) {
+            if (nickname.contains(ColorCode.RESET.getCode())) {
+                String[] s = nickname.split(" ");
+                nickname = s[1];
+            }
             nickname = item.getItemName() + " " + nickname; // 닉네임 앞에 칭호를 붙임
             System.out.println("nickname: " + nickname);
             System.out.println("칭호가 적용되었습니다.");
