@@ -1,5 +1,7 @@
 package project.shop;
 
+import project.item.BasicItem;
+import project.item.ColorCode;
 import project.item.Item;
 import project.item.ItemDao;
 import project.player.Player;
@@ -50,6 +52,7 @@ public class PerchaseService {
                 playerDao.updateCredit(player, -price); // player의 credit으로 아이템 구매
                 // TODO : 구매 후 아이템 수량 감소
                 System.out.printf("%s이(가) 구매되었습니다. 잔액: %d%n", selectedItem.getItemName(), player.getCredit());
+                applyItemToLoginId(selectedItem);
             } else {
                 System.out.printf("credit이 부족합니다. 잔액: %d%n", player.getCredit());
             }
@@ -62,6 +65,28 @@ public class PerchaseService {
         ArrayList<Purchase> purchases = purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
         for (Purchase p : purchases) {
             System.out.printf("주문번호: %d / 아이템 이름: %s / 주문날짜: %s%n", p.getPurchaseId(), itemDao.select(p.getItemId()).getItemName(), p.getCreateDate());
+        }
+    }
+
+    public void applyItemToLoginId(Item item) {
+        if (item.getCategory().equals(BasicItem.title.getContents())) {
+            loginId = item.getItemName() + " " + loginId; // 닉네임 앞에 칭호를 붙임
+            System.out.println("nickname: " + loginId);
+            System.out.println("칭호가 적용되었습니다.");
+
+        } else if (item.getCategory().equals(BasicItem.color.getContents())) {
+                for (ColorCode c : ColorCode.values()) {
+                    if (item.getItemName().equalsIgnoreCase(c.name())) {
+                        String colorCode = c.getCode();
+                        loginId = colorCode + " " + loginId + " " + ColorCode.RESET.getCode(); // 닉네임에 색상 코드를 적용
+                    }
+                }
+            System.out.println("nickname: " + loginId);
+            System.out.println("스킨이 적용되었습니다.");
+
+        } else if (item.getCategory().equals(BasicItem.edition.getContents())) {
+            // TODO: 칭호와 스킨 두 가지를 모두 적용하는 로직
+
         }
     }
 }

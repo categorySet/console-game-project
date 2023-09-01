@@ -117,7 +117,6 @@ public class Table {
                 "history_id NUMBER PRIMARY KEY," +
                 "game_id NUMBER NOT NULL," +
                 "winner NUMBER," +
-                "game_room_id NUMBER NOT NULL," +
                 "create_date DATE," +
                 "last_modified_date DATE," +
                 "CONSTRAINT fk_game_id FOREIGN KEY(game_id) REFERENCES game(game_id)," +
@@ -144,7 +143,7 @@ public class Table {
                 "price NUMBER," +
                 "limited_edition CHAR(1) DEFAULT '0'," +
                 "amount NUMBER," +
-                "item_info VARCHAR2(1000) NOT NULL," +
+                "item_info VARCHAR2(100) NOT NULL," +
                 "create_date DATE," +
                 "last_modified_date DATE)";
         try {

@@ -1,10 +1,7 @@
 package project.item;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static java.awt.SystemColor.info;
 
 public class ItemService {
     private ItemDao itemDao;
@@ -20,23 +17,26 @@ public class ItemService {
         String itemName = sc.next();
         System.out.print("game id (0.기본 1.마피아 2.퀴즈): ");        //game_id와 game_name을 조회하여 자동으로 작성해야할듯함 (우선순위 낮음 시간이 된다면 진행)
         int gameId = sc.nextInt();
+        System.out.print("category (칭호, 스킨, 둘다, 마피아, 의사, 경찰): ");
+        String category = sc.next();
         System.out.print("price: ");
         int price = sc.nextInt();
         System.out.print("limitedEdition(T/F): ");
         String s = sc.next();
         boolean limitedEdition = false;
         int amount = 0;
-        if (s.equals("T")) {
+        if (s.toUpperCase().equals("T")) {
             limitedEdition = true;
             System.out.print("amount: ");
             amount = sc.nextInt();
-        } else if (s.equals("F")) {
+        } else if (s.toUpperCase().equals("F")) {
             amount = 999999999;
         }
         System.out.print("item info: ");
         sc.nextLine(); // 입력 버퍼를 비워주는 역할
         String itemInfo = sc.nextLine();
-        itemDao.insert(new Item(itemName, gameId, price, limitedEdition, amount, itemInfo));
+        itemDao.insert(new Item(itemName, gameId, category, price, limitedEdition, amount, itemInfo));
+        // TODO: admin 기능 중 item 등록 삭제 -> init에 추가
     }
 
     // 번호로 검색
@@ -127,4 +127,3 @@ public class ItemService {
         }
     }
 }
-

@@ -11,24 +11,28 @@ public class Item {
     private boolean limitedEdition;
     private int amount;
     private String itemInfo;
+    private String category;
     private Date createDate;
     private Date lastModifiedDate;
+
 
     public Item() {
     }
 
-    public Item(int itemId, String itemName, int gameId, int price, boolean limitedEdition, int amount) {
+    public Item(int itemId, String itemName, int gameId, String category, int price, boolean limitedEdition, int amount) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.gameId = gameId;
+        this.category = category;
         this.price = price;
         this.limitedEdition = limitedEdition;
         this.amount = amount;
     }
 
-    public Item(String itemName, int gameId, int price, boolean limitedEdition, int amount, String itemInfo) {
+    public Item(String itemName, int gameId, String category, int price, boolean limitedEdition, int amount, String itemInfo) {
         this.itemName = itemName;
         this.gameId = gameId;
+        this.category = category;
         this.price = price;
         this.limitedEdition = limitedEdition;
         this.amount = amount;
@@ -36,10 +40,11 @@ public class Item {
         this.createDate = Date.valueOf(LocalDate.now());
         this.lastModifiedDate = Date.valueOf(LocalDate.now());
     }
-    public Item(int itemId, String itemName, int gameId, int price, boolean limitedEdition, int amount, String itemInfo, Date createDate, Date lastModifiedDate) {
+    public Item(int itemId, String itemName, int gameId, String category, int price, boolean limitedEdition, int amount, String itemInfo, Date createDate, Date lastModifiedDate) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.gameId = gameId;
+        this.category = category;
         this.price = price;
         this.limitedEdition = limitedEdition;
         this.amount = amount;
@@ -58,6 +63,10 @@ public class Item {
 
     public int getGameId() {
         return gameId;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public int getPrice() {
@@ -90,7 +99,9 @@ public class Item {
                 ", limitedEdition=" + limitedEdition +
                 ", amount=" + amount +
                 ", itemInfo='" + itemInfo + '\'' +
+                ", category='" + category + '\'' +
                 ", createDate=" + createDate +
+                ", lastModifiedDate=" + lastModifiedDate +
                 '}';
     }
 

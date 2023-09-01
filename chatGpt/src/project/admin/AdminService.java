@@ -118,7 +118,7 @@ public class AdminService {
 		} else if (s.equals("F")) {
 			amount = 999999999;
 		}
-		itemDao.insert(new Item(0, itemName, gameId, price, limitedEdition, amount));
+//		itemDao.insert(new Item(0, itemName, gameId, category, price, limitedEdition, amount));
 	}
 
 	// 번호로 검색
