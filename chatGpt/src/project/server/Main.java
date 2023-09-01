@@ -2,6 +2,7 @@ package project.server;
 
 import project.gameHistory.GameHistoryService;
 import project.server.mafia.server.MafiaServer;
+import project.server.mafia.server.PortSender;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,10 +29,18 @@ public class Main {
         for (int i = 0; i < NUM_OF_ROOM; i++) {
             ServerStarter serverStarter = new ServerStarter(new MafiaServer(), port + i);
 
+//            serverStarter.setDaemon(true);
+
             executorService.execute(serverStarter);
             roomMap.put(port + i, serverStarter);
             roomStatusMap.put(port + i, (serverStarter.status));
         }
+
+        PortSender ps = new PortSender();
+        ps.setDaemon(true);
+        ps.start();
+
+
 
         while (true) {
             for (Map.Entry<Integer, ServerStarter> entry : roomMap.entrySet()) {
@@ -41,9 +50,11 @@ public class Main {
                     entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
                     entry.getValue().winners = null;
 
-                    entry.getValue().interrupt();
+                    PortSender.port++;
                 }
             }
+
+
         }
 
     }

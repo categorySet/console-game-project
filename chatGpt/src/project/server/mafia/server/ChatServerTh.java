@@ -120,9 +120,9 @@ public class ChatServerTh extends Thread {
 
             mafiaRoom.sendMessageAll(userName + "님이 입장하셨습니다.");
 
-            MafiaRoom.selected++;
+            mafiaRoom.selected++;
 
-            while (MafiaRoom.selected < MafiaRoom.MIN_PERSON) {
+            while (mafiaRoom.selected < MafiaRoom.MIN_PERSON) {
                 Thread.sleep(1000);
             }
 
@@ -130,12 +130,20 @@ public class ChatServerTh extends Thread {
                 String read = reader.readLine();
 
                 mafiaRoom.sendMessageAll(read, rolesAdapter, this);
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+
+            try {
+                reader.close();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        System.out.println("[Info] ChatServerTh.run 종료됨");
     }
 
 

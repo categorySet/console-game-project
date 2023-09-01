@@ -25,7 +25,7 @@ public class MafiaServer implements Gamable {
     }
 
     @Override
-    public void run(int port, ServerStarter serverStarter) {
+    public int run(int port, ServerStarter serverStarter) {
         mafiaRoom = new MafiaRoom(this, serverStarter);
 
         mafiaRoom.start();
@@ -33,7 +33,7 @@ public class MafiaServer implements Gamable {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
 
-            while (true) {
+            while (!serverStarter.isInterrupted()) {
                 Socket socket = serverSocket.accept();
 
                 connectCounter++;
@@ -53,6 +53,12 @@ public class MafiaServer implements Gamable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println("[Info] MafiaServer.run 종료됨");
+
+        mafiaRoom.interrupt();
+
+        return 0;
     }
 
 }

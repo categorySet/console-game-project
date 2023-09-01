@@ -28,7 +28,7 @@ public class MafiaRoom extends ChatRoom {
 
     private ArrayList<ChatServerTh> deadList;
 
-    public static int selected = 0;
+    public int selected = 0;
 
     private int countMafia = 0;
     private int countCitizen = 0;
@@ -206,6 +206,14 @@ public class MafiaRoom extends ChatRoom {
         serverStarter.winners = winners;
         dayTimer.dayTimerflag = false;
         dayTimer.interrupt();
+
+        for (ChatServerTh c : list) {
+            c.interrupt();
+        }
+
+        for (ChatServerTh c : deadList) {
+            c.interrupt();
+        }
 
         sendMessageAll("/stop");
 

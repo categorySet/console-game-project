@@ -28,7 +28,9 @@ public class ServerStarter extends Thread {
 
     @Override
     public void run() {
-        gamable.run(port, this);
+        int gameStatus = gamable.run(port, this);
+
+        System.out.println("[Info] ServerStarter.run 종료됨 상태코드: " + gameStatus);
     }
 
 }
