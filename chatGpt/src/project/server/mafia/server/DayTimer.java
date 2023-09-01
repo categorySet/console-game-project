@@ -79,5 +79,7 @@ public class DayTimer extends Thread {
 
             time = 30;
         }
+
+        System.out.println("[Info] DayTimer.run 종료됨");
     }
 }

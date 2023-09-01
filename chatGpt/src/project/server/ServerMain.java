@@ -10,11 +10,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerMain {
+
     private static final int NUM_OF_ROOM = 5;
     private static final int port = 10000;
 
     public static HashMap<Integer, ServerStarter> roomMap;
-    public static HashMap<Integer, Status> roomStatusMap;
+//    public static HashMap<Integer, Status> roomStatusMap;
     public static ExecutorService executorService;
 
 
@@ -22,7 +23,7 @@ public class ServerMain {
         GameHistoryService gameHistoryService = new GameHistoryService();
 
         roomMap = new HashMap<>();
-        roomStatusMap = new HashMap<>();
+//        roomStatusMap = new HashMap<>();
 
         executorService = Executors.newFixedThreadPool(NUM_OF_ROOM);
 
@@ -33,7 +34,7 @@ public class ServerMain {
 
             executorService.execute(serverStarter);
             roomMap.put(port + i, serverStarter);
-            roomStatusMap.put(port + i, (serverStarter.status));
+//            roomStatusMap.put(port + i, (serverStarter.status));
         }
 
         PortSender ps = new PortSender();
