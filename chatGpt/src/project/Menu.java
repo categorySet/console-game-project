@@ -172,7 +172,7 @@ public class Menu {
 
     private void shopRun(Scanner sc) {
         sc.nextLine();
-        String menu = "1.아이템구매 2.구매내역 3.아이템등록 4.조회 5.수정 6.삭제 0.종료";
+        String menu = "1.아이템구매 2.구매내역 0.뒤로 가기";
         boolean flag = true;
         int m = 0;
 
@@ -192,18 +192,6 @@ public class Menu {
                     break;
                 case 2:
                     perchaseService.printPurchaseById();
-                    break;
-                case 3:
-                    itemService.addItem(sc);
-                    break;
-                case 4:
-                    itemService.printAll();
-                    break;
-                case 5:
-                    itemService.editItem(sc);
-                    break;
-                case 6:
-                    itemService.deleteItem(sc);
                     break;
             }
         }
