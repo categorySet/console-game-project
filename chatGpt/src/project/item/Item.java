@@ -94,9 +94,10 @@ public class Item {
                 '}';
     }
 
-    public void updateItem(int newPrice, boolean newLimitedEdition, int newAmount) {
+    public void updateItem(int newPrice, boolean newLimitedEdition, int newAmount, String newInfo) {
         this.price = newPrice;
         this.limitedEdition = newLimitedEdition;
         this.amount = newAmount;
+        this.itemInfo = newInfo;
     }
 }

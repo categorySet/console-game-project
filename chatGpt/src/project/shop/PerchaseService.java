@@ -4,10 +4,11 @@ import project.item.Item;
 import project.item.ItemDao;
 import project.player.Player;
 import project.player.PlayerDao;
-import project.player.PlayerService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static project.player.PlayerService.loginId;
 
 
 public class PerchaseService {
@@ -42,10 +43,25 @@ public class PerchaseService {
         } else {
             Item selectedItem = itemDao.select(itemId);
             int price = selectedItem.getPrice(); // 선택한 아이템의 가격
-            Player player = playerDao.findByLoginId(PlayerService.loginId); // 현재 플레이어
-            purchaseDao.insert(new Purchase(itemId, player.getPlayerId()));
-            playerDao.updateCredit(player, player.getCredit() - price); // player의 credit으로 아이템 구매
-            System.out.printf("%s이(가) 구매되었습니다. 잔액: %n", selectedItem.getItemName(), player.getCredit());
+            Player player = playerDao.findByLoginId(loginId); // 현재 플레이어
+
+            if (player.getCredit() >= price) {
+                purchaseDao.insert(new Purchase(itemId, player.getPlayerId()));
+                playerDao.updateCredit(player, -price); // player의 credit으로 아이템 구매
+                // TODO : 구매 후 아이템 수량 감소
+                System.out.printf("%s이(가) 구매되었습니다. 잔액: %d%n", selectedItem.getItemName(), player.getCredit());
+            } else {
+                System.out.printf("credit이 부족합니다. 잔액: %d%n", player.getCredit());
+            }
+
+        }
+    }
+
+    public void printPurchaseById() {
+        System.out.println("======= 구매 내역 =======");
+        ArrayList<Purchase> purchases = purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
+        for (Purchase p : purchases) {
+            System.out.printf("주문번호: %d / 아이템 이름: %s / 주문날짜: %s%n", p.getPurchaseId(), itemDao.select(p.getItemId()).getItemName(), p.getCreateDate());
         }
     }
 }
