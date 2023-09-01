@@ -158,7 +158,6 @@ public class ItemDao {
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();
-            System.out.println(cnt + "개의 아이템이 수정되었습니다.");
 
         } catch (SQLException e) {
             e.printStackTrace();
