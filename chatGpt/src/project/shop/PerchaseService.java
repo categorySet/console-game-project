@@ -51,9 +51,17 @@ public class PerchaseService {
             if (player.getCredit() >= price) {
                 purchaseDao.insert(new Purchase(itemId, player.getPlayerId()));
                 playerDao.updateCredit(player, -price); // player의 credit으로 아이템 구매
-                // TODO : 구매 후 아이템 수량 감소
-                System.out.printf("%s이(가) 구매되었습니다. 잔액: %d%n", selectedItem.getItemName(), player.getCredit());
-                applyItemToLoginId(selectedItem);
+                if (selectedItem.isLimitedEdition()) {
+                    if (selectedItem.getAmount() > 0) {
+                        selectedItem.decrementAmount();
+                        itemDao.update(selectedItem); // limited edition인 아이템은 구매하면 amount 값이 감소
+                        System.out.printf("%s이(가) 구매되었습니다. 잔액: %d%n", selectedItem.getItemName(), player.getCredit());
+                        applyItemToLoginId(selectedItem);
+                    } else {
+                        System.out.println("아이템의 수량이 없어 구매할 수 없습니다.");
+                    }
+                }
+
             } else {
                 System.out.printf("credit이 부족합니다. 잔액: %d%n", player.getCredit());
             }

@@ -111,4 +111,8 @@ public class Item {
         this.amount = newAmount;
         this.itemInfo = newInfo;
     }
+
+    public void decrementAmount() {
+        this.amount = --amount;
+    }
 }
