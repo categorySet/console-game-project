@@ -1,10 +1,12 @@
 package project.server;
 
 import project.gameHistory.GameHistoryService;
+import project.player.PlayerDao;
 import project.server.mafia.server.MafiaServer;
 import project.server.mafia.server.PortSender;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,6 +19,8 @@ public class ServerMain {
     public static HashMap<Integer, ServerStarter> roomMap;
 //    public static HashMap<Integer, Status> roomStatusMap;
     public static ExecutorService executorService;
+
+    private static PlayerDao playerDao = new PlayerDao();
 
 
     public static void main(String[] args) {
@@ -48,8 +52,10 @@ public class ServerMain {
                 if (entry.getValue().winners != null) {
                     int gameRoomId = gameHistoryService.getGameRoomId();
 
-                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
-                    entry.getValue().winners = null;
+//                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
+
+                    entry.getValue().winners.stream().map(w -> entry.getValue().hashtable.get(w))
+                            .forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));;
 
                     PortSender.port++;
                 }

@@ -2,6 +2,7 @@ package project.gameHistory;
 
 import project.player.Player;
 import project.player.PlayerDao;
+import project.player.PlayerService;
 
 import java.util.List;
 
@@ -25,12 +26,22 @@ public class GameHistoryService {
         return historyDao.getGameRoomId();
     }
 
-    public int setWinner(int gameId, int playerId, int sequenceNumber) {
+    public synchronized int setWinner(int gameId, int playerId, int sequenceNumber) {
+        playerDao.updateCredit(new Player(playerId, -1), 50);
+
         return historyDao.insert(gameId, playerId, sequenceNumber);
     }
 
-    public synchronized int setWinner(int gameId, String nickname, int sequenceNumber) {
-        Player player = playerDao.findByNickname(nickname);
+//    public synchronized int setWinner(int gameId, String nickname, int sequenceNumber) {
+//        Player player = playerDao.findByNickname(nickname);
+//
+//        playerDao.updateCredit(player, 50);
+//
+//        return historyDao.insert(gameId, player.getPlayerId(), sequenceNumber);
+//    }
+
+    public synchronized int setWinner(int gameId, String loginId, int sequenceNumber) {
+        Player player = playerDao.findByLoginId(loginId);
 
         playerDao.updateCredit(player, 50);
 
