@@ -1,6 +1,6 @@
-package gameHistory;
+package project.gameHistory;
 
-import project.config.DBConnect;
+import project.config.db.DBConnect;
 
 import java.sql.*;
 import java.time.LocalDate;

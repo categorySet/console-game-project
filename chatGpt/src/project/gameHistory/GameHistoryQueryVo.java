@@ -1,4 +1,4 @@
-package gameHistory;
+package project.gameHistory;
 
 public class GameHistoryQueryVo {
     private int historyId;

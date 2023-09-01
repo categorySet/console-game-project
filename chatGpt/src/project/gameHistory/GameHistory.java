@@ -1,4 +1,4 @@
-package gameHistory;
+package project.gameHistory;
 
 import java.sql.Date;
 

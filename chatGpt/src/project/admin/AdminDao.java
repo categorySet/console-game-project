@@ -1,14 +1,12 @@
 package project.admin;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import project.config.DBConnect;
-import project.item.Item;
+import project.config.db.DBConnect;
 import project.player.Player;
 
 public class AdminDao {

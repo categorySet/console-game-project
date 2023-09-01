@@ -1,6 +1,6 @@
 package project.item;
 
-import project.config.DBConnect;
+import project.config.db.DBConnect;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
