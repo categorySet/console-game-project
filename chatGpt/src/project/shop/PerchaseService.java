@@ -8,6 +8,7 @@ import project.player.Player;
 import project.player.PlayerDao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static project.player.PlayerService.loginId;
@@ -60,12 +61,16 @@ public class PerchaseService {
         }
     }
 
-    public void printPurchaseById() {
+    public List<Integer> printPurchaseById() {
         System.out.println("======= 구매 내역 =======");
+        List<Integer> result = new ArrayList<>();
+
         ArrayList<Purchase> purchases = purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
         for (Purchase p : purchases) {
             System.out.printf("주문번호: %d / 아이템 이름: %s / 주문날짜: %s%n", p.getPurchaseId(), itemDao.select(p.getItemId()).getItemName(), p.getCreateDate());
+            result.add(p.getItemId());
         }
+        return result;
     }
 
     public void applyItemToLoginId(Item item) {
