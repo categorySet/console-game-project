@@ -20,7 +20,6 @@ public class Main {
 
         menu.run(sc);
 
-
         sc.close();
     }
 }

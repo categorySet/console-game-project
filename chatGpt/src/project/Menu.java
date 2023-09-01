@@ -184,6 +184,7 @@ public class Menu {
                     perchaseService.addPurchase(sc, itemService.getAll());
                     break;
                 case 2:
+                    perchaseService.printPurchaseById();
                     break;
                 case 3:
                     itemService.addItem(sc);

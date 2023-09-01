@@ -142,7 +142,7 @@ public class Table {
                 "price NUMBER," +
                 "limited_edition CHAR(1) DEFAULT '0'," +
                 "amount NUMBER," +
-                "item_info VARCHAR2(100) NOT NULL," +
+                "item_info VARCHAR2(1000) NOT NULL," +
                 "create_date DATE," +
                 "last_modified_date DATE)";
         try {

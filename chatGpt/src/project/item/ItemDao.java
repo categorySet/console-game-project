@@ -142,7 +142,7 @@ public class ItemDao {
         Connection conn = dbconn.conn();
 
         // 2. sql 작성
-        String sql = "update item set price=?, limited_edition=?, amount=? where item_id=?";
+        String sql = "update item set price=?, limited_edition=?, amount=?, item_info=? where item_id=?";
 
         try {
             // 3. preparedstatement 생성
@@ -152,7 +152,8 @@ public class ItemDao {
             pstmt.setInt(1, i.getPrice());
             pstmt.setBoolean(2, i.isLimitedEdition());
             pstmt.setInt(3, i.getAmount());
-            pstmt.setInt(4, i.getItemId());
+            pstmt.setString(4, i.getItemInfo());
+            pstmt.setInt(5, i.getItemId());
 
             // 5. 실행
             int cnt = pstmt.executeUpdate();

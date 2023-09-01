@@ -31,7 +31,7 @@ public class AdminService {
 		System.out.println("부여할 크레딧:");
 		int newCredit = sc.nextInt();
 
-		adminDao.updateCredit(p.getCredit() + newCredit);
+//		adminDao.updateCredit(p.getCredit() + newCredit);
 
 		System.out.println("크레딧이 부여되었습니다.");
 
@@ -182,7 +182,7 @@ public class AdminService {
 			} else if (s.equals("F")) {
 				amount = 999999999;
 			}
-			i.updateItem(price, limitedEdition, amount);
+//			i.updateItem(price, limitedEdition, amount);
 			itemDao.update(i);
 		}
 	}
