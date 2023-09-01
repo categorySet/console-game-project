@@ -136,7 +136,7 @@ public class Menu {
                 case 3:
                     List<Integer> itemIdList = perchaseService.printPurchaseById();
                     Item item = playerService.useItem(itemIdList, sc);
-                    perchaseService.applyItemToLoginId(item);
+                    perchaseService.applyItemToNickname(item);
                     break;
             }
         }
