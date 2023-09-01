@@ -37,8 +37,10 @@ public class GameHistoryService {
         return historyDao.insert(gameId, player.getPlayerId(), sequenceNumber);
     }
 
-    public List<GameHistoryQueryVo> getMyHistory(String nickname) {
-        return historyDao.findByPlayerId(nickname);
+    public void getMyHistory(String nickname) {
+        for (GameHistoryQueryVo vo : historyDao.findByPlayerId(nickname)) {
+            System.out.println(vo);
+        }
     }
 
 
