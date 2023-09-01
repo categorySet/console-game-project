@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Main {
+public class ServerMain {
     private static final int NUM_OF_ROOM = 5;
     private static final int port = 10000;
 
