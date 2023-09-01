@@ -23,10 +23,7 @@ public class MafiaRoom extends ChatRoom {
     public static final int MIN_PERSON = 5;
     private DayTimer dayTimer = null;
 
-    private MafiaServer currentServer;
     private ServerStarter serverStarter;
-
-    private ArrayList<ChatServerTh> deadList;
 
     public int selected = 0;
 
@@ -37,11 +34,8 @@ public class MafiaRoom extends ChatRoom {
 
     public MafiaRoom(MafiaServer mafiaServer, ServerStarter serverStarter) {
         super.list = new ArrayList<ChatServerTh>();
-        this.deadList = new ArrayList<>();
 
         this.serverStarter = serverStarter;
-
-        this.currentServer = mafiaServer;
     }
 
 
@@ -53,8 +47,6 @@ public class MafiaRoom extends ChatRoom {
                     c.setAlivePerson(false);
                     c.writeln("/stop");
                 }
-
-                deadList.add(c);
             }
         }
     }
@@ -135,12 +127,6 @@ public class MafiaRoom extends ChatRoom {
         }
     }
 
-
-
-    public int getListSize() {
-        return list.size();
-    }
-
     public Roles getRoleByName(String name) {
         for (ChatServerTh th : list) {
             if (th.getUserName().equals(name)) {
@@ -216,10 +202,6 @@ public class MafiaRoom extends ChatRoom {
         dayTimer.interrupt();
 
         for (ChatServerTh c : list) {
-            c.interrupt();
-        }
-
-        for (ChatServerTh c : deadList) {
             c.interrupt();
         }
 
