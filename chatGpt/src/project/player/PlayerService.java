@@ -21,7 +21,11 @@ public class PlayerService {
     }
 
     public boolean isLogin() {
-        return (this.loginId != null) ? true : false;
+        if(this.loginId != null) {
+            this.nickname = playerDao.findByLoginId(loginId).getNickname();
+            return true;
+        }
+        return false;
     }
 
     public static String getLoginId() {
