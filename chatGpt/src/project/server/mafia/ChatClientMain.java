@@ -1,5 +1,6 @@
 package project.server.mafia;
 
+import project.player.PlayerDao;
 import project.player.PlayerService;
 
 import java.io.BufferedReader;
@@ -16,6 +17,8 @@ class WriteTh extends Thread {
 
 	private boolean flag;
 
+	private PlayerDao playerDao;
+
 	public void setFlag(final boolean flag) {
 		this.flag = flag;
 	}
@@ -24,12 +27,16 @@ class WriteTh extends Thread {
 		this.out = out;
 		this.sc = sc;
 
+		this.playerDao = new PlayerDao();
+
 		flag = true;
 	}
 
 	@Override
 	public void run() {
-		String name = PlayerService.getLoginId();
+		// TODO 내 닉네임 색 바꾸기
+		String name = playerDao.findByLoginId(PlayerService.getLoginId()).getNickname();
+
 		System.out.println("마피아 게임에 오신 걸 환영합니다 " + name + "님");
 		// 닉네임 서버 전송
 		out.println(name);
@@ -39,6 +46,8 @@ class WriteTh extends Thread {
 			// 키보드 입력
 			String str = sc.nextLine();
 			// 소켓에 출력 => 상대방에게 전송
+			
+			// TODO 입력 글자 색 바꾸기
 			out.println(str);
 			out.flush();// 버퍼 강제 출력
 		}
