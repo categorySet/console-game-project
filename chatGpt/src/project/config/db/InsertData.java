@@ -120,23 +120,6 @@ public class InsertData {
 
     }
 
-    public void purchase() {
-        Connection conn = dbConnect.conn();
-        String query="";
-        try {
-            PreparedStatement prepared = conn.prepareStatement(query);
-            prepared.addBatch();
-
-            prepared.executeBatch();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            dbConnect.disconnectDB(conn);
-        }
-
-
-    }
 
 
 

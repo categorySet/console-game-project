@@ -13,10 +13,10 @@ public class Main {
         Sequence sequence = new Sequence();
 
 //        table.dropAll();
-//        table.createAll();
+        table.createAll();
 //
 //        sequence.dropAll();
-//        sequence.createAll();
+        sequence.createAll();
 
         menu.run(sc);
 

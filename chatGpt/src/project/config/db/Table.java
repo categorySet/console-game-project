@@ -14,7 +14,7 @@ public class Table {
 
     public void createAll() {
         player();
-        admin();
+        manager();
         blacklist();
         game();
         gameHistory();
@@ -50,12 +50,12 @@ public class Table {
         }
     }
 
-    public void admin() {
+    public void manager() {
         Connection conn = dbConnect.conn();
         String query =  "CREATE TABLE admin(" +
-                "admin_id NUMBER PRIMARY KEY," +
+                "manager_id NUMBER PRIMARY KEY," +
                 "player_id NUMBER," +
-                "pwd NUMBER NOT NULL," +
+                "pin NUMBER NOT NULL," +
                 "black_list_id NUMBER," +
                 "create_date DATE," +
                 "last_modified_date DATE," +
@@ -72,11 +72,11 @@ public class Table {
         }
     }
 
-    //TODO : FK
     public void blacklist() {
         Connection conn = dbConnect.conn();
         String query =  "CREATE TABLE blacklist(" +
                 "black_list_id NUMBER PRIMARY KEY," +
+                "player_id NUMBER NOT NULL," +
                 "reason VARCHAR2(50)," +
                 "create_date DATE," +
                 "last_modified_date DATE)";
@@ -139,6 +139,7 @@ public class Table {
                 "item_id NUMBER PRIMARY KEY," +
                 "item_name VARCHAR2(50) NOT NULL," +
                 "game_id NUMBER," +
+                "category VARCHAR2(20)," +
                 "price NUMBER," +
                 "limited_edition CHAR(1) DEFAULT '0'," +
                 "amount NUMBER," +
