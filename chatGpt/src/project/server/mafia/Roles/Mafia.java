@@ -9,7 +9,6 @@ import project.server.mafia.room.MafiaRoom;
 public class Mafia extends Roles {
 
     public static boolean killed = false;
-    public static String roleName = "Roles.Mafia";
     public static String nextKill = "";
 
     public Mafia(final MafiaRoom mafiaRoom) {

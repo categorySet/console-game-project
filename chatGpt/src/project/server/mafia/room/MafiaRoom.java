@@ -57,9 +57,9 @@ public class MafiaRoom extends ChatRoom {
                 ChatServerTh c = list.get(i);
 
                 if (c.getUserName().equals(name)) {
-                    setClientDead(c);
                     c.writeln("당신은 마피아에 의해 죽었습니다.");
                     sendMessageAll("악랄한 마피아에 의해 " + name + "님이 죽었습니다.");
+                    setClientDead(c);
                 }
             }
         }
