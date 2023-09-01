@@ -1,8 +1,6 @@
 package project.server;
 
-import gameHistory.GameHistoryService;
-import project.player.PlayerDao;
-import project.player.PlayerService;
+import project.gameHistory.GameHistoryService;
 import project.server.mafia.server.MafiaServer;
 
 import java.util.HashMap;
@@ -38,8 +36,12 @@ public class Main {
         while (true) {
             for (Map.Entry<Integer, ServerStarter> entry : roomMap.entrySet()) {
                 if (entry.getValue().winners != null) {
-                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w));
+                    int gameRoomId = gameHistoryService.getGameRoomId();
+
+                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
                     entry.getValue().winners = null;
+
+                    entry.getValue().interrupt();
                 }
             }
         }

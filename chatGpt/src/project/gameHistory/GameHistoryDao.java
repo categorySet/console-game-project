@@ -14,18 +14,19 @@ public class GameHistoryDao {
         this.dbConn = DBConnect.getInstance();
     }
 
-    public int insert(int gameId, int playerId) {
+    public int insert(int gameId, int playerId, int gameRoomId) {
         Connection conn = dbConn.conn();
 
-        String sql = "INSERT INTO game_history VALUES (seq_game_history.NEXTVAL, ?, ?, ?, ?)";
+        String sql = "INSERT INTO game_history VALUES (seq_game_history.NEXTVAL, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, gameId);
             pstmt.setInt(2, playerId);
-            pstmt.setDate(3, Date.valueOf(LocalDate.now()));
+            pstmt.setInt(3, gameRoomId);
             pstmt.setDate(4, Date.valueOf(LocalDate.now()));
+            pstmt.setDate(5, Date.valueOf(LocalDate.now()));
 
             return pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -98,6 +99,31 @@ public class GameHistoryDao {
         }
 
         return result;
+    }
+
+    public int getGameRoomId() {
+        Connection conn = dbConn.conn();
+        List<GameHistoryQueryVo> result = new ArrayList<>();
+
+        String sql =
+                "SELECT seq_game_room_id.NEXTVAL FROM dual";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbConn.disconnectDB(conn);
+        }
+
+        return -1;
+
     }
 
 

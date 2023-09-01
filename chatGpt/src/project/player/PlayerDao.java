@@ -145,7 +145,7 @@ public class PlayerDao {
         }
     }
 
-    public void updateCredit(Player player, int newCredit) {
+    public synchronized void updateCredit(Player player, int newCredit) {
         Connection conn = dbconn.conn();
         String query = "update player set credit = (select credit + ? from player where player_id = ?) " +
                 "where player_id = ?";          //추가할 credit, player_id, player_id
@@ -181,7 +181,7 @@ public class PlayerDao {
     }
 
 
-    public Player findByNickname(String nickname) {
+    public synchronized Player findByNickname(String nickname) {
 
         Connection conn = dbconn.conn();
         String query = "select player_id, login_id, nickname, credit, create_date, last_modified_date from player where nickname = ?";
