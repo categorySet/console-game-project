@@ -18,6 +18,8 @@ public class Sequence {
         for (TableName tableName : tableNames) {
             create(tableName.name());
         }
+
+        create("game_room_id");         //game_history 테이블에서 사용하는 시퀀스
     }
 
     public void dropAll() {

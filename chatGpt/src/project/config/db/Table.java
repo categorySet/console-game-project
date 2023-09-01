@@ -116,6 +116,7 @@ public class Table {
                 "history_id NUMBER PRIMARY KEY," +
                 "game_id NUMBER NOT NULL," +
                 "winner NUMBER," +
+                "game_room_id NUMBER NOT NULL," +
                 "create_date DATE," +
                 "last_modified_date DATE," +
                 "CONSTRAINT fk_game_id FOREIGN KEY(game_id) REFERENCES game(game_id)," +
@@ -159,7 +160,7 @@ public class Table {
     public void purchase() {
         Connection conn = dbConnect.conn();
         String query =  "CREATE TABLE purchase(" +
-                "order_id NUMBER PRIMARY KEY," +
+                "purchase_id NUMBER PRIMARY KEY," +
                 "item_id NUMBER NOT NULL," +
                 "player_id NUMBER NOT NULL," +
                 "create_date DATE," +
