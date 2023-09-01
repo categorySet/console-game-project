@@ -47,24 +47,28 @@ public class MafiaRoom extends ChatRoom {
 
 
     public void setClientDead(ChatServerTh chatServerTh) {
-        for (ChatServerTh c : list) {
-            if (c.equals(chatServerTh)) {
-                c.setAlivePerson(false);
-                c.writeln("/stop");
-            }
+        synchronized (list) {
+            for (ChatServerTh c : list) {
+                if (c.equals(chatServerTh)) {
+                    c.setAlivePerson(false);
+                    c.writeln("/stop");
+                }
 
-            deadList.add(c);
+                deadList.add(c);
+            }
         }
     }
 
     public void kill(String name) {
-        for (int i = list.size() - 1; i >= 0; i--) {
-            ChatServerTh c = list.get(i);
+        synchronized (list) {
+            for (int i = list.size() - 1; i >= 0; i--) {
+                ChatServerTh c = list.get(i);
 
-            if (c.getUserName().equals(name)) {
-                setClientDead(c);
-                c.writeln("당신은 마피아에 의해 죽었습니다.");
-                sendMessageAll("악랄한 마피아에 의해 " + name + "님이 죽었습니다.");
+                if (c.getUserName().equals(name)) {
+                    setClientDead(c);
+                    c.writeln("당신은 마피아에 의해 죽었습니다.");
+                    sendMessageAll("악랄한 마피아에 의해 " + name + "님이 죽었습니다.");
+                }
             }
         }
     }
@@ -96,30 +100,34 @@ public class MafiaRoom extends ChatRoom {
     public void sendMessageAll(String message, RolesAdapter rolesAdapter, ChatServerTh chatServerTh) {
         if (chatServerTh.isAlivePerson()) {
             if (dayTimer.isDay()) {
-                for (ChatServerTh th : list) {
-                    if (th == chatServerTh) {
-                        Pattern pattern = Pattern.compile("/vote (\\w+)");
-                        Matcher matcher = pattern.matcher(message);
+                synchronized (list) {
+                    for (ChatServerTh th : list) {
+                        if (th == chatServerTh) {
+                            Pattern pattern = Pattern.compile("/vote (\\w+)");
+                            Matcher matcher = pattern.matcher(message);
 
-                        if (matcher.matches() && dayTimer.isDay()) {
-                            if (!rolesAdapter.getRoles().voted) {
-                                rolesAdapter.getRoles().vote(matcher.group(1));
-                                th.writeln("투표되었습니다.");
-                                rolesAdapter.getRoles().voted = true;
+                            if (matcher.matches() && dayTimer.isDay()) {
+                                if (!rolesAdapter.getRoles().voted) {
+                                    rolesAdapter.getRoles().vote(matcher.group(1));
+                                    th.writeln("투표되었습니다.");
+                                    rolesAdapter.getRoles().voted = true;
+                                }
+                            } else {
+                                sendMessageAll("[" + th.getUserName() + "] " + message);
                             }
-                        } else {
-                            sendMessageAll("[" + th.getUserName() + "] " + message);
                         }
                     }
                 }
             } else {
-                for (ChatServerTh th : list) {
-                    if (th == chatServerTh) {
-                        Pattern pattern = Pattern.compile("/use (\\w+)");
-                        Matcher matcher = pattern.matcher(message);
+                synchronized (list) {
+                    for (ChatServerTh th : list) {
+                        if (th == chatServerTh) {
+                            Pattern pattern = Pattern.compile("/use (\\w+)");
+                            Matcher matcher = pattern.matcher(message);
 
-                        if (matcher.matches() && !dayTimer.isDay()) {
-                            th.writeln(rolesAdapter.useAbility(matcher.group(1)));
+                            if (matcher.matches() && !dayTimer.isDay()) {
+                                th.writeln(rolesAdapter.useAbility(matcher.group(1)));
+                            }
                         }
                     }
                 }
