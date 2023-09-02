@@ -159,22 +159,21 @@ public class PlayerService {
     }
 
     public Item useItem(List<Integer> itemIdList, Scanner sc) {
-        List<Item> result = new ArrayList<>();
-
-
-        for (Integer itemId : itemIdList) {
-            Item findItem = itemDao.select(itemId);
-            result.add(findItem);
-            System.out.println(findItem.getItemId() + " | " +findItem.getItemName() + " | " + findItem.getCategory() + " | " + findItem.getItemInfo());
-        }
-
-        System.out.println("번호 입력 : ");
+        Item result = new Item();
+        System.out.print("번호 입력 : ");
         int m = sc.nextInt();
 
-        if(m == 0) {
-
-        } else {
+        for (Integer itemId : itemIdList) {
+            if(m == itemId) {
+                Item findItem = itemDao.select(itemId);
+                result = findItem;
+            }
         }
-        return result.get(m -1);
+
+        if(result.getItemName() != null) {
+            return result;
+        } else {
+            return null;
+        }
     }
 }

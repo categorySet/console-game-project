@@ -72,6 +72,8 @@ public class PerchaseService {
         System.out.println("======= 구매 내역 =======");
         List<Integer> result = new ArrayList<>();
 
+        purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
+
         ArrayList<Purchase> purchases = purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
         for (Purchase p : purchases) {
             System.out.printf("주문번호: %d / 아이템 이름: %s / 주문날짜: %s%n", p.getPurchaseId(), itemDao.select(p.getItemId()).getItemName(), p.getCreateDate());
@@ -81,24 +83,27 @@ public class PerchaseService {
     }
 
     public void applyItemToNickname(Item item) {
-        if (item.getCategory().equals(BasicItem.title.getContents())) {
-            nickname = item.getItemName() + " " + nickname; // 닉네임 앞에 칭호를 붙임
-            System.out.println("nickname: " + nickname);
-            System.out.println("칭호가 적용되었습니다.");
+        if(item == null) {
+            System.out.println("존재하지 않는 아이템 입니다.");
+        } else {
+            if (item.getCategory().equals(BasicItem.title.getContents())) {
+                nickname = item.getItemName() + " " + nickname; // 닉네임 앞에 칭호를 붙임
+                System.out.println("nickname: " + nickname);
+                System.out.println("칭호가 적용되었습니다.");
 
-        } else if (item.getCategory().equals(BasicItem.color.getContents())) {
+            } else if (item.getCategory().equals(BasicItem.color.getContents())) {
                 for (ColorCode c : ColorCode.values()) {
                     if (item.getItemName().equalsIgnoreCase(c.name())) {
                         String colorCode = c.getCode();
                         nickname = colorCode + " " + nickname + " " + ColorCode.RESET.getCode(); // 닉네임에 색상 코드를 적용
                     }
                 }
-            System.out.println("nickname: " + nickname);
-            System.out.println("스킨이 적용되었습니다.");
+                System.out.println("nickname: " + nickname);
+                System.out.println("스킨이 적용되었습니다.");
 
-        } else if (item.getCategory().equals(BasicItem.edition.getContents())) {
-            // TODO: 칭호와 스킨 두 가지를 모두 적용하는 로직
-
+            } else if (item.getCategory().equals(BasicItem.edition.getContents())) {
+                // TODO: 칭호와 스킨 두 가지를 모두 적용하는 로직
+            }
         }
     }
 }

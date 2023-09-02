@@ -113,7 +113,7 @@ public class Menu {
 
     private void myInfoRun(Scanner sc) {
         System.out.println("정보 수정");
-        String menu = "1. 닉네임 변경 2. 비밀번호 변경 0.뒤로 가기";
+        String menu = "1. 닉네임 변경 2. 비밀번호 변경 3. 아이템 장착 0.뒤로 가기";
 
         boolean flag = true;
         int m = 0;
@@ -123,7 +123,7 @@ public class Menu {
             System.out.println(menu);
             System.out.println("----------------------------------------------------------");
 
-            System.out.print("번호를 입력해주세요.");
+            System.out.print("번호를 입력해주세요 : ");
             m = sc.nextInt();
 
             switch (m) {
