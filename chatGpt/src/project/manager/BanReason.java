@@ -1,4 +1,4 @@
-package project.admin;
+package project.manager;
 
 public enum BanReason {
 	욕설(1), 게임방해(2), 버그악용(3);

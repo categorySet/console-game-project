@@ -76,7 +76,7 @@ public class Table {
         Connection conn = dbConnect.conn();
         String query =  "CREATE TABLE blacklist(" +
                 "black_list_id NUMBER PRIMARY KEY," +
-                "player_id NUMBER NOT NULL," +
+                "player_login_id VARCHAR(30) NOT NULL," +
                 "reason VARCHAR2(50)," +
                 "create_date DATE," +
                 "last_modified_date DATE)";
@@ -84,7 +84,6 @@ public class Table {
             Statement statement = conn.createStatement();
             statement.execute(query);
             System.out.println("Create Table Blacklist");
-
 
         } catch (SQLException e) {
             e.printStackTrace();

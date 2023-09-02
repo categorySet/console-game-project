@@ -1,4 +1,4 @@
-package project.admin;
+package project.manager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import project.config.db.DBConnect;
 import project.player.Player;
 
-public class AdminDao {
+public class ManagerDao {
 	private DBConnect dbconn;
 
-	public AdminDao() {
+	public ManagerDao() {
 		dbconn = DBConnect.getInstance();
 	}
 

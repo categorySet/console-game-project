@@ -1,4 +1,4 @@
-package project.admin;
+package project.manager;
 
 import java.sql.Date;
 
@@ -17,7 +17,7 @@ public class BlackList {
 		this.reason = reason;
 		this.createDate = createDate;
 		this.lastModifiedDate = lastModifiedDate;
-	}//AdminDao의 selectAllBlackList()에서 사용
+	}//ManagerDao의 selectAllBlackList()에서 사용
 
 	public BlackList(int blackListId,  String reason, Date createDate, Date lastModifiedDate) {
 		this.blackListId = blackListId;

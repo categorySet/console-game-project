@@ -1,10 +1,8 @@
 package project.player;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import project.admin.AdminDao;
 import project.item.Item;
 import project.item.ItemDao;
 

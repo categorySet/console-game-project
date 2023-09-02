@@ -1,7 +1,7 @@
 package project;
 
 import project.gameHistory.GameHistoryService;
-import project.admin.AdminService;
+import project.manager.ManagerService;
 import project.item.Item;
 import project.item.ItemService;
 import project.player.PlayerService;
@@ -16,14 +16,14 @@ public class Menu {
     private PerchaseService perchaseService;
     private ItemService itemService;
     private GameHistoryService gameHistoryService;
-    private AdminService adminService;
+    private ManagerService managerService;
 
     public Menu() {
         playerService = new PlayerService();
         perchaseService = new PerchaseService();
         itemService = new ItemService();
         gameHistoryService = new GameHistoryService();
-        adminService = new AdminService();
+        managerService = new ManagerService();
     }
 
     public void run(Scanner sc) {
@@ -60,7 +60,7 @@ public class Menu {
                         playerService.deletePlayer(sc);
                         break;
                     case 9876:
-                        adminRun(sc);
+                        managerRun(sc);
                         break;
                 }
             }
@@ -200,7 +200,7 @@ public class Menu {
         }
     }
 
-    public void adminRun(Scanner sc) {
+    public void managerRun(Scanner sc) {
         boolean flag = true;
         int menu;
         while (flag) {
@@ -212,22 +212,22 @@ public class Menu {
 
             switch (menu) {
                 case 1:
-                    adminService.addCredit(sc);
+                    managerService.addCredit(sc);
                     break;
                 case 2:
-                    adminService.subCredit(sc);
+                    managerService.subCredit(sc);
                     break;
                 case 3:
-                    adminService.printAll();
+                    managerService.printAll();
                     break;
                 case 4:
-                    adminService.addToBlackList(sc);
+                    managerService.addToBlackList(sc);
                     break;
                 case 5:
-                    adminService.printAllBlackList();
+                    managerService.printAllBlackList();
                     break;
                 case 6:
-                    adminService.delFromBlackList(sc);
+                    managerService.delFromBlackList(sc);
                     break;
                 case 7:
                     itemService.addItem(sc);

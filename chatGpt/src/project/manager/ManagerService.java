@@ -1,20 +1,19 @@
-package project.admin;
+package project.manager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import project.item.Item;
 import project.item.ItemDao;
 import project.player.Player;
 import project.player.PlayerDao;
 
-public class AdminService {
-	private AdminDao adminDao;
+public class ManagerService {
+	private ManagerDao managerDao;
 	private ItemDao itemDao;
 	private PlayerDao playerDao;
 
-	public AdminService() {
-		adminDao = new AdminDao();
+	public ManagerService() {
+		managerDao = new ManagerDao();
 		itemDao = new ItemDao();
 		playerDao = new PlayerDao();
 	}
@@ -61,7 +60,7 @@ public class AdminService {
 
 	public void printAll() {
 		System.out.println("===모든 플레이어 조회===");
-		ArrayList<Player> list = adminDao.selectAll();
+		ArrayList<Player> list = managerDao.selectAll();
 
 		for (Player p : list) {
 			System.out.println(p);
@@ -79,17 +78,17 @@ public class AdminService {
 		int index = sc.nextInt();
 		int m = index;
 
-		boolean flag = adminDao.checkBlackList(playerId);
+		boolean flag = managerDao.checkBlackList(playerId);
 		if (flag == false) {
 			switch (m) {
 				case 1:
-					adminDao.addBlackList(playerId, "욕설");
+					managerDao.addBlackList(playerId, "욕설");
 					break;
 				case 2:
-					adminDao.addBlackList(playerId, "버그 악용");
+					managerDao.addBlackList(playerId, "버그 악용");
 					break;
 				case 3:
-					adminDao.addBlackList(playerId, "게임 방해");
+					managerDao.addBlackList(playerId, "게임 방해");
 					break;
 			}
 			System.out.println("플레이어가 블랙리스트에 추가 되었습니다. 활동이 금지됩니다.");
@@ -100,7 +99,7 @@ public class AdminService {
 
 	public void printAllBlackList() {
 		System.out.println("=== 블랙리스트 전체 출력===");
-		ArrayList<BlackList> list = adminDao.selectAllBlackList();
+		ArrayList<BlackList> list = managerDao.selectAllBlackList();
 
 		if (list.isEmpty() || list == null) {
 			System.out.println("블랙리스트에 추가된 플레이어가 없습니다.");
@@ -117,7 +116,7 @@ public class AdminService {
 		System.out.println("밴 해제할 플레이어 아이디:");
 		int playerId = sc.nextInt();
 
-		adminDao.delBlackList(playerId);
+		managerDao.delBlackList(playerId);
 
 		System.out.println("플레이어가 블랙리스트에서 삭제되었습니다.");
 	}
