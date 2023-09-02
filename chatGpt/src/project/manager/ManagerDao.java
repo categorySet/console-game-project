@@ -16,39 +16,36 @@ public class ManagerDao {
 		dbconn = DBConnect.getInstance();
 	}
 
+	//PlayerDao로 이관
 	// 플레이어 전체 조회
-	public ArrayList<Player> selectAll() {
-		ArrayList<Player> list = new ArrayList<>();
-
-		Connection conn = dbconn.conn();
-
-		String sql = "SELECT player_id, login_id, password, nickname, credit, create_date, last_modified_date FROM player";
-
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-
-			ResultSet rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				list.add(new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7)));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			dbconn.disconnectDB(conn);
-		}
-		return list;
-	}
+//	public ArrayList<Player> selectAll() {
+//		ArrayList<Player> list = new ArrayList<>();
+//		Connection conn = dbconn.conn();
+//
+//		String sql = "SELECT player_id, login_id, password, nickname, credit, create_date, last_modified_date FROM player";
+//		try {
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//
+//			ResultSet rs = pstmt.executeQuery();
+//
+//			while (rs.next()) {
+//				list.add(new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7)));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			dbconn.disconnectDB(conn);
+//		}
+//		return list;
+//	}
 
 	// 크레딧 수정
 	public void updateCredit(String nickname) {
 		Connection conn = dbconn.conn();
-
 		String sql = "UPDATE player SET credit=? WHERE nickname = ?";
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-
 			Player p = new Player();
 
 			pstmt.setInt(1, p.getCredit());
@@ -65,16 +62,15 @@ public class ManagerDao {
 	// 플레이어가 블랙리스트에 올랐는지
 	public boolean checkBlackList(int playerId) {
 		Connection conn = dbconn.conn();
-
 		String sql = "SELECT black_list_id, reason, create_date, last_modified_date FROM blacklist WHERE player_id=?";
-
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-
 			pstmt.setInt(1, playerId);
 			ResultSet rs = pstmt.executeQuery();
-
-			return true;
+			if(rs.next()) {
+				return true;
+			}
+//			return true;		//FIXME : rs.next()가 없었어요!!! ...
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

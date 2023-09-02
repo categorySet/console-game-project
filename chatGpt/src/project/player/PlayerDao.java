@@ -5,12 +5,33 @@ import project.item.Item;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class PlayerDao {
     private static DBConnect dbconn;
 
     public PlayerDao() {
         dbconn = DBConnect.getInstance();
+    }
+
+    public ArrayList<Player> findAll() {
+        ArrayList<Player> result = new ArrayList<>();
+        Connection conn = dbconn.conn();
+
+        String sql = "SELECT player_id, login_id, password, nickname, credit, create_date, last_modified_date FROM player";
+        try {
+            PreparedStatement prepared = conn.prepareStatement(sql);
+            ResultSet rs = prepared.executeQuery();
+
+            while (rs.next()) {
+                result.add(new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbconn.disconnectDB(conn);
+        }
+        return result;
     }
 
     public void signup(Player player) {

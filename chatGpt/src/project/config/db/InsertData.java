@@ -81,10 +81,10 @@ public class InsertData {
 
     public void blacklist() {
         Connection conn = dbConnect.conn();
-        String query="INSERT INTO blacklist VALUES (seq_blacklist.NEXTVAL, ?, ?, ?, ?)";   //black_list_id, player_login_id, reason, c_date, m_date
+        String query="INSERT INTO blacklist VALUES (seq_blacklist.NEXTVAL, ?, ?, ?, ?)";   //black_list_id, player_id, reason, c_date, m_date
         try {
             PreparedStatement prepared = conn.prepareStatement(query);
-            addBlacklistBatch(prepared, "badUser", "욕설");
+            addBlacklistBatch(prepared, 8, "욕설");
 
             prepared.executeBatch();
 
@@ -97,8 +97,8 @@ public class InsertData {
         }
     }
 
-    private void addBlacklistBatch(PreparedStatement prepared, String loginId, String reason) throws SQLException {
-        prepared.setString(1, loginId);
+    private void addBlacklistBatch(PreparedStatement prepared, int playerId, String reason) throws SQLException {
+        prepared.setInt(1, playerId);
         prepared.setString(2, reason);
         prepared.setDate(3, Date.valueOf(LocalDate.now()));
         prepared.setDate(4, Date.valueOf(LocalDate.now()));
