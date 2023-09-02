@@ -3,29 +3,28 @@ package project.admin;
 import java.sql.Date;
 
 public class BlackList {
-    private int blackListId;
-    private int playerId;
-    private BanReason reason;
-    private Date createDate;
-    private Date lastModifiedDate;
-    
-    public BlackList() {}
+	private int blackListId;
+	private int playerId;
+	private String reason;
+	private Date createDate;
+	private Date lastModifiedDate;
 
-	public BlackList(int blackListId, int playerId, BanReason reason, Date createDate, Date lastModifiedDate) {
+	public BlackList() {}
+
+	public BlackList(int blackListId, int playerId, String reason, Date createDate, Date lastModifiedDate) {
 		this.blackListId = blackListId;
 		this.playerId = playerId;
 		this.reason = reason;
 		this.createDate = createDate;
 		this.lastModifiedDate = lastModifiedDate;
-	}
-	
-	public BlackList(int blackListId, int playerId, String reason, Date createDate, Date lastModifiedDate) {
+	}//AdminDao의 selectAllBlackList()에서 사용
+
+	public BlackList(int blackListId,  String reason, Date createDate, Date lastModifiedDate) {
 		this.blackListId = blackListId;
-		this.playerId = playerId;
-		this.reason = BanReason.valueOf(reason);
+		this.reason = reason;
 		this.createDate = createDate;
 		this.lastModifiedDate = lastModifiedDate;
-	}//AdminDao에서 selectAllBlackList()에서 사용
+	}//AdminDao의 findByPlayerId()에서 사용
 
 	public int getBlackListId() {
 		return blackListId;
@@ -35,7 +34,7 @@ public class BlackList {
 		return playerId;
 	}
 
-	public BanReason getReason() {
+	public String getReason() {
 		return reason;
 	}
 
