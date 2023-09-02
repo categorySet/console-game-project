@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import project.item.Item;
 import project.item.ItemDao;
+import project.manager.ManagerDao;
 
 public class PlayerService {
     public static String loginId = null;
@@ -12,10 +13,12 @@ public class PlayerService {
 
     private PlayerDao playerDao;
     private ItemDao itemDao;
+    private ManagerDao managerDao;
 
     public PlayerService() {
         this.playerDao = new PlayerDao();
         this.itemDao = new ItemDao();
+        this.managerDao = new ManagerDao();
     }
 
     public boolean isLogin() {
@@ -57,17 +60,32 @@ public class PlayerService {
         String password = sc.next();
         Player findPlayer = playerDao.findByLoginId(loginId);
 
-        if (findPlayer != null) {
-            if (findPlayer.getPassword().equals(password)) {
+
+        if(findPlayer != null) {
+            if(managerDao.checkBlackList(findPlayer.getPlayerId())) {
+                System.out.println("차단된 유저입니다.");
+            } else if (findPlayer.getPassword().equals(password)) {
                 this.loginId = loginId;
                 System.out.println(findPlayer.getNickname() + "님 환영합니다.");
-
             } else {
                 System.out.println("아이디와 비밀번호가 일치하지 않습니다.");
             }
         } else {
             System.out.println("존재하지 않는 유저입니다.");
         }
+
+
+//        if (findPlayer != null) {
+//            if (findPlayer.getPassword().equals(password)) {
+//                this.loginId = loginId;
+//                System.out.println(findPlayer.getNickname() + "님 환영합니다.");
+//
+//            } else {
+//                System.out.println("아이디와 비밀번호가 일치하지 않습니다.");
+//            }
+//        } else {
+//            System.out.println("존재하지 않는 유저입니다.");
+//        }
     }
 
     public void logout() {

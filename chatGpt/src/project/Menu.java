@@ -68,6 +68,7 @@ public class Menu {
             if (playerService.isLogin()) {
                 mainRun(sc);
             }
+
             if (m == 0 && !playerService.isLogin()) {
                 flag = false;
             } else if (!playerService.isLogin()) {
