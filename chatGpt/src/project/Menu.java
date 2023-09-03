@@ -36,10 +36,10 @@ public class Menu {
         boolean flag = true;
         int m = 0;
         while (flag) {
-            String menu = "1.로그인 2.회원가입 3.회원탈퇴 0.종료";
+            String menu = "1.로그인 2.회원 가입 3.회원 탈퇴 0.종료";
             if (!playerService.isLogin()) {
                 System.out.println(menu);
-                System.out.print("숫자를 입력하세요 : ");
+                System.out.print("메뉴 입력 >> ");
                 m = sc.nextInt();
 
                 switch (m) {
@@ -138,7 +138,8 @@ public class Menu {
                     playerService.updatePassword(sc);
                     break;
                 case 3:
-                    List<Integer> itemIdList = perchaseService.printPurchaseById();
+//                    List<Integer> itemIdList = perchaseService.printPurchaseById();
+                    List<Item> itemIdList = perchaseService.printPurchaseById();
                     Item item = playerService.useItem(itemIdList, sc);
                     perchaseService.applyItemToNickname(item);
                     break;
@@ -148,7 +149,7 @@ public class Menu {
 
     private void gameRun(Scanner sc) {
         GameCenter gameCenter = new GameCenter();
-        String menu = "1. 채팅 게임 | 2. 전적 확인 | 0. 종료";
+        String menu = "1.채팅 게임 | 2.전적 확인 | 0. 종료";
         boolean flag = true;
         int m = 0;
 
@@ -176,7 +177,7 @@ public class Menu {
 
     private void shopRun(Scanner sc) {
         sc.nextLine();
-        String menu = "1.아이템구매 2.구매내역 0.뒤로 가기";
+        String menu = "1.아이템 구매 2.구매 내역 0.뒤로 가기";
         boolean flag = true;
         int m = 0;
 
@@ -205,10 +206,13 @@ public class Menu {
         boolean flag = true;
         int menu;
         while (flag) {
-            System.out.println("1. 크레딧 부여 2. 크레딧 삭감 3. 모든 플레이어 조회 "
-                    + "4. 블랙리스트 추가 5. 블랙리스트 조회 6. 블랙리스트에서 회원 삭제 "
-                    + "7. 아이템 등록 8. 아이템 조회 9. 아이템 삭제 0. 뒤로 가기");
+            System.out.println("1.크레딧 부여 2.크레딧 삭감 3.모든 플레이어 조회 "
+                    + "4.블랙리스트 추가 5.블랙리스트 조회 6.블랙리스트 삭제 "
+                    + "7.아이템 등록 8.아이템 조회 9.아이템 삭제 0.뒤로 가기");
+//            System.out.println("4.블랙리스트 추가 5.블랙리스트 조회 6.블랙리스트 삭제");
+//            System.out.println("7.아이템 등록 8.아이템 조회 9.아이템 삭제 0.뒤로 가기");
 
+            System.out.print("숫자를 입력하세요 : ");
             menu = sc.nextInt();
 
             switch (menu) {

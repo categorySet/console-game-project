@@ -174,15 +174,14 @@ public class PlayerService {
         }
     }
 
-    public Item useItem(List<Integer> itemIdList, Scanner sc) {
+    public Item useItem(List<Item> itemList, Scanner sc) {
         Item result = new Item();
-        System.out.print("번호 입력 : ");
+        System.out.print("번호 입력 >>  ");
         int m = sc.nextInt();
 
-        for (Integer itemId : itemIdList) {
-            if(m == itemId) {
-                Item findItem = itemDao.select(itemId);
-                result = findItem;
+        for (Item item : itemList) {
+            if(m == item.getItemId()) {
+                result = item;
             }
         }
 

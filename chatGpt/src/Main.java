@@ -14,15 +14,14 @@ public class Main {
         Sequence sequence = new Sequence();
         InsertData insertData = new InsertData();
 
-        table.dropAll();
-        table.createAll();
-        sequence.dropAll();
-        sequence.createAll();
-
-        insertData.player();
-        insertData.blacklist();
-        insertData.game();
-        insertData.item();
+//        table.dropAll();
+//        table.createAll();
+//        sequence.dropAll();
+//        sequence.createAll();
+//        insertData.player();
+//        insertData.blacklist();
+//        insertData.game();
+//        insertData.item();
 
 
         menu.run(sc);

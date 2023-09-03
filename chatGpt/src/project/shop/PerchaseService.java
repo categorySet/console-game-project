@@ -34,11 +34,12 @@ public class PerchaseService {
         int gameId = sc.nextInt();
 
         System.out.println("======= 아이템 목록 =======");
-        for (Item item : items) {
-            if (item.getGameId() == gameId) {
-                System.out.println(item);
-            }
-        }
+//        for (Item item : items) {
+//            if (item.getGameId() == gameId) {
+//                System.out.println(item);
+//            }
+//        }
+        printAll(items);
 
         System.out.print("구매할 아이템 번호: ");
         int itemId = sc.nextInt();
@@ -68,16 +69,16 @@ public class PerchaseService {
         }
     }
 
-    public List<Integer> printPurchaseById() {
+    public List<Item> printPurchaseById() {
         System.out.println("======= 구매 내역 =======");
-        List<Integer> result = new ArrayList<>();
-
-        purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
+        List<Item> result = new ArrayList<>();
 
         ArrayList<Purchase> purchases = purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
         for (Purchase p : purchases) {
-            System.out.printf("주문번호: %d / 아이템 이름: %s / 주문날짜: %s%n", p.getPurchaseId(), itemDao.select(p.getItemId()).getItemName(), p.getCreateDate());
-            result.add(p.getItemId());
+            Item findItem = itemDao.select(p.getItemId());
+            System.out.printf("아이템 번호 : %d / 아이템 이름: %s / 구매일: %s%n", findItem.getItemId(), findItem.getItemName(), p.getCreateDate());
+
+            result.add(itemDao.select(p.getItemId()));
         }
         return result;
     }
@@ -105,5 +106,14 @@ public class PerchaseService {
                 // TODO: 칭호와 스킨 두 가지를 모두 적용하는 로직
             }
         }
+    }
+
+    public void printAll(ArrayList<Item> items) {
+        System.out.printf("%-10s%-15s%-10s%-15s%n", "번호", "이름", "가격", "정보");
+        for (Item item : items) {
+            System.out.printf("%-10s%-15s%-10d%-15s%n", item.getItemId(), item.getItemName(), item.getPrice(), item.getItemInfo());
+        }
+
+
     }
 }
