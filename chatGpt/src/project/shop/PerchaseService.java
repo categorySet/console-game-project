@@ -1,5 +1,6 @@
 package project.shop;
 
+import project.config.UIController;
 import project.item.BasicItem;
 import project.item.ColorCode;
 import project.item.Item;
@@ -19,35 +20,35 @@ public class PerchaseService {
     private PurchaseDao purchaseDao;
     private PlayerDao playerDao;
     private ItemDao itemDao;
+    private UIController uiController;
 
     public PerchaseService() {
         purchaseDao = new PurchaseDao();
         playerDao = new PlayerDao();
         itemDao = new ItemDao();
+        uiController = new UIController();
     }
 
     // 주문
     public void addPurchase(Scanner sc, ArrayList<Item> items) {
-        System.out.println("======= 아이템 구매 =======");
+        uiController.printSubTitle("아이템 구매");
         System.out.println("0.기본 상점 1.마피아 상점 2.퀴즈 상점");
-        System.out.print("입력: ");
-        int gameId = sc.nextInt();
+        int gameId = uiController.printInput(sc);
 
-        System.out.println("======= 아이템 목록 =======");
-        printAll(new ArrayList<>(items.stream().filter(item -> item.getGameId() == gameId).toList()));  //선택된 게임 항목의 아이템만 ArrayList로 변환하여 화면에 출력
+        uiController.printSubTitle("아이템 목록");
+        printAllItems(new ArrayList<>(items.stream().filter(item -> item.getGameId() == gameId).toList()));  //선택된 게임 항목의 아이템만 ArrayList로 변환하여 화면에 출력
 
-        System.out.print("구매할 아이템 번호: ");
-        int itemId = sc.nextInt();
+        int itemId = uiController.printInput(sc);
         if ( itemId < 0 || itemDao.select(itemId) == null) {
             System.out.println("해당하는 아이템이 없습니다.");
         } else {
             Item selectedItem = itemDao.select(itemId);
-            int price = selectedItem.getPrice(); // 선택한 아이템의 가격
-            Player player = playerDao.findByLoginId(loginId); // 현재 플레이어
+            int price = selectedItem.getPrice();                 // 선택한 아이템의 가격
+            Player player = playerDao.findByLoginId(loginId);    // 현재 플레이어
 
             if (player.getCredit() >= price) {
                 purchaseDao.insert(new Purchase(itemId, player.getPlayerId()));
-                playerDao.updateCredit(player, -price); // player의 credit으로 아이템 구매
+                playerDao.updateCredit(player, -price);         // player의 credit으로 아이템 구매
                 if (selectedItem.isLimitedEdition()) {
                     if (selectedItem.getAmount() > 0) {
                         selectedItem.decrementAmount();
@@ -55,7 +56,7 @@ public class PerchaseService {
                         System.out.println("아이템의 수량이 없어 구매할 수 없습니다.");
                     }
                 }
-                itemDao.update(selectedItem); // limited edition인 아이템은 구매하면 amount 값이 감소
+                itemDao.update(selectedItem);                   // limited edition인 아이템은 구매하면 amount 값이 감소
                 System.out.printf("%s이(가) 구매되었습니다. 잔액: %d%n", selectedItem.getItemName(), player.getCredit());
                 applyItemToNickname(selectedItem);
             } else {
@@ -65,7 +66,7 @@ public class PerchaseService {
     }
 
     public List<Item> printPurchaseById() {
-        System.out.println("======= 구매 내역 =======");
+        uiController.printSubTitle("구매 내역");
         List<Item> result = new ArrayList<>();
 
         ArrayList<Purchase> purchases = purchaseDao.selectByPlayerId(playerDao.findByLoginId(loginId).getPlayerId());
@@ -103,10 +104,10 @@ public class PerchaseService {
         }
     }
 
-    public void printAll(ArrayList<Item> items) {
+    public void printAllItems(ArrayList<Item> items) {       //TODO :각 서비스의 출력들을 어디로 가져갈지 상의 Service, Controller
         System.out.printf("%-10s%-15s%-10s%-15s%n", "번호", "이름", "가격", "정보");
         for (Item item : items) {
-            System.out.printf("%-10s%-15s%-10d%-15s%n", item.getItemId(), item.getItemName(), item.getPrice(), item.getItemInfo());
+            System.out.printf("%-10s%-15s%-10s%-15s%n", item.getItemId(), item.getItemName(), item.getPrice(), item.getItemInfo());
         }
     }
 }

@@ -1,5 +1,6 @@
 package project;
 
+import project.config.UIController;
 import project.gameHistory.GameHistoryService;
 import project.manager.ManagerService;
 import project.item.Item;
@@ -17,6 +18,7 @@ public class Menu {
     private ItemService itemService;
     private GameHistoryService gameHistoryService;
     private ManagerService managerService;
+    private UIController uiController;
 
     public Menu() {
         playerService = new PlayerService();
@@ -24,23 +26,19 @@ public class Menu {
         itemService = new ItemService();
         gameHistoryService = new GameHistoryService();
         managerService = new ManagerService();
+        uiController = new UIController();
     }
 
     public void run(Scanner sc) {
-        System.out.println("*************************");
-        System.out.println("=========================");
-        System.out.println("Chat GPT (Game Play Time)");
-        System.out.println("=========================");
-        System.out.println("*************************");
-
         boolean flag = true;
         int m = 0;
         while (flag) {
-            String menu = "1.로그인 2.회원 가입 3.회원 탈퇴 0.종료";
+            uiController.printTitle("Chat GPT (Game Play Time)");
+
             if (!playerService.isLogin()) {
-                System.out.println(menu);
-                System.out.print("메뉴 입력 >> ");
-                m = sc.nextInt();
+                String menu = "1.로그인 2.회원 가입 3.회원 탈퇴 0.종료";
+                uiController.printMenu(menu);
+                m = uiController.printInput(sc);
 
                 switch (m) {
                     case 0:
@@ -64,7 +62,6 @@ public class Menu {
                         break;
                 }
             }
-
             if (playerService.isLogin()) {
                 mainRun(sc);
             }
@@ -84,15 +81,11 @@ public class Menu {
             int m = 0;
 
             while (playerService.isLogin()) {
-                System.out.println("-------------------------");
-                System.out.println(menu);
-                System.out.println("-------------------------");
+                uiController.printMenu(menu);
+                m = uiController.printInput(sc);
 
-                System.out.print("숫자를 입력하세요 : ");
-                m = sc.nextInt();
                 switch (m) {
                     case 0:
-                        System.out.println("로그아웃.");
                         playerService.logout();
                         break;
                     case 1:
@@ -120,12 +113,8 @@ public class Menu {
         int m = 0;
 
         while (flag) {
-            System.out.println("---------------------------------------------------------");
-            System.out.println(menu);
-            System.out.println("----------------------------------------------------------");
-
-            System.out.print("번호를 입력해주세요 : ");
-            m = sc.nextInt();
+            uiController.printMenu(menu);
+            m = uiController.printInput(sc);
 
             switch (m) {
                 case 0:
@@ -140,7 +129,9 @@ public class Menu {
                 case 3:
 //                    List<Integer> itemIdList = perchaseService.printPurchaseById();
                     List<Item> itemIdList = perchaseService.printPurchaseById();
+
                     Item item = playerService.useItem(itemIdList, sc);
+
                     perchaseService.applyItemToNickname(item);
                     break;
             }
@@ -149,17 +140,15 @@ public class Menu {
 
     private void gameRun(Scanner sc) {
         GameCenter gameCenter = new GameCenter();
-        String menu = "1.채팅 게임 | 2.전적 확인 | 0. 종료";
+        uiController.printTitle("Game Center");
+        String menu = "1.채팅 게임 2.전적 확인 | 0. 종료";
+
         boolean flag = true;
         int m = 0;
 
         while (flag) {
-            System.out.println("---------------------------------------------------------");
-            System.out.println(menu);
-            System.out.println("----------------------------------------------------------");
-
-            System.out.print("번호를 입력해주세요.");
-            m = sc.nextInt();
+            uiController.printMenu(menu);
+            m = uiController.printInput(sc);
 
             switch (m) {
                 case 0:
@@ -182,11 +171,9 @@ public class Menu {
         int m = 0;
 
         while (flag) {
-            System.out.println("---------------------------------------------------------");
-            System.out.println(menu);
-            System.out.println("---------------------------------------------------------");
-            System.out.print("번호를 입력해주세요.");
-            m = sc.nextInt();
+            uiController.printTitle("상점");
+            uiController.printMenu(menu);
+            m = uiController.printInput(sc);
 
             switch (m) {
                 case 0:
@@ -202,20 +189,19 @@ public class Menu {
         }
     }
 
-    public void managerRun(Scanner sc) {
+    private void managerRun(Scanner sc) {
         boolean flag = true;
-        int menu;
+
+        uiController.printTitle("관리자 페이지");
+        String menu = "1.크레딧 부여 2.크레딧 삭감 3.모든 플레이어 조회 " +
+                "4.블랙리스트 추가 5.블랙리스트 조회 6.블랙리스트 삭제 " +
+                "7.아이템 등록 8.아이템 조회 9.아이템 삭제 0.뒤로가기";
+        int m = 0;
         while (flag) {
-            System.out.println("1.크레딧 부여 2.크레딧 삭감 3.모든 플레이어 조회 "
-                    + "4.블랙리스트 추가 5.블랙리스트 조회 6.블랙리스트 삭제 "
-                    + "7.아이템 등록 8.아이템 조회 9.아이템 삭제 0.뒤로 가기");
-//            System.out.println("4.블랙리스트 추가 5.블랙리스트 조회 6.블랙리스트 삭제");
-//            System.out.println("7.아이템 등록 8.아이템 조회 9.아이템 삭제 0.뒤로 가기");
+            uiController.printMenu(menu);
+            m = uiController.printInput(sc);
 
-            System.out.print("숫자를 입력하세요 : ");
-            menu = sc.nextInt();
-
-            switch (menu) {
+            switch (m) {
                 case 1:
                     managerService.addCredit(sc);
                     break;
@@ -249,5 +235,4 @@ public class Menu {
             }
         }
     }
-
 }

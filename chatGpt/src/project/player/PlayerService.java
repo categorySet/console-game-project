@@ -3,6 +3,8 @@ package project.player;
 import java.util.List;
 import java.util.Scanner;
 
+import project.Menu;
+import project.config.UIController;
 import project.item.Item;
 import project.item.ItemDao;
 import project.manager.ManagerDao;
@@ -10,15 +12,16 @@ import project.manager.ManagerDao;
 public class PlayerService {
     public static String loginId = null;
     public static String nickname;
-
     private PlayerDao playerDao;
     private ItemDao itemDao;
     private ManagerDao managerDao;
+    private UIController uiController;
 
     public PlayerService() {
         this.playerDao = new PlayerDao();
         this.itemDao = new ItemDao();
         this.managerDao = new ManagerDao();
+        this.uiController = new UIController();
     }
 
     public boolean isLogin() {
@@ -53,7 +56,7 @@ public class PlayerService {
     }
 
     public void login(Scanner sc) {
-        System.out.println("로그인");
+        uiController.printSubTitle("로그인");
         System.out.print("아이디를 입력해주세요 : ");
         String loginId = sc.next();
         System.out.print("비밀번호를 입력해주세요 : ");
@@ -66,35 +69,24 @@ public class PlayerService {
                 System.out.println("차단된 유저입니다.");
             } else if (findPlayer.getPassword().equals(password)) {
                 this.loginId = loginId;
-                System.out.println(findPlayer.getNickname() + "님 환영합니다.");
+                uiController.printTitle(findPlayer.getNickname() + "님 환영합니다.");
+
             } else {
                 System.out.println("아이디와 비밀번호가 일치하지 않습니다.");
             }
         } else {
             System.out.println("존재하지 않는 유저입니다.");
         }
-
-
-//        if (findPlayer != null) {
-//            if (findPlayer.getPassword().equals(password)) {
-//                this.loginId = loginId;
-//                System.out.println(findPlayer.getNickname() + "님 환영합니다.");
-//
-//            } else {
-//                System.out.println("아이디와 비밀번호가 일치하지 않습니다.");
-//            }
-//        } else {
-//            System.out.println("존재하지 않는 유저입니다.");
-//        }
     }
 
     public void logout() {
+        uiController.printTitle("로그아웃");
         this.loginId = null;
     }
 
     public void printMyInfo() {
         Player findPlayer = playerDao.findByLoginId(loginId);
-        System.out.println("==== 내 정보 ====");
+        uiController.printSubTitle("내 정보");
         System.out.println("아이디 : " + findPlayer.getLoginId());
         System.out.println("닉네임 : " + findPlayer.getNickname());
         System.out.println("보유 크레딧 : " + findPlayer.getCredit());
@@ -105,7 +97,7 @@ public class PlayerService {
     public void updateNickname(Scanner sc) {
         Player findPlayer = playerDao.findByLoginId(loginId);
         if (findPlayer != null) {
-            System.out.println("닉네임 변경");
+            uiController.printSubTitle("닉네임 변경");
             System.out.print("변경할 닉네임을 입력해주세요 : ");
             String newNickname = sc.next();
 
@@ -119,7 +111,7 @@ public class PlayerService {
     public void updatePassword(Scanner sc) {
         Player findPlayer = playerDao.findByLoginId(loginId);
         if (findPlayer != null) {
-            System.out.println("비밀번호 변경");
+            uiController.printSubTitle("비밀번호 변경");
             System.out.print("현재 비밀번호를 입력해주세요 : ");
             String oldPwd = sc.next();
             if (playerDao.validatePwd(findPlayer.getLoginId(), oldPwd)) {
@@ -147,7 +139,7 @@ public class PlayerService {
     }
 
     public void deletePlayer(Scanner sc) {
-        System.out.println("계정 삭제");
+        uiController.printSubTitle("회원 탈퇴");
         System.out.print("아이디를 입력해주세요 : ");
         String loginId = sc.next();
 
@@ -176,8 +168,9 @@ public class PlayerService {
 
     public Item useItem(List<Item> itemList, Scanner sc) {
         Item result = new Item();
-        System.out.print("번호 입력 >>  ");
-        int m = sc.nextInt();
+        int m = 0;
+        uiController.printSubTitle("아이템 장착");
+        m = uiController.printInput(sc);
 
         for (Item item : itemList) {
             if(m == item.getItemId()) {
