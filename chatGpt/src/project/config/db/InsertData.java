@@ -137,14 +137,14 @@ public class InsertData {
             addItemBatch(prepared, "노란색", 0, BasicItem.color.getContents(), 1000, false, 999999, "닉네임을 노란색으로 변경");
             addItemBatch(prepared, "초록색", 0, BasicItem.color.getContents(), 1000, false, 999999, "닉네임을 초록색으로 변경");
 
-            addItemBatch(prepared, "멋진", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임을 노란색으로 변경");
-            addItemBatch(prepared, "예쁜", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임을 노란색으로 변경");
-            addItemBatch(prepared, "착한", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임을 노란색으로 변경");
-            addItemBatch(prepared, "나쁜", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임을 노란색으로 변경");
+            addItemBatch(prepared, "멋진", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임에 칭호 추가");
+            addItemBatch(prepared, "예쁜", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임에 칭호 추가");
+            addItemBatch(prepared, "착한", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임에 칭호 추가");
+            addItemBatch(prepared, "나쁜", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임에 칭호 추가");
 
-            addItemBatch(prepared, MafiaItem.Mafia.getContents(), 0, MafiaItem.Mafia.getContents(), 2000, false, 999999, "마피아 역할 잠금해제");
-            addItemBatch(prepared, MafiaItem.Doctor.getContents(), 0, MafiaItem.Doctor.getContents(), 2000, false, 999999, "의사 역할 잠금해제");
-            addItemBatch(prepared, MafiaItem.Police.getContents(), 0, MafiaItem.Police.getContents(), 2000, false, 999999, "경찰 역할 잠금해제");
+            addItemBatch(prepared, MafiaItem.Mafia.getContents(), 1, MafiaItem.Mafia.getContents(), 2000, false, 999999, "마피아 역할 잠금해제");
+            addItemBatch(prepared, MafiaItem.Doctor.getContents(), 1, MafiaItem.Doctor.getContents(), 2000, false, 999999, "의사 역할 잠금해제");
+            addItemBatch(prepared, MafiaItem.Police.getContents(), 1, MafiaItem.Police.getContents(), 2000, false, 999999, "경찰 역할 잠금해제");
             prepared.executeBatch();
 
             System.out.println("insert item");

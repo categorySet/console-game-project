@@ -34,12 +34,7 @@ public class PerchaseService {
         int gameId = sc.nextInt();
 
         System.out.println("======= 아이템 목록 =======");
-//        for (Item item : items) {
-//            if (item.getGameId() == gameId) {
-//                System.out.println(item);
-//            }
-//        }
-        printAll(items);
+        printAll(new ArrayList<>(items.stream().filter(item -> item.getGameId() == gameId).toList()));  //선택된 게임 항목의 아이템만 ArrayList로 변환하여 화면에 출력
 
         System.out.print("구매할 아이템 번호: ");
         int itemId = sc.nextInt();
@@ -113,7 +108,5 @@ public class PerchaseService {
         for (Item item : items) {
             System.out.printf("%-10s%-15s%-10d%-15s%n", item.getItemId(), item.getItemName(), item.getPrice(), item.getItemInfo());
         }
-
-
     }
 }
