@@ -193,12 +193,21 @@ public class Menu {
         boolean flag = true;
 
         uiController.printTitle("관리자 페이지");
-        String menu = "1.크레딧 부여 2.크레딧 삭감 3.모든 플레이어 조회 " +
-                "4.블랙리스트 추가 5.블랙리스트 조회 6.블랙리스트 삭제 " +
-                "7.아이템 등록 8.아이템 조회 9.아이템 삭제 0.뒤로가기";
+        String menu = "1.크레딧 부여 2.크레딧 삭감 3.모든 플레이어 조회";
+        String menu2 = "4.블랙리스트 추가 5.블랙리스트 조회 6.블랙리스트 삭제";
+        String menu3 = "7.아이템 등록 8.아이템 조회 9.아이템 삭제 0.뒤로가기";
+
         int m = 0;
         while (flag) {
-            uiController.printMenu(menu);
+            String line = "=".repeat(uiController.getWIDTH());
+            System.out.printf(line +"%n");
+            System.out.printf("%s%n", menu);
+            uiController.printSubLine();
+            System.out.printf("%s%n", menu2);
+            uiController.printSubLine();
+            System.out.printf("%s%n", menu3);
+
+            System.out.printf(line + "%n");
             m = uiController.printInput(sc);
 
             switch (m) {
@@ -227,6 +236,7 @@ public class Menu {
                     itemService.printAll();
                     break;
                 case 9:
+                    itemService.printAll();
                     itemService.deleteItem(sc);
                     break;
                 case 0:

@@ -45,5 +45,8 @@ public class UIController {
         System.out.println("가입일 : " + findPlayer.getCreateDate());
     }
 
+    public void printSubLine() {
+        System.out.println("-".repeat(WIDTH));
+    }
 
 }
