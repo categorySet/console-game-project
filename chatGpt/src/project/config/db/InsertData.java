@@ -142,6 +142,11 @@ public class InsertData {
             addItemBatch(prepared, "착한", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임에 칭호 추가");
             addItemBatch(prepared, "나쁜", 0, BasicItem.title.getContents(), 1000, false, 999999, "닉네임에 칭호 추가");
 
+            addItemBatch(prepared, "노란색+멋진", 0, BasicItem.edition.getContents(), 5000, true, 1, "[한정 판매] 닉네임을 빨간색으로 변경, 칭호 추가");
+            addItemBatch(prepared, "파란색+예쁜", 0, BasicItem.edition.getContents(), 5000, true, 1, "[한정 판매] 닉네임을 빨간색으로 변경, 칭호 추가");
+            addItemBatch(prepared, "초록색+착한", 0, BasicItem.edition.getContents(), 5000, true, 1, "[한정 판매] 닉네임을 빨간색으로 변경, 칭호 추가");
+            addItemBatch(prepared, "빨간색+나쁜", 0, BasicItem.edition.getContents(), 5000, true, 1, "[한정 판매] 닉네임을 빨간색으로 변경, 칭호 추가");
+
             addItemBatch(prepared, MafiaItem.Mafia.getContents(), 1, MafiaItem.Mafia.getContents(), 2000, false, 999999, "마피아 역할 잠금해제");
             addItemBatch(prepared, MafiaItem.Doctor.getContents(), 1, MafiaItem.Doctor.getContents(), 2000, false, 999999, "의사 역할 잠금해제");
             addItemBatch(prepared, MafiaItem.Police.getContents(), 1, MafiaItem.Police.getContents(), 2000, false, 999999, "경찰 역할 잠금해제");

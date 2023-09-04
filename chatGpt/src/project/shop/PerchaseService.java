@@ -46,16 +46,17 @@ public class PerchaseService {
             Player player = playerDao.findByLoginId(loginId);    // 현재 플레이어
 
             if (player.getCredit() >= price) {
-                purchaseDao.insert(new Purchase(itemId, player.getPlayerId()));
-                playerDao.updateCredit(player, -price);         // player의 credit으로 아이템 구매
                 if (selectedItem.isLimitedEdition()) {
                     if (selectedItem.getAmount() > 0) {
                         selectedItem.decrementAmount();
                     } else {
                         System.out.println("아이템의 수량이 없어 구매할 수 없습니다.");
+                        return;
                     }
+                    itemDao.update(selectedItem);                   // limited edition인 아이템은 구매하면 amount 값이 감소
                 }
-                itemDao.update(selectedItem);                   // limited edition인 아이템은 구매하면 amount 값이 감소
+                purchaseDao.insert(new Purchase(itemId, player.getPlayerId()));
+                playerDao.updateCredit(player, -price);         // player의 credit으로 아이템 구매
                 System.out.printf("%s이(가) 구매되었습니다. 잔액: %d%n", selectedItem.getItemName(), player.getCredit() - price);
                 applyItemToNickname(selectedItem);
             } else {
@@ -88,20 +89,29 @@ public class PerchaseService {
             if (item.getCategory().equals(BasicItem.title.getContents())) {
                 fullNickname = item.getItemName() + " " + nickname; // 닉네임 앞에 칭호를 붙임
                 System.out.println("nickname: " + fullNickname);
-                System.out.println("칭호가 적용되었습니다.");
+                System.out.println("아이템이 적용되었습니다.");
 
             } else if (item.getCategory().equals(BasicItem.color.getContents())) {
                 for (ColorCode c : ColorCode.values()) {
-                    if (item.getItemName().equalsIgnoreCase(c.name())) {
+                    if (item.getItemName().equalsIgnoreCase(c.getColorName())) {
                         String colorCode = c.getCode();
                         fullNickname = colorCode + " " + nickname + " " + ColorCode.RESET.getCode(); // 닉네임에 색상 코드를 적용
                     }
                 }
                 System.out.println("nickname: " + fullNickname);
-                System.out.println("스킨이 적용되었습니다.");
+                System.out.println("아이템이 적용되었습니다.");
 
             } else if (item.getCategory().equals(BasicItem.edition.getContents())) {
-                // TODO: 칭호와 스킨 두 가지를 모두 적용하는 로직
+                String[] split = item.getItemName().split("\\+");
+                String n = split[1] + " " + nickname;// 닉네임 앞에 칭호를 붙임
+                for (ColorCode c : ColorCode.values()) {
+                    if (split[0].equalsIgnoreCase(c.getColorName())) {
+                        String colorCode = c.getCode();
+                        fullNickname = colorCode + " " + n + " " + ColorCode.RESET.getCode(); // 칭호 + 닉네임에 색상 코드를 적용
+                    }
+                }
+                System.out.println("nickname: " + fullNickname);
+                System.out.println("아이템이 적용되었습니다.");
             }
         }
     }
