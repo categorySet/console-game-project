@@ -11,7 +11,8 @@ import project.manager.ManagerDao;
 
 public class PlayerService {
     public static String loginId = null;
-    public static String nickname;
+    public static String nickname = "";
+    public static String fullNickname = "";
     private PlayerDao playerDao;
     private ItemDao itemDao;
     private ManagerDao managerDao;
@@ -38,6 +39,10 @@ public class PlayerService {
 
     public static String getNickname () {
         return nickname;
+    }
+
+    public static String getFullNickname() {
+        return fullNickname;
     }
 
     public void signup(Scanner sc) {

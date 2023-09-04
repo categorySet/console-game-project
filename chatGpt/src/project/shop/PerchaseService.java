@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static project.player.PlayerService.loginId;
-import static project.player.PlayerService.nickname;
+import static project.player.PlayerService.*;
 
 
 public class PerchaseService {
@@ -87,18 +86,18 @@ public class PerchaseService {
             System.out.println("존재하지 않는 아이템 입니다.");
         } else {
             if (item.getCategory().equals(BasicItem.title.getContents())) {
-                nickname = item.getItemName() + " " + nickname; // 닉네임 앞에 칭호를 붙임
-                System.out.println("nickname: " + nickname);
+                fullNickname = item.getItemName() + " " + nickname; // 닉네임 앞에 칭호를 붙임
+                System.out.println("nickname: " + fullNickname);
                 System.out.println("칭호가 적용되었습니다.");
 
             } else if (item.getCategory().equals(BasicItem.color.getContents())) {
                 for (ColorCode c : ColorCode.values()) {
                     if (item.getItemName().equalsIgnoreCase(c.name())) {
                         String colorCode = c.getCode();
-                        nickname = colorCode + " " + nickname + " " + ColorCode.RESET.getCode(); // 닉네임에 색상 코드를 적용
+                        fullNickname = colorCode + " " + nickname + " " + ColorCode.RESET.getCode(); // 닉네임에 색상 코드를 적용
                     }
                 }
-                System.out.println("nickname: " + nickname);
+                System.out.println("nickname: " + fullNickname);
                 System.out.println("스킨이 적용되었습니다.");
 
             } else if (item.getCategory().equals(BasicItem.edition.getContents())) {
