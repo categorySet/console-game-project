@@ -56,12 +56,10 @@ public class MafiaRoom extends ChatRoom {
             for (int i = list.size() - 1; i >= 0; i--) {
                 ChatServerTh c = list.get(i);
 
-                for (Map.Entry<String, String> fullName : serverStarter.fullNicknames.entrySet()) {
-                    if (c.getUserName().equals(serverStarter.fullNicknames.get(fullName.getKey()))) {
-                        c.writeln("당신은 마피아에 의해 죽었습니다.");
-                        sendMessageAll("악랄한 마피아에 의해 " + name + "님이 죽었습니다.");
-                        setClientDead(c);
-                    }
+                if (serverStarter.fullNicknames.get(c.getUserName()).equals(name)) {
+                    c.writeln("당신은 마피아에 의해 죽었습니다.");
+                    sendMessageAll("악랄한 마피아에 의해 " + name + "님이 죽었습니다.");
+                    setClientDead(c);
                 }
             }
         }
@@ -72,7 +70,7 @@ public class MafiaRoom extends ChatRoom {
             for (int i = list.size() - 1; i >= 0; i--) {
                 ChatServerTh c = list.get(i);
 
-                if (c.getUserName().equals(name)) {
+                if (serverStarter.fullNicknames.get(c.getUserName()).equals(name)) {
                     setClientDead(c);
                     c.writeln("투표에 의해 죽었습니다..");
                     sendMessageAll("투표에 의해 " + name + "님이 죽었습니다.");

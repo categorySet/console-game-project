@@ -54,7 +54,7 @@ public class ServerMain {
 //                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
 
                     entry.getValue().winners.stream()
-                            .map(w -> entry.getValue().fullNicknames.get(entry.getValue().nameAndLoginId.get(w)))
+                            .map(w -> entry.getValue().nameAndLoginId.get(w))
                             .forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
 
                     entry.getValue().winners = null;
