@@ -127,11 +127,8 @@ public class Menu {
                     playerService.updatePassword(sc);
                     break;
                 case 3:
-//                    List<Integer> itemIdList = perchaseService.printPurchaseById();
                     List<Item> itemIdList = perchaseService.printPurchaseById();
-
                     Item item = playerService.useItem(itemIdList, sc);
-
                     perchaseService.applyItemToNickname(item);
                     break;
             }
@@ -212,13 +209,15 @@ public class Menu {
 
             switch (m) {
                 case 1:
+                    managerService.printAllPlayer();
                     managerService.addCredit(sc);
                     break;
                 case 2:
+                    managerService.printAllPlayer();
                     managerService.subCredit(sc);
                     break;
                 case 3:
-                    managerService.printAll();
+                    managerService.printAllPlayer();
                     break;
                 case 4:
                     managerService.addToBlackList(sc);
@@ -227,6 +226,7 @@ public class Menu {
                     managerService.printAllBlackList();
                     break;
                 case 6:
+                    managerService.printAllBlackList();
                     managerService.delFromBlackList(sc);
                     break;
                 case 7:

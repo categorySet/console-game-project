@@ -1,11 +1,9 @@
 package project.manager;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import project.config.UIController;
-import project.item.Item;
 import project.item.ItemDao;
 import project.player.Player;
 import project.player.PlayerDao;
@@ -62,14 +60,12 @@ public class ManagerService {
 
     }
 
-    public void printAll() {
+    public void printAllPlayer() {
         uiController.printSubTitle("모든 플레이어 조회");
         ArrayList<Player> playerList = playerDao.findAll();
-
-        printAllPlayer(playerList);
+        printFormatPlayer(playerList);
     }
-
-    public void printAllPlayer(ArrayList<Player> players) {
+    public void printFormatPlayer(ArrayList<Player> players) {
         System.out.printf("%-10s %-15s %-15s %-15s %-15s %n", "번호", "이름", "닉네임", "크레딧", "가입일");
         if (players.isEmpty()) {
             System.out.println("플레이어가 존재하지 않습니다.");
@@ -81,10 +77,10 @@ public class ManagerService {
     }
 
     public void addToBlackList(Scanner sc) {
-        System.out.println("===플레이어 블랙리스트에 추가===");
+        uiController.printSubTitle("블랙리스트 추가");
 
         ArrayList<Player> all = playerDao.findAll();
-        printAllPlayer(all);
+        printFormatPlayer(all);
 
         System.out.print("블랙리스트에 추가될 플레이어 번호 :");
         int playerId = sc.nextInt();
@@ -119,13 +115,25 @@ public class ManagerService {
         if (list.isEmpty() || list == null) {
             System.out.println("블랙리스트에 추가된 플레이어가 없습니다.");
         } else {
-            for (BlackList b : list) {
-                System.out.println(b);
-            }
+            printFormatBlackList(list);
         }
     }
 
+    private void printFormatBlackList(ArrayList<BlackList> blackLists) {
+        System.out.printf("%-10s %-10s %-15s%n", "플레이어 번호", "사유", "지정일");
+        if (blackLists.isEmpty()) {
+            System.out.println("블랙리스트가 존재하지 않습니다.");
+        }
+
+        for (BlackList blackList : blackLists) {
+            System.out.printf("%-10s %-10s %-15s%n", blackList.getPlayerId(), blackList.getReason(), blackList.getCreateDate());
+        }
+
+
+    }
+
     public void delFromBlackList(Scanner sc) {
+
         uiController.printSubTitle("블랙리스트 플레이어 삭제");
 
         System.out.print("블랙리스트에서 삭제할 플레이어 번호 : ");
