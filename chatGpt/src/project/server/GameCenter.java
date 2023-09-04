@@ -29,10 +29,6 @@ public class GameCenter {
     public static int currentPort;
 
     public synchronized void run(Scanner scanner) {
-//        System.out.println("게임 센터에 오신 걸 환영합니다.");
-//        System.out.println("=== 현재 가능한 게임 ===");
-//        System.out.println("1. 마피아 | 0. 종료");
-
         uiController.printTitle("게임 선택");
         uiController.printMenu("1.마피아, 2. 추후 업데이트 0. 종료");
         int menu = uiController.printInput(scanner);
@@ -49,8 +45,6 @@ public class GameCenter {
     }
 
     private void mafiaRun(Scanner scanner) {
-//        System.out.println("포트는 10000번부터 10004번까지 있습니다.");
-//        System.out.print("포트 입력");
         try {
             DatagramSocket datagramSocket = new DatagramSocket();
 

@@ -38,8 +38,6 @@ public class ServerMain {
         ps.setDaemon(true);
         ps.start();
 
-
-
         while (true) {
             for (Map.Entry<Integer, ServerStarter> entry : roomMap.entrySet()) {
                 if (entry.getValue().winners != null) {

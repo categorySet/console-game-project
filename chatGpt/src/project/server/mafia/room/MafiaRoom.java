@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 public class MafiaRoom extends ChatRoom {
 
-    public static final int MIN_PERSON = 5;
+    public static final int MIN_PERSON = 4;         //mafia게임 인원수
     private DayTimer dayTimer = null;
 
     private ServerStarter serverStarter;

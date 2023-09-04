@@ -34,9 +34,6 @@ class WriteTh extends Thread {
 
 	@Override
 	public void run() {
-//		String name = playerDao.findByLoginId(PlayerService.getLoginId()).getNickname();
-//		String name = PlayerService.getNickname();
-
 		System.out.println("마피아 게임에 오신 걸 환영합니다 " + PlayerService.getNickname() + "님(loginId = " + PlayerService.getLoginId() + ")");
 
 		// 닉네임 서버 전송

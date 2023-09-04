@@ -16,29 +16,6 @@ public class ManagerDao {
 		dbconn = DBConnect.getInstance();
 	}
 
-	//PlayerDao로 이관
-	// 플레이어 전체 조회
-//	public ArrayList<Player> selectAll() {
-//		ArrayList<Player> list = new ArrayList<>();
-//		Connection conn = dbconn.conn();
-//
-//		String sql = "SELECT player_id, login_id, password, nickname, credit, create_date, last_modified_date FROM player";
-//		try {
-//			PreparedStatement pstmt = conn.prepareStatement(sql);
-//
-//			ResultSet rs = pstmt.executeQuery();
-//
-//			while (rs.next()) {
-//				list.add(new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7)));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			dbconn.disconnectDB(conn);
-//		}
-//		return list;
-//	}
-
 	// 크레딧 수정
 	public void updateCredit(String nickname) {
 		Connection conn = dbconn.conn();
