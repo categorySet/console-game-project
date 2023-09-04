@@ -29,10 +29,10 @@ public class InsertData {
         String query="INSERT INTO player VALUES (seq_player.NEXTVAL, ?, ?, ?, ?, ?, ?)";   //player_id, login_id, password, nickname, credit, c_date, m_date
         try {
             PreparedStatement prepared = conn.prepareStatement(query);
-            addPlayerBatch(prepared, "gmg", "1234", "GMG", 100000);
-            addPlayerBatch(prepared, "rgh", "1234", "RGH", 10000);
-            addPlayerBatch(prepared, "kjh", "1234", "KJH", 10000);
-            addPlayerBatch(prepared, "kys", "1234", "KYS", 10000);
+            addPlayerBatch(prepared, "gmg", "1234", "구민규", 100000);
+            addPlayerBatch(prepared, "rgh", "1234", "류가희", 10000);
+            addPlayerBatch(prepared, "kjh", "1234", "김준회", 10000);
+            addPlayerBatch(prepared, "ksy", "1234", "김수연", 10000);
             addPlayerBatch(prepared, "test", "1234", "testUser", 10000);
             addPlayerBatch(prepared, "kosta", "1234", "kosta", 10000);
             addPlayerBatch(prepared, "kosta", "1234", "kosta", 10000);

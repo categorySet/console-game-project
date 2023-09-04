@@ -90,9 +90,12 @@ public class PerchaseService {
 
             } else if (item.getCategory().equals(BasicItem.color.getContents())) {
                 for (ColorCode c : ColorCode.values()) {
-                    if (item.getItemName().equalsIgnoreCase(c.name())) {
+                    if (item.getItemName().equalsIgnoreCase(c.getColorName())) {
                         String colorCode = c.getCode();
                         nickname = colorCode + " " + nickname + " " + ColorCode.RESET.getCode(); // 닉네임에 색상 코드를 적용
+                        //TODO colorCode를 서버에 전송하는 방법
+                        //1. 배열로 보낸다 nickname[0] = name nickname[1] =
+
                     }
                 }
                 System.out.println("nickname: " + nickname);
@@ -100,6 +103,8 @@ public class PerchaseService {
 
             } else if (item.getCategory().equals(BasicItem.edition.getContents())) {
                 // TODO: 칭호와 스킨 두 가지를 모두 적용하는 로직
+
+
             }
         }
     }
