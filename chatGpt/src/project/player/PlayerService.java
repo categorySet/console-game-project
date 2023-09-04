@@ -74,7 +74,7 @@ public class PlayerService {
             } else if (findPlayer.getPassword().equals(password)) {
                 this.loginId = loginId;
                 this.nickname = findPlayer.getNickname();
-//                uiController.printTitle(findPlayer.getNickname() + "님 환영합니다.");
+                this.fullNickname = findPlayer.getNickname();
                 uiController.printTitle(nickname + "님 환영합니다.");
 
             } else {
