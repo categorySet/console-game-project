@@ -82,6 +82,12 @@ public class DayTimer extends Thread {
             time = TIME_LIMIT;
         }
 
+        Mafia.killed = false;
+        Doctor.saved = false;
+        Police.scanned = false;
+
+        Mafia.nextKill = null;
+
         System.out.println("[Info] DayTimer.run 종료됨");
     }
 }
