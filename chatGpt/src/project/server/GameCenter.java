@@ -1,5 +1,6 @@
 package project.server;
 
+import project.config.UIController;
 import project.server.mafia.ChatClientMain;
 
 import java.io.IOException;
@@ -15,18 +16,24 @@ public class GameCenter {
 
     private HashMap<Integer, Status> roomPortMap;
 
+    private UIController uiController;
+
     public GameCenter() {
         roomPortMap = new HashMap<>();
+
+        uiController = new UIController();
     }
 
     public static int currentPort;
 
     public synchronized void run(Scanner scanner) {
-        System.out.println("게임 센터에 오신 걸 환영합니다.");
-        System.out.println("=== 현재 가능한 게임 ===");
-        System.out.println("1. 마피아 | 0. 종료");
+//        System.out.println("게임 센터에 오신 걸 환영합니다.");
+//        System.out.println("=== 현재 가능한 게임 ===");
+//        System.out.println("1. 마피아 | 0. 종료");
 
-        int menu = scanner.nextInt();
+        uiController.printTitle("게임 선택");
+        uiController.printMenu("1. 마피아 | 0. 종료");
+        int menu = uiController.printInput(scanner);
         scanner.nextLine();
 
         switch (menu) {
