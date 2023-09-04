@@ -45,6 +45,8 @@ public class GameCenter {
     }
 
     private void mafiaRun(Scanner scanner) {
+        String ip = null;
+
         try {
             DatagramSocket datagramSocket = new DatagramSocket();
 
@@ -52,7 +54,7 @@ public class GameCenter {
 
             System.out.print("아이피를 입력하세요: ");
 
-            String ip = scanner.nextLine();
+            ip = scanner.nextLine();
 
             InetAddress address = InetAddress.getByName(ip);
             DatagramPacket packet = new DatagramPacket(datas, datas.length, address, 9999);
@@ -76,7 +78,7 @@ public class GameCenter {
 
         int port = currentPort;
 
-        ChatClientMain chatClientMain = new ChatClientMain("localhost", port);
+        ChatClientMain chatClientMain = new ChatClientMain(ip, port);
         chatClientMain.start();
 
         try {
