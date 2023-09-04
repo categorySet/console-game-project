@@ -16,7 +16,8 @@ public class ServerStarter extends Thread {
 
     public List<String> winners;
 
-    public Hashtable<String, String> hashtable = new Hashtable<>();
+    public Hashtable<String, String> nameAndLoginId = new Hashtable<>();
+    public Hashtable<String, String> fullNicknames = new Hashtable<>();
 
     public ServerStarter(Gamable gamable, int port) {
         this.gamable = gamable;

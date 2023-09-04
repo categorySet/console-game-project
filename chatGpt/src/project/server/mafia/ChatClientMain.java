@@ -40,7 +40,7 @@ class WriteTh extends Thread {
 		System.out.println("마피아 게임에 오신 걸 환영합니다 " + PlayerService.getNickname() + "님(loginId = " + PlayerService.getLoginId() + ")");
 
 		// 닉네임 서버 전송
-		out.println(PlayerService.getNickname() + "," + PlayerService.getLoginId());
+		out.println(PlayerService.getNickname() + "," + PlayerService.getLoginId() + "," + PlayerService.getFullNickname());
 
 		out.flush();
 

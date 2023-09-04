@@ -6,7 +6,6 @@ import project.server.mafia.server.MafiaServer;
 import project.server.mafia.server.PortSender;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -54,7 +53,8 @@ public class ServerMain {
 
 //                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
 
-                    entry.getValue().winners.stream().map(w -> entry.getValue().hashtable.get(w))
+                    entry.getValue().winners.stream()
+                            .map(w -> entry.getValue().fullNicknames.get(entry.getValue().nameAndLoginId.get(w)))
                             .forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
 
                     entry.getValue().winners = null;
