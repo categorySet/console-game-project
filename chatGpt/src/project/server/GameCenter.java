@@ -5,8 +5,10 @@ import project.server.mafia.ChatClientMain;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * 게임을 선택할 수 있는 클래스
@@ -54,7 +56,11 @@ public class GameCenter {
 
             byte[] datas = "port".getBytes();
 
-            InetAddress address = InetAddress.getByName("localhost");
+            System.out.print("아이피를 입력하세요: ");
+
+            String ip = scanner.nextLine();
+
+            InetAddress address = InetAddress.getByName(ip);
             DatagramPacket packet = new DatagramPacket(datas, datas.length, address, 9999);
 
             datagramSocket.send(packet);
