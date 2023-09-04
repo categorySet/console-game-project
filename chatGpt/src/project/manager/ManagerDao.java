@@ -1,4 +1,4 @@
-package project.admin;
+package project.manager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,76 +9,47 @@ import java.util.ArrayList;
 import project.config.db.DBConnect;
 import project.player.Player;
 
-public class AdminDao {
+public class ManagerDao {
 	private DBConnect dbconn;
 
-	public AdminDao() {
+	public ManagerDao() {
 		dbconn = DBConnect.getInstance();
 	}
 
+	//PlayerDao로 이관
 	// 플레이어 전체 조회
-	public ArrayList<Player> selectAll() {
-		ArrayList<Player> list = new ArrayList<Player>();
-
-		Connection conn = dbconn.conn();
-
-		String sql = "SELECT * FROM player";// playerId, loginId, password, credit, createDate, lastModifiedDate
-
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-
-			ResultSet rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				list.add(new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5),
-						rs.getDate(6)));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			dbconn.disconnectDB(conn);
-		}
-		return list;
-	}
-
-	// 플레이어 검색
-	public Player select(String nickname) {
-		Connection conn = dbconn.conn();
-
-		String sql = "SELECT * FROM player WHERE nickname = ?";// playerId, loginId, password, credit, createDate,
-																// lastModifiedDate
-
-		try {
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, nickname);
-			ResultSet rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				return new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDate(5),
-						rs.getDate(6));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			dbconn.disconnectDB(conn);
-		}
-		return null;
-	}
+//	public ArrayList<Player> selectAll() {
+//		ArrayList<Player> list = new ArrayList<>();
+//		Connection conn = dbconn.conn();
+//
+//		String sql = "SELECT player_id, login_id, password, nickname, credit, create_date, last_modified_date FROM player";
+//		try {
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//
+//			ResultSet rs = pstmt.executeQuery();
+//
+//			while (rs.next()) {
+//				list.add(new Player(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6), rs.getDate(7)));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			dbconn.disconnectDB(conn);
+//		}
+//		return list;
+//	}
 
 	// 크레딧 수정
-	public void updateCredit(int playerId) {
+	public void updateCredit(String nickname) {
 		Connection conn = dbconn.conn();
-
-		String sql = "UPDATE player SET credit=? WHERE player_id = ?";
+		String sql = "UPDATE player SET credit=? WHERE nickname = ?";
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-
 			Player p = new Player();
 
 			pstmt.setInt(1, p.getCredit());
-			pstmt.setInt(2, playerId);
+			pstmt.setString(2, p.getNickname());
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -91,16 +62,15 @@ public class AdminDao {
 	// 플레이어가 블랙리스트에 올랐는지
 	public boolean checkBlackList(int playerId) {
 		Connection conn = dbconn.conn();
-
-		String sql = "SELECT * FROM blacklist WHERE player_Id=?";// blackListId, playerId, reason, createDate, lastModifiedDate
-
+		String sql = "SELECT black_list_id, reason, create_date, last_modified_date FROM blacklist WHERE player_id=?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-
 			pstmt.setInt(1, playerId);
 			ResultSet rs = pstmt.executeQuery();
-			
-			return true;
+			if(rs.next()) {
+				return true;
+			}
+//			return true;		//FIXME : rs.next()가 없었어요!!! ...
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -112,16 +82,16 @@ public class AdminDao {
 	// 블랙리스트 전체 출력
 	public ArrayList<BlackList> selectAllBlackList() {
 		Connection conn = dbconn.conn();
-		
+
 		ArrayList<BlackList> list = new ArrayList<>();
 
-		String sql = "SELECT * FROM blacklist";// blackListId, playerId, reason, createDate, lastModifiedDate
+		String sql = "SELECT black_list_id, player_id, reason, create_date, last_modified_date FROM blacklist";
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
 				list.add(new BlackList(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getDate(4), rs.getDate(5)));
 			}
@@ -135,10 +105,10 @@ public class AdminDao {
 	}
 
 	// 블랙리스트에 추가
-	public void addBlackList(int playerId, int index) {
+	public void addBlackList(int playerId, String reason) {
 		Connection conn = dbconn.conn();
 
-		String sql = "INSERT INTO blacklist VALUES(?,?,?,?)"; // player_id, reason, c_date, m_date
+		String sql = "INSERT INTO blacklist VALUES(seq_blacklist.nextval,?,?,?,?)";//player_id, reason, create_date, last_modified_date
 
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -146,12 +116,10 @@ public class AdminDao {
 			BlackList b = new BlackList();
 
 			pstmt.setInt(1, playerId);
-			pstmt.setInt(2, index);
+			pstmt.setString(2, reason);
 			pstmt.setDate(3, b.getCreateDate());
 			pstmt.setDate(4, b.getLastModifiedDate());
 			pstmt.executeUpdate();
-
-			System.out.println("해당 플레이어가 블랙리스트에 추가되었습니다.");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -171,8 +139,6 @@ public class AdminDao {
 
 			pstmt.setInt(1, playerId);
 			pstmt.executeUpdate();
-
-			System.out.println("해당 플레이어가 블랙리스트에서 해제되었습니다.");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

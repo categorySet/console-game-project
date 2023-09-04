@@ -13,8 +13,10 @@ import project.server.mafia.room.MafiaRoom;
  */
 public class DayTimer extends Thread {
 
+    private static final int TIME_LIMIT = 30;
+
     private boolean isDay = false;
-    private int time = 30;
+    private int time = TIME_LIMIT;
 
     public boolean dayTimerflag = true;
 
@@ -77,8 +79,14 @@ public class DayTimer extends Thread {
 
             }
 
-            time = 30;
+            time = TIME_LIMIT;
         }
+
+        Mafia.killed = false;
+        Doctor.saved = false;
+        Police.scanned = false;
+
+        Mafia.nextKill = null;
 
         System.out.println("[Info] DayTimer.run 종료됨");
     }

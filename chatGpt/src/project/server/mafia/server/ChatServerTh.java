@@ -1,5 +1,6 @@
 package project.server.mafia.server;
 
+import project.server.ServerStarter;
 import project.server.mafia.Roles.*;
 import project.server.mafia.room.MafiaRoom;
 
@@ -29,10 +30,13 @@ public class ChatServerTh extends Thread {
 
     private boolean flag = true;
 
+    private ServerStarter serverStarter;
 
-    public ChatServerTh(Socket socket, MafiaRoom mafiaRoom) {
+
+    public ChatServerTh(Socket socket, MafiaRoom mafiaRoom, ServerStarter serverStarter) {
         this.socket = socket;
         this.mafiaRoom = mafiaRoom;
+        this.serverStarter = serverStarter;
 
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -76,6 +80,14 @@ public class ChatServerTh extends Thread {
     public void run() {
         try {
             userName = reader.readLine();
+
+            String[] names = userName.split(",");
+
+            // key: 게임 nickname value: login_id
+            serverStarter.hashtable.put(names[0], names[1]);
+
+            userName = names[0];
+
             System.out.println("name = " + userName);
 
             writeln("===직업 선택===");

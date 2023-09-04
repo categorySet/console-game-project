@@ -77,6 +77,7 @@ public class Table {
         String query =  "CREATE TABLE blacklist(" +
                 "black_list_id NUMBER PRIMARY KEY," +
                 "player_id NUMBER NOT NULL," +
+//                "player_login_id VARCHAR(30) NOT NULL," +
                 "reason VARCHAR2(50)," +
                 "create_date DATE," +
                 "last_modified_date DATE)";
@@ -84,7 +85,6 @@ public class Table {
             Statement statement = conn.createStatement();
             statement.execute(query);
             System.out.println("Create Table Blacklist");
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,6 +117,7 @@ public class Table {
                 "history_id NUMBER PRIMARY KEY," +
                 "game_id NUMBER NOT NULL," +
                 "winner NUMBER," +
+                "game_room_id NUMBER," +
                 "create_date DATE," +
                 "last_modified_date DATE," +
                 "CONSTRAINT fk_game_id FOREIGN KEY(game_id) REFERENCES game(game_id)," +

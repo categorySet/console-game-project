@@ -34,12 +34,14 @@ class WriteTh extends Thread {
 
 	@Override
 	public void run() {
-		// TODO 내 닉네임 색 바꾸기
-		String name = playerDao.findByLoginId(PlayerService.getLoginId()).getNickname();
+//		String name = playerDao.findByLoginId(PlayerService.getLoginId()).getNickname();
+//		String name = PlayerService.getNickname();
 
-		System.out.println("마피아 게임에 오신 걸 환영합니다 " + name + "님");
+		System.out.println("마피아 게임에 오신 걸 환영합니다 " + PlayerService.getNickname() + "님(loginId = " + PlayerService.getLoginId() + ")");
+
 		// 닉네임 서버 전송
-		out.println(name);
+		out.println(PlayerService.getNickname() + "," + PlayerService.getLoginId());
+
 		out.flush();
 
 		while (flag) {
@@ -47,7 +49,6 @@ class WriteTh extends Thread {
 			String str = sc.nextLine();
 			// 소켓에 출력 => 상대방에게 전송
 			
-			// TODO 입력 글자 색 바꾸기
 			out.println(str);
 			out.flush();// 버퍼 강제 출력
 		}

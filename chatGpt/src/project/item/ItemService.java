@@ -11,7 +11,7 @@ public class ItemService {
     }
 
     public void addItem(Scanner sc) {
-        // Admin 권한 확인
+        // Manager 권한 확인
         System.out.println("=== 아이템 등록 ===");
         System.out.print("item name: ");
         String itemName = sc.next();
@@ -36,7 +36,7 @@ public class ItemService {
         sc.nextLine(); // 입력 버퍼를 비워주는 역할
         String itemInfo = sc.nextLine();
         itemDao.insert(new Item(itemName, gameId, category, price, limitedEdition, amount, itemInfo));
-        // TODO: admin 기능 중 item 등록 삭제 -> 데이터 init에 추가
+        // TODO: manager 기능 중 item 등록 삭제 -> 데이터 init에 추가
     }
 
     // 번호로 검색

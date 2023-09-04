@@ -2,6 +2,7 @@ package project.server;
 
 import project.gameHistory.GameHistoryService;
 
+import java.util.Hashtable;
 import java.util.List;
 
 public class ServerStarter extends Thread {
@@ -14,6 +15,8 @@ public class ServerStarter extends Thread {
     public Status status;
 
     public List<String> winners;
+
+    public Hashtable<String, String> hashtable = new Hashtable<>();
 
     public ServerStarter(Gamable gamable, int port) {
         this.gamable = gamable;

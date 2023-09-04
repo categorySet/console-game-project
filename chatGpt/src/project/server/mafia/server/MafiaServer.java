@@ -44,7 +44,7 @@ public class MafiaServer implements Gamable {
 
                 System.out.println("[소켓 연결]" + socket.getInetAddress());
 
-                ChatServerTh chatServerTh = new ChatServerTh(socket, mafiaRoom);
+                ChatServerTh chatServerTh = new ChatServerTh(socket, mafiaRoom, serverStarter);
 
                 mafiaRoom.addClient(chatServerTh);
 

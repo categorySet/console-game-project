@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 public class MafiaRoom extends ChatRoom {
 
-    public static final int MIN_PERSON = 5;
+    public static final int MIN_PERSON = 3;
     private DayTimer dayTimer = null;
 
     private ServerStarter serverStarter;
@@ -95,7 +95,7 @@ public class MafiaRoom extends ChatRoom {
                 synchronized (list) {
                     for (ChatServerTh th : list) {
                         if (th == chatServerTh) {
-                            Pattern pattern = Pattern.compile("/vote (\\w+)");
+                            Pattern pattern = Pattern.compile("/vote ([0-9A-Za-z가-힣]+)");
                             Matcher matcher = pattern.matcher(message);
 
                             if (matcher.matches() && dayTimer.isDay()) {
@@ -114,7 +114,7 @@ public class MafiaRoom extends ChatRoom {
                 synchronized (list) {
                     for (ChatServerTh th : list) {
                         if (th == chatServerTh) {
-                            Pattern pattern = Pattern.compile("/use (\\w+)");
+                            Pattern pattern = Pattern.compile("/use ([0-9A-Za-z가-힣]+)");
                             Matcher matcher = pattern.matcher(message);
 
                             if (matcher.matches() && !dayTimer.isDay()) {
