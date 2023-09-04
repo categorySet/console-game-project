@@ -16,7 +16,6 @@ public class ServerMain {
     private static final int port = 10000;
 
     public static HashMap<Integer, ServerStarter> roomMap;
-//    public static HashMap<Integer, Status> roomStatusMap;
     public static ExecutorService executorService;
 
     private static PlayerDao playerDao = new PlayerDao();
@@ -26,18 +25,13 @@ public class ServerMain {
         GameHistoryService gameHistoryService = new GameHistoryService();
 
         roomMap = new HashMap<>();
-//        roomStatusMap = new HashMap<>();
-
         executorService = Executors.newFixedThreadPool(NUM_OF_ROOM);
 
         for (int i = 0; i < NUM_OF_ROOM; i++) {
             ServerStarter serverStarter = new ServerStarter(new MafiaServer(), port + i);
 
-//            serverStarter.setDaemon(true);
-
             executorService.execute(serverStarter);
             roomMap.put(port + i, serverStarter);
-//            roomStatusMap.put(port + i, (serverStarter.status));
         }
 
         PortSender ps = new PortSender();
@@ -51,8 +45,6 @@ public class ServerMain {
                 if (entry.getValue().winners != null) {
                     int gameRoomId = gameHistoryService.getGameRoomId();
 
-//                    entry.getValue().winners.stream().forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
-
                     entry.getValue().winners.stream()
                             .map(w -> entry.getValue().nameAndLoginId.get(w))
                             .forEach(w -> gameHistoryService.setWinner(1, w, gameRoomId));
@@ -62,10 +54,7 @@ public class ServerMain {
                     PortSender.port++;
                 }
             }
-
-
         }
-
     }
 
 }

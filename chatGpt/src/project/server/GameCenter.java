@@ -32,7 +32,7 @@ public class GameCenter {
 //        System.out.println("1. 마피아 | 0. 종료");
 
         uiController.printTitle("게임 선택");
-        uiController.printMenu("1. 마피아 | 0. 종료");
+        uiController.printMenu("1.마피아, 2. 추후 업데이트 0. 종료");
         int menu = uiController.printInput(scanner);
         scanner.nextLine();
 

@@ -35,7 +35,6 @@ public class InsertData {
             addPlayerBatch(prepared, "ksy", "1234", "김수연", 10000);
             addPlayerBatch(prepared, "test", "1234", "testUser", 10000);
             addPlayerBatch(prepared, "kosta", "1234", "kosta", 10000);
-            addPlayerBatch(prepared, "kosta", "1234", "kosta", 10000);
             addPlayerBatch(prepared, "badUser", "1234", "BlackList", 10000);
 
             prepared.executeBatch();
@@ -65,7 +64,6 @@ public class InsertData {
             PreparedStatement prepared = conn.prepareStatement(query);
             prepared.setInt(1, 1);
             prepared.setInt(2, 9876);
-//            prepared.setInt(3, 1);        //TODO : 테이블 변경하기
             prepared.setDate(4, Date.valueOf(LocalDate.now()));
             prepared.setDate(5, Date.valueOf(LocalDate.now()));
             prepared.executeUpdate();

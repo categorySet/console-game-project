@@ -70,7 +70,6 @@ public class ManagerDao {
 			if(rs.next()) {
 				return true;
 			}
-//			return true;		//FIXME : rs.next()가 없었어요!!! ...
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

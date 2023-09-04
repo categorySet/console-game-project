@@ -40,7 +40,6 @@ public class ItemService {
         sc.nextLine(); // 입력 버퍼를 비워주는 역할
         String itemInfo = sc.nextLine();
         itemDao.insert(new Item(itemName, gameId, category, price, limitedEdition, amount, itemInfo));
-        // TODO: manager 기능 중 item 등록 삭제 -> 데이터 init에 추가
     }
 
     // 번호로 검색

@@ -223,6 +223,7 @@ public class Menu {
                     managerService.addToBlackList(sc);
                     break;
                 case 5:
+                    managerService.printAllPlayer();
                     managerService.printAllBlackList();
                     break;
                 case 6:

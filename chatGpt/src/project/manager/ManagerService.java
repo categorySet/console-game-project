@@ -111,7 +111,6 @@ public class ManagerService {
     public void printAllBlackList() {
         uiController.printSubTitle("블랙리스트 전체 조회");
         ArrayList<BlackList> list = managerDao.selectAllBlackList();
-
         if (list.isEmpty() || list == null) {
             System.out.println("블랙리스트에 추가된 플레이어가 없습니다.");
         } else {
@@ -120,6 +119,9 @@ public class ManagerService {
     }
 
     private void printFormatBlackList(ArrayList<BlackList> blackLists) {
+
+
+
         System.out.printf("%-10s %-10s %-15s%n", "플레이어 번호", "사유", "지정일");
         if (blackLists.isEmpty()) {
             System.out.println("블랙리스트가 존재하지 않습니다.");

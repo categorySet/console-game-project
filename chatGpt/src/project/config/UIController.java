@@ -15,7 +15,6 @@ public class UIController {
         String line = "=".repeat(WIDTH);
         System.out.printf(line +"%n");
         System.out.printf("%" + (line.length() - title.length()) / 2 + "s%s%" + (line.length() - title.length()) / 2 + "s%n", "", title, "");
-//        System.out.printf(line +"%n");
     }
 
     public void printSubTitle(String subTitle) {
@@ -27,13 +26,11 @@ public class UIController {
         String line = "=".repeat(WIDTH);
         System.out.printf(line +"%n");
         System.out.printf("%s%n", menu);
-//        System.out.printf(line +"%n");
     }
 
     public int printInput(Scanner sc) {
         System.out.print("메뉴 입력 >> ");
         int menu = sc.nextInt();
-//        System.out.println("-".repeat(WIDTH));
         return menu;
     }
 

@@ -49,7 +49,7 @@ public class PlayerDao {
                     prepared.setString(1, player.getLoginId());
                     prepared.setString(2, player.getPassword());
                     prepared.setString(3, player.getNickname());
-                    prepared.setInt(4, 10000);                  //TODO : 현재 가입시 10000 credit 제공
+                    prepared.setInt(4, 10000);
                     prepared.setDate(5, Date.valueOf(LocalDate.now()));
                     prepared.setDate(6, Date.valueOf(LocalDate.now()));
                     prepared.executeUpdate();
