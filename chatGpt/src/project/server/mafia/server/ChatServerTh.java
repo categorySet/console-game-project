@@ -92,7 +92,8 @@ public class ChatServerTh extends Thread {
 
             System.out.println("name = " + userName);
 
-            writeln("===직업 선택===");
+
+            writeln("==== 직업 선택 ====");
             writeln("0. 마피아 1. 시민 2. 의사 3. 경찰");
 
             int select = -1;
