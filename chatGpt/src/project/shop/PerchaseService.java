@@ -92,7 +92,7 @@ public class PerchaseService {
 
             } else if (item.getCategory().equals(BasicItem.color.getContents())) {
                 for (ColorCode c : ColorCode.values()) {
-                    if (item.getItemName().equalsIgnoreCase(c.name())) {
+                    if (item.getItemName().equalsIgnoreCase(c.getColorName())) {
                         String colorCode = c.getCode();
                         fullNickname = colorCode + " " + nickname + " " + ColorCode.RESET.getCode(); // 닉네임에 색상 코드를 적용
                     }
@@ -106,7 +106,7 @@ public class PerchaseService {
         }
     }
 
-    public void printAllItems(ArrayList<Item> items) {       //TODO :각 서비스의 출력들을 어디로 가져갈지 상의 Service, Controller
+    public void printAllItems(ArrayList<Item> items) {
         System.out.printf("%-10s%-15s%-10s%-15s%n", "번호", "이름", "가격", "정보");
         if (items.isEmpty()) {
             System.out.println("추후 업데이트 예정입니다.");

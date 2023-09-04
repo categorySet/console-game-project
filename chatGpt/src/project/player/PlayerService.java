@@ -11,8 +11,8 @@ import project.manager.ManagerDao;
 
 public class PlayerService {
     public static String loginId = null;
-    public static String nickname = "";
-    public static String fullNickname = "";
+    public static String nickname;
+    public static String fullNickname;
     private PlayerDao playerDao;
     private ItemDao itemDao;
     private ManagerDao managerDao;
@@ -27,7 +27,6 @@ public class PlayerService {
 
     public boolean isLogin() {
         if(this.loginId != null) {
-            this.nickname = playerDao.findByLoginId(loginId).getNickname();
             return true;
         }
         return false;
@@ -74,7 +73,9 @@ public class PlayerService {
                 System.out.println("차단된 유저입니다.");
             } else if (findPlayer.getPassword().equals(password)) {
                 this.loginId = loginId;
-                uiController.printTitle(findPlayer.getNickname() + "님 환영합니다.");
+                this.nickname = findPlayer.getNickname();
+//                uiController.printTitle(findPlayer.getNickname() + "님 환영합니다.");
+                uiController.printTitle(nickname + "님 환영합니다.");
 
             } else {
                 System.out.println("아이디와 비밀번호가 일치하지 않습니다.");
