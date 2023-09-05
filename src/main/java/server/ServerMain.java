@@ -25,12 +25,12 @@ public class ServerMain {
         GameHistoryService gameHistoryService = new GameHistoryService();
 
         roomMap = new HashMap<>();
-        executorService = Executors.newFixedThreadPool(NUM_OF_ROOM);
 
         for (int i = 0; i < NUM_OF_ROOM; i++) {
             ServerStarter serverStarter = new ServerStarter(new MafiaServer(), port + i);
 
-            executorService.execute(serverStarter);
+            serverStarter.start();
+
             roomMap.put(port + i, serverStarter);
         }
 
