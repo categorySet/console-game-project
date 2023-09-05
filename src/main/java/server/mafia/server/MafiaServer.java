@@ -36,9 +36,7 @@ public class MafiaServer implements Gamable {
             while (!serverStarter.isInterrupted()) {
                 Socket socket = serverSocket.accept();
 
-                connectCounter++;
-
-                if (connectCounter >= 5) {
+                if (connectCounter >= mafiaRoom.list.size()) {
                     serverStarter.status = Status.GAMING;
                 }
 
