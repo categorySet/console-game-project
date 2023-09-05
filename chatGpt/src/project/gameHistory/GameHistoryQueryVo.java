@@ -1,4 +1,4 @@
-package gameHistory;
+package project.gameHistory;
 
 public class GameHistoryQueryVo {
     private int historyId;
@@ -16,11 +16,10 @@ public class GameHistoryQueryVo {
 
     @Override
     public String toString() {
-        return "GameHistoryQueryVo{" +
+        return "{" +
                 "historyId=" + historyId +
                 ", gameName='" + gameName + '\'' +
                 ", nickname='" + nickname + '\'' +
                 '}';
     }
-
 }
