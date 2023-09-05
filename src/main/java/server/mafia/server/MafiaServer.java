@@ -31,9 +31,9 @@ public class MafiaServer implements Gamable {
 
         mafiaRoom.start();
 
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            serverSocket.setSoTimeout(5000);
+        try (ServerSocket serverSocket = new ServerSocket(port)){
+
+            serverSocket.setSoTimeout(1000);
 
             Socket socket = null;
             while (!serverStarter.isInterrupted()) {

@@ -209,6 +209,8 @@ public class MafiaRoom extends ChatRoom {
         sendMessageAll("/stop");
 
         list.clear();
+
+        System.out.println("[Info] MafiaRoom.run 종료됨");
     }
 
     private void startDayTimer() {

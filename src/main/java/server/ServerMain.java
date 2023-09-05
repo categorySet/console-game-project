@@ -4,19 +4,18 @@ import gameHistory.GameHistoryService;
 import player.PlayerDao;
 import server.mafia.server.MafiaServer;
 import server.mafia.server.PortSender;
+import server.mafia.server.RoomManager;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerMain {
 
     private static final int NUM_OF_ROOM = 5;
     private static final int port = 10000;
 
-    public static HashMap<Integer, ServerStarter> roomMap;
-    public static ExecutorService executorService;
+    public static ConcurrentHashMap<Integer, ServerStarter> roomMap;
 
     private static PlayerDao playerDao = new PlayerDao();
 
@@ -24,7 +23,7 @@ public class ServerMain {
     public static void main(String[] args) {
         GameHistoryService gameHistoryService = new GameHistoryService();
 
-        roomMap = new HashMap<>();
+        roomMap = new ConcurrentHashMap<>();
 
         for (int i = 0; i < NUM_OF_ROOM; i++) {
             ServerStarter serverStarter = new ServerStarter(new MafiaServer(), port + i);
@@ -32,6 +31,10 @@ public class ServerMain {
             serverStarter.start();
 
             roomMap.put(port + i, serverStarter);
+
+            RoomManager roomManager = new RoomManager(roomMap, serverStarter, port + i);
+
+            roomManager.start();
         }
 
         PortSender ps = new PortSender();
@@ -50,8 +53,11 @@ public class ServerMain {
                     entry.getValue().winners = null;
 
                     PortSender.port++;
+
+                    entry.getValue().interrupt();
                 }
             }
+
         }
     }
 

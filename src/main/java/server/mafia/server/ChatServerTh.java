@@ -138,7 +138,11 @@ public class ChatServerTh extends Thread {
             mafiaRoom.selected++;
 
             while (mafiaRoom.selected < MafiaRoom.MIN_PERSON) {
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    continue;
+                }
             }
 
             while (flag) {

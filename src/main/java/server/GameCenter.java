@@ -74,7 +74,7 @@ public class GameCenter {
             e.printStackTrace();
         }
 
-        int port = currentPort;
+        int port = 10000; // FIXME 방 여러개 구현시 사용
 
         ChatClientMain chatClientMain = new ChatClientMain(ip, port);
         chatClientMain.start();
