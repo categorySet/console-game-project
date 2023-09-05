@@ -7,14 +7,14 @@ import java.net.SocketException;
 
 public class PortSender extends Thread {
 
-    private static final int thisPort = 9999;
+    private static final int THIS_PORT = 9999;
 
     public static int port = 10000;
 
     @Override
     public void run() {
         try {
-            DatagramSocket datagramSocket = new DatagramSocket(thisPort);
+            DatagramSocket datagramSocket = new DatagramSocket(THIS_PORT);
 
             while (true) {
 
