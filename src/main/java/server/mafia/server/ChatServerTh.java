@@ -144,6 +144,10 @@ public class ChatServerTh extends Thread {
             while (flag) {
                 String read = reader.readLine();
 
+                if (read == null || read.equals("/stop")) {
+                    break;
+                }
+
                 mafiaRoom.sendMessageAll(read, rolesAdapter, this);
             }
         } catch (Exception e) {

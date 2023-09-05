@@ -8,6 +8,7 @@ import server.mafia.room.MafiaRoom;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 /**
  * 마피아 게임이 실제로 실행되는 클래스
@@ -32,9 +33,15 @@ public class MafiaServer implements Gamable {
 
         try {
             ServerSocket serverSocket = new ServerSocket(port);
+            serverSocket.setSoTimeout(5000);
 
+            Socket socket = null;
             while (!serverStarter.isInterrupted()) {
-                Socket socket = serverSocket.accept();
+                try {
+                    socket = serverSocket.accept();
+                } catch (SocketTimeoutException e) {
+                    continue;
+                }
 
                 if (connectCounter >= mafiaRoom.list.size()) {
                     serverStarter.status = Status.GAMING;
