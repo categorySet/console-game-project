@@ -4,7 +4,7 @@ Console project : 채팅을 이용한 마피아 게임 서비스
 ## 멤버 구성
 구민규([@9min9](https://github.com/9min9)) : Player, GIT 관리, 발표
 
-김준회([@jicmu](https://github.com/jicmu)) : Game Server, Mafia
+김준회([@katanoesis](https://github.com/katanoesis)) : Game Server, Mafia
 
 류가희([@justlikeryu](https://github.com/justlikeryu)) : Manager, Black List
 
